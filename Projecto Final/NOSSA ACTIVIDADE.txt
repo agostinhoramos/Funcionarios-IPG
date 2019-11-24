@@ -1,0 +1,4 @@
+DEADLINE ( 25 de NOVEMBRO )
+
+- Criar diagrama ER { Quase pronto }
+- Criar layouts (template) { Quase pronto }
