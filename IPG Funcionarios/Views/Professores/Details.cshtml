@@ -1,0 +1,41 @@
+﻿@model IPG_Funcionarios.Models.Professor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes sobre o professor:</h1>
+<div>
+    <h4>Professor</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumeroTelemovel):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumeroTelemovel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gabinete):
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gabinete)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProfessorId">Editar</a> |
+    <a asp-action="Index">Voltar</a>
+</div>

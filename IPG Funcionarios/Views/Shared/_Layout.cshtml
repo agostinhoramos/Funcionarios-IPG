@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="shortcut icon" href="~/assets/image/favicon.ico" />
 </head>
-<body>
+<body  >
     <div class="container-scroller">
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -32,6 +32,7 @@
                 </div>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item nav-profile dropdown">
+
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                             <div class="nav-profile-img">
                                 <img src="/assets/image/user-48.png" alt="image">
@@ -156,13 +157,11 @@
                 </button>
             </div>
         </nav>
-
         <div class="container-fluid page-body-wrapper">
             @RenderBody()
         </div>
         <!-- page-body-wrapper ends -->
     </div>
-
     <script src="~/assets/vendors/bundle.base/script.js"></script>
     <script src="~/assets/vendors/Chart/script.js"></script>
     <script src="~/assets/vendors/bootstrap-datapicker/script.js"></script>
