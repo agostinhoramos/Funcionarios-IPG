@@ -17,12 +17,12 @@ namespace IPG_Funcionarios.Models
 
         [Required(ErrorMessage = "Por favor, introduza o seu número de telemóvel/telefone")]
         [RegularExpression(@"(2\d{8})|(9[1236]\d{7})", ErrorMessage = "Contacto inválido")]
-        public string NumeroTelemovel { get; set; }
+        public string Contacto { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o email")]
         [EmailAddress(ErrorMessage = "Email inválido")]
         public string Email { get; set; }
 
-        public string Gabinete { get; set; }
+        public int Gabinete { get; set; }
     }
 }
