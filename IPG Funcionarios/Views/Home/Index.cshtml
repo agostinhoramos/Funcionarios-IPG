@@ -1,9 +1,5 @@
 ﻿@{ 
-
     ViewData["Title"] = "My Page";
-
-    string[] typePage = new string[] {"Paginas dos Funcionarios"};
-
 }
 
 <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
@@ -129,82 +125,73 @@
             </a>
         </li>
 
-        @{
-            var i = 1;
-            foreach (var item in typePage)
-            {
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="pagegrup@(i)" aria-expanded="false" aria-controls="pagegrup@(i)">
-                        <span class="menu-title">@Html.DisplayFor(modelItem => item) &nbsp;</span>
-                        <i class="menu-arrow"></i>
-                        <i class="mdi mdi-cards-variant menu-icon"></i>
-                    </a>
-                    <div class="collapse" id="pagegrup@(i)" style="">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="newLinkHere">Google Maps</a></li>
-                        </ul>
-                    </div>
-                </li>
-            }
-        }
-
+        <!--
+        <li class="nav-item" >
+            <a class="nav-link" data-toggle="collapse" href="#pagegrup1" 
+               aria-expanded="false" aria-controls="pagegrup1">
+                <span class="menu-title">Professor &nbsp;</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cards-variant menu-icon"></i>
+            </a>
+            <div class="collapse" id="pagegrup1" style="">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Professores/">Principal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Professores/Create.cshtml">Criar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Professores/Edit.cshtml">Editar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Professores/Details.cshtml">Detalhes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Professores/Delete.cshtml">Apagar</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        -->
     </ul>
 </nav>
 <div class="main-panel">
     <div class="content-wrapper">
         @* ALL PAGE CONTENT HERE *@
+
         <div class="page-header">
             <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white mr-2">
                     <i class="mdi mdi-home"></i>
-                </span> Lista Escolas
+                </span> Seja bem vindo!
             </h3>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item active" aria-current="page">
-                        <span></span>Vista Principal <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                        <span></span>Página Inicial &nbsp;<i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
                     </li>
                 </ul>
             </nav>
         </div>
+
         <div class="row">
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                    <div class="card-body">
-                        <img src="/assets/image/circle.svg" class="card-img-absolute" alt="circle-image">
-                        <h4 class="font-weight-normal mb-3">
-                            ESTG <i class="mdi mdi-map-marker-radius mdi-24px float-right"></i>
-                        </h4>
-                        <h2 class="mb-5"></h2>
-                        <h6 class="card-text"></h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                    <div class="card-body">
-                        <img src="/assets/image/circle.svg" class="card-img-absolute" alt="circle-image">
-                        <h4 class="font-weight-normal mb-3">
-                            ESTH <i class="mdi mdi-map-marker-radius mdi-24px float-right"></i>
-                        </h4>
-                        <h2 class="mb-5"></h2>
-                        <h6 class="card-text"></h6>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                    <div class="card-body">
-                        <img src="/assets/image/circle.svg" class="card-img-absolute" alt="circle-image">
-                        <h4 class="font-weight-normal mb-3">
-                            ESS <i class="mdi mdi-map-marker-radius mdi-24px float-right"></i>
-                        </h4>
-                        <h2 class="mb-5"></h2>
-                        <h6 class="card-text"></h6>
-                    </div>
+            <div class="col-12 grid-margin">
+                <br />
+                <div class="text-center force-link">
+                    <button type="button" class="btn btn-outline-info">
+                        <a asp-controller="Professores" asp-action="">Professor</a>
+                    </button>
+                    <button type="button" class="btn btn-outline-info mr-4 ml-4">
+                        <a asp-controller="Funcionario" asp-action="">Funcionario</a>
+                    </button>
+                    <button type="button" class="btn btn-outline-info">
+                        <a asp-controller="Departamento" asp-action="">Departamento</a>
+                    </button>
                 </div>
             </div>
         </div>
+
         @* ALL PAGE CONTENT HERE *@
     </div>
 </div>
