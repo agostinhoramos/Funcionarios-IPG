@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace IPG_Funcionarios.Models
 {
-    public class Departamento {
-        public  int IDDepartamento { get; set; }
-       
-         
-         public  string Nome { get; set; }
+    public class Departamento
+    {
+        public int DepartamentoId { get; set; }
 
-       // public string NomeRespo { get; set; }
+        [Required]
+        public string Nome { get; set; }
+
+        // public string NomeRespo { get; set; }
     }
 }
