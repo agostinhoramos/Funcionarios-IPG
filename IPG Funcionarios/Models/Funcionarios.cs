@@ -8,6 +8,7 @@ namespace IPG_Funcionarios.Models {
     public class Funcionarios
 
         {
+        [Key]
     public int FuncionariosId { get; set; }
 
     [Required(ErrorMessage = "Por favor, digite o nome do Funcionarios")]
