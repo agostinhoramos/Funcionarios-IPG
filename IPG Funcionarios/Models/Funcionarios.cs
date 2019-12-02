@@ -8,20 +8,20 @@ namespace IPG_Funcionarios.Models {
     public class Funcionarios
 
         {
-        [Key]
+
+    [Key]
     public int FuncionariosId { get; set; }
 
     [Required(ErrorMessage = "Por favor, digite o nome do Funcionarios")]
-    [RegularExpression(@"([A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ\s]+)", ErrorMessage = "Nome inválido")]
     [StringLength(maximumLength: 50, MinimumLength = 3)]
     public string Nome { get; set; }
 
     [Required(ErrorMessage = "Por favor, digite o número do telefone")]
-    [RegularExpression(@"(2\d{8})|(9[1236]\d{7})", ErrorMessage = "Número inválido")]
+    [RegularExpression(@"(2\d)|(9[1236]\d{7})", ErrorMessage = "Número inválido")]
     public string Telemovel { get; set; }
 
     [Required(ErrorMessage = "Por favor, digite o número do telefone") ]
-    [RegularExpression(@"(2\d{8})|(9[1236]\d{7})", ErrorMessage = "Número inválido")]
+    [RegularExpression(@"9\d{8}|[1236]\d{7})", ErrorMessage = "Número inválido")]
     public string Telefone { get; set; }
 
     [Required(ErrorMessage = "Por favor, introduza o email")]
