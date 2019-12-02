@@ -22,7 +22,7 @@ namespace IPG_Funcionarios.Models {
 
     [Required(ErrorMessage = "Por favor, digite o número do telemóvel") ]
     [RegularExpression(@"9\d{8}|[1236]\d{7})", ErrorMessage = "Número inválido")]
-    public string Telemóvel { get; set; }
+    public string Telemovel { get; set; }
 
     [Required(ErrorMessage = "Por favor, introduza o email")]
     [EmailAddress(ErrorMessage = "Email inválido")]
