@@ -18,6 +18,22 @@ namespace IPG_Funcionarios.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("IPG_Funcionarios.Models.Departamento", b =>
+                {
+                    b.Property<int>("DepartamentoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartamentoId");
+
+                    b.ToTable("Departamento");
+                });
+
             modelBuilder.Entity("IPG_Funcionarios.Models.Professor", b =>
                 {
                     b.Property<int>("ProfessorId")

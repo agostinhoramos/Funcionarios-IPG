@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPG_Funcionarios.Migrations
 {
     [DbContext(typeof(ProfessoresDbContext))]
-    [Migration("20191130141054_Departamento")]
-    partial class Departamento
+    [Migration("20191202114733_dept")]
+    partial class dept
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,6 +19,22 @@ namespace IPG_Funcionarios.Migrations
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Departamento", b =>
+                {
+                    b.Property<int>("DepartamentoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartamentoId");
+
+                    b.ToTable("Departamento");
+                });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Professor", b =>
                 {
