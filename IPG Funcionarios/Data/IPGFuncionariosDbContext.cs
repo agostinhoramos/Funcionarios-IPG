@@ -13,5 +13,6 @@ namespace IPG_Funcionarios.Models
             : base(options)
         {
         }
+        public DbSet<IPG_Funcionarios.Models.Professor> Professor { get; set; }
     }
 }
