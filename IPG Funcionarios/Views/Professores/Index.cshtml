@@ -4,51 +4,59 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Lista dos Professores</h1>
+<div class="card" style="width:100%;">
 
-<p>
-    <a asp-action="Create">Adicionar Novo Professor?</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contacto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Gabinete)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contacto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Gabinete)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProfessorId">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProfessorId">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProfessorId">Remover</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="card-body">
+        <h1>Lista dos Professores</h1>
+        <br /><br /><br />
+        <h4 class="card-title">
+            <a asp-controller="Home" asp-action="" class="badge badge-pill badge-dark">Voltar</a>
+            <br /><br />
+            <a asp-action="Create" class="badge badge-pill badge-green">Adicionar Novo Professor?</a>
+        </h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Contacto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gabinete)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Contacto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gabinete)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-warning">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-info">Detalhes</a>
+                                <a asp-action="Delete" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-danger">Remover</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

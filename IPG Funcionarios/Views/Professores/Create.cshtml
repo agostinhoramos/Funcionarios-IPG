@@ -4,40 +4,40 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Criação da tabela do Professor</h1>
-<h4>Professor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card" style="width:100%;">
+    <div class="card-body">
+        <h1 class="card-title" style="font-size:23px;">Criação de novo professor:</h1>
+        <br />
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label">Nome:</label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contacto" class="control-label">Numero de Telemóvel:</label>
-                <input asp-for="Contacto" class="form-control" />
-                <span asp-validation-for="Contacto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label">Email:</label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gabinete" class="control-label">Gabinete:</label>
-                <input asp-for="Gabinete" class="form-control" />
-                <span asp-validation-for="Gabinete" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Criar" class="btn btn-primary" />
+            <fieldset>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Nome" for="nome">Nome</label>
+                    <input asp-for="Nome" id="nome" class="form-control" name="nome" type="text">
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Contacto" for="contacto">Contacto</label>
+                    <input asp-for="Contacto" id="contacto" class="form-control" name="contacto" type="text">
+                    <span asp-validation-for="Contacto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" for="email">Email</label>
+                    <input asp-for="Email" id="email" class="form-control" name="email" type="text">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Gabinete" for="gabinete">Gabinete</label>
+                    <input asp-for="Gabinete" id="gabinete" class="form-control" name="gabinete" type="number">
+                    <span asp-validation-for="Gabinete" class="text-danger"></span>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Criar">
                 <a asp-action="Index" class="btn btn-secondary">Voltar</a>
-            </div>
+            </fieldset>
         </form>
     </div>
 </div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
