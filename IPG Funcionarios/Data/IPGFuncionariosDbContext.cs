@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using IPG_Funcionarios.Models;
 
-namespace IPG_Funcionarios.Data {
-    public class IPGFuncionariosDbContext : IdentityDbContext {
+namespace IPG_Funcionarios.Models
+{
+    public class IPGFuncionariosDbContext : DbContext
+    {
         public IPGFuncionariosDbContext(DbContextOptions<IPGFuncionariosDbContext> options)
-            : base(options) {
+            : base(options)
+        {
         }
-        public DbSet<IPG_Funcionarios.Models.Departamento> Departamento { get; set; }
     }
 }
