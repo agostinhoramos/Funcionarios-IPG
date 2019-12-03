@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace IPG_Funcionarios.Data {
-    public class ApplicationDbContext : IdentityDbContext {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public class IPGFuncionariosDbContext : IdentityDbContext {
+        public IPGFuncionariosDbContext(DbContextOptions<IPGFuncionariosDbContext> options)
             : base(options) {
         }
     }

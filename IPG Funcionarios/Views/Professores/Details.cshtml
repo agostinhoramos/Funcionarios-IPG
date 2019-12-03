@@ -4,38 +4,39 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Detalhes sobre o professor:</h1>
+<h1>Details</h1>
+
 <div>
     <h4>Professor</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome):
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Contacto):
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Contacto)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Contacto)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email):
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Gabinete):
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gabinete)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Gabinete)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ProfessorId">Editar</a> |
-    <a asp-action="Index">Voltar</a>
+    <a asp-action="Edit" asp-route-id="@Model.ProfessorId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

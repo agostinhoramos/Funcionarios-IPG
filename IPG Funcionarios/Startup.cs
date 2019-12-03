@@ -28,16 +28,16 @@ namespace IPG_Funcionarios
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<IPGFuncionariosDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<IPGFuncionariosDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<ProfessoresDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ProfessoresDbContext")));
+        services.AddDbContext<IPGFuncionariosDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("ProfessoresDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,8 +47,10 @@ namespace IPG_Funcionarios
             {
                 using (var serviceScope = app.ApplicationServices.CreateScope())
                 {
+                    /* TODO 
                     var db = serviceScope.ServiceProvider.GetService<ProfessoresDbContext>();
                     SeedData.Populate(db);
+                    */
                 }
             }
 

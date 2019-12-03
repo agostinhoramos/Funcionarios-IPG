@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IPG_Funcionarios.Data;
-using IPG_Funcionarios.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using IPG_Funcionarios.Models;
 
 namespace IPG_Funcionarios.Controllers
 {
@@ -14,12 +13,14 @@ namespace IPG_Funcionarios.Controllers
     {
         private readonly ProfessoresDbContext _context;
 
-        public ProfessoresController(ProfessoresDbContext context) {
+        public ProfessoresController(ProfessoresDbContext context)
+        {
             _context = context;
         }
 
         // GET: Professores
-        public async Task<IActionResult> Index() {
+        public async Task<IActionResult> Index()
+        {
             return View(await _context.Professor.ToListAsync());
         }
 
