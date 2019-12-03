@@ -46,9 +46,9 @@ namespace IPG_Funcionarios
             if (env.IsDevelopment())
             {
                 using (var serviceScope = app.ApplicationServices.CreateScope())
-                {
-                    /* TODO 
-                    var db = serviceScope.ServiceProvider.GetService<ProfessoresDbContext>();
+                { 
+                    /*
+                    var db = serviceScope.ServiceProvider.GetService<IPGFuncionariosDbContext>();
                     SeedData.Populate(db);
                     */
                 }
@@ -57,7 +57,7 @@ namespace IPG_Funcionarios
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-		app.UseDatabaseErrorPage();
+		        app.UseDatabaseErrorPage();
             }
             else
             {

@@ -11,9 +11,9 @@ namespace IPG_Funcionarios.Controllers
 {
     public class ProfessoresController : Controller
     {
-        private readonly ProfessoresDbContext _context;
+        private readonly IPGFuncionariosDbContext _context;
 
-        public ProfessoresController(ProfessoresDbContext context)
+        public ProfessoresController(IPGFuncionariosDbContext context)
         {
             _context = context;
         }
