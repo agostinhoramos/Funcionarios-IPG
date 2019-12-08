@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
@@ -26,13 +27,17 @@ namespace IPG_Funcionarios
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
+            services.AddDbContext<IPGFuncionariosDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<IPGFuncionariosDbContext>();
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
-            services.AddDbContext<ProfessoresDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ProfessoresDbContext")));
-        
+        services.AddDbContext<IPGFuncionariosDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("ProfessoresDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,15 +46,18 @@ namespace IPG_Funcionarios
             if (env.IsDevelopment())
             {
                 using (var serviceScope = app.ApplicationServices.CreateScope())
-                {
-                    var db = serviceScope.ServiceProvider.GetService<ProfessoresDbContext>();
+                { 
+                    /*
+                    var db = serviceScope.ServiceProvider.GetService<IPGFuncionariosDbContext>();
                     SeedData.Populate(db);
+                    */
                 }
             }
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+		        app.UseDatabaseErrorPage();
             }
             else
             {
@@ -62,6 +70,7 @@ namespace IPG_Funcionarios
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -69,6 +78,7 @@ namespace IPG_Funcionarios
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
