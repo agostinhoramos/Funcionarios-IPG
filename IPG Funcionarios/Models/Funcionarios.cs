@@ -21,15 +21,13 @@ namespace IPG_Funcionarios.Models {
     public string Telefone { get; set; }
 
     [Required(ErrorMessage = "Por favor, digite o número do telemóvel") ]
-    [RegularExpression(@"9\d{8}|[1236]\d{7})", ErrorMessage = "Número inválido")]
-    public string Telemovel { get; set; }
+     public string Telemovel { get; set; }
 
     [Required(ErrorMessage = "Por favor, introduza o email")]
     [EmailAddress(ErrorMessage = "Email inválido")]
     public string Email { get; set; }
 
-    public string Horarios_de_trabalho { get; set; }
-
+   
 
 }
 }

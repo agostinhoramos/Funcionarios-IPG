@@ -29,8 +29,8 @@ namespace IPGFuncionarios.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Horas_de_trabalho")
-                        .HasColumnType("nvarchar(max)");
+             //       b.Property<string>("Horas_de_trabalho")
+              //          .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
