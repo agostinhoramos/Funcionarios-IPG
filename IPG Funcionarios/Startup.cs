@@ -28,15 +28,15 @@ namespace IPG_Funcionarios
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddDbContext<ProfessoresDbContext>(options =>
+            services.AddDbContext<IPGFuncionariosDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ProfessoresDbContext>();
+                .AddEntityFrameworkStores<IPGFuncionariosDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-        services.AddDbContext<ProfessoresDbContext>(options =>
+        services.AddDbContext<IPGFuncionariosDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("ProfessoresDbContext")));
         }
 
