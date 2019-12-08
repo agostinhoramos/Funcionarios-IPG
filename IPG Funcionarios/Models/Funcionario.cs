@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace IPG_Funcionarios.Models {
-    public class Funcionarios
+    public class Funcionario
 
         {
 
