@@ -2,7 +2,7 @@
 
 namespace IPG_Funcionarios.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
