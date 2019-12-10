@@ -10,25 +10,27 @@ namespace IPG_Funcionarios.Models
     {
         [Key]
         public int FuncionarioId { get; set; }
-        
-        [Required(ErrorMessage = "Por favor, digite o seu Nome completo!")]
-        [StringLength(50, MinimumLength = 3)]
-        public string Nome{ get; set;}
 
-        [Required(ErrorMessage = "Por favor, digite o seu número de telemóvel/telefone!")]
-        [RegularExpression(@"(2\d{8})|(9[1236]\d{7})", ErrorMessage = "Número inválido!")]
-        public string Número { get; set; }
-        [Required(ErrorMessage = "Por favor, Digite o email!")]
+
+        [Required(ErrorMessage = "Por favor, digite o seu Nome!")]
+        [StringLength(50, MinimumLength = 3)]
+        public string Nome { get; set; }
+
+        [Required(ErrorMessage = "Por favor, digite o seu Telefone/Telemóvel!")]
+        [RegularExpression(@"9[1236][0-9]{7}|(2\d{8})|(9[1236]\d{7})", ErrorMessage = "Número inválido!")]
+        public string Telefone { get; set; }
+
+        [Required(ErrorMessage = "Por favor, introduz o seu mail!")]
         [EmailAddress(ErrorMessage = "Email inválido!")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Por favor, Digite a sua Morada!")]
-        [RegularExpression(@"[A-Z][a-z].+", ErrorMessage = "Morada inválido!")]
+
+        [Required(ErrorMessage = "Por favor, digite o seu Genéro!")]
+        [RegularExpression(@"[F|f|M|m]", ErrorMessage = "Genéro inválido!")]
+        public string Genero { get; set; }
+
+        [Required(ErrorMessage = "Por favor, digite a sua Morada!")]
+        [RegularExpression(@"[A-Z]|[a-z].+", ErrorMessage = "Morada inválido!")]
         public string Morada { get; set; }
-
-        [Required(ErrorMessage = "Por favor, Digite o seu Sexo!")]
-        [RegularExpression(@"[(m|M|f|F|)$]", ErrorMessage = "Sexo inválido!")]
-        public string Sexo { get; set; }
-
 
 
 
