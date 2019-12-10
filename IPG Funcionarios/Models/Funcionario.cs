@@ -14,6 +14,7 @@ namespace IPG_Funcionarios.Models
         [Required(ErrorMessage = "Por favor, digite o seu Nome completo!")]
         [StringLength(50, MinimumLength = 3)]
         public string Nome{ get; set;}
+
         [Required(ErrorMessage = "Por favor, digite o seu número de telemóvel/telefone!")]
         [RegularExpression(@"(2\d{8})|(9[1236]\d{7})", ErrorMessage = "Número inválido!")]
         public string Número { get; set; }
