@@ -30,7 +30,7 @@ namespace IPG_Funcionarios
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<IPGFuncionariosDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("IPGFuncionariosDbContext")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<IPGFuncionariosDbContext>();
             services.AddControllersWithViews();
