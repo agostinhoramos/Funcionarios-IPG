@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPG_Funcionarios.Migrations
 {
     [DbContext(typeof(IPGFuncionariosDbContext))]
-    [Migration("20191208162848_funcionario")]
+    [Migration("20191210150114_funcionario")]
     partial class funcionario
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,12 +41,20 @@ namespace IPG_Funcionarios.Migrations
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
                 {
-                    b.Property<int>("FuncionariosId")
+                    b.Property<int>("FuncionarioId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Morada")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -59,11 +67,7 @@ namespace IPG_Funcionarios.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Telemovel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FuncionariosId");
+                    b.HasKey("FuncionarioId");
 
                     b.ToTable("Funcionario");
                 });

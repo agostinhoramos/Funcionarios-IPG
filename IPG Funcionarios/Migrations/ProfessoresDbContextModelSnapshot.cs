@@ -39,12 +39,20 @@ namespace IPGFuncionarios.Migrations
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
                 {
-                    b.Property<int>("FuncionariosId")
+                    b.Property<int>("FuncionarioId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Morada")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -57,11 +65,7 @@ namespace IPGFuncionarios.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Telemovel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FuncionariosId");
+                    b.HasKey("FuncionarioId");
 
                     b.ToTable("Funcionario");
                 });

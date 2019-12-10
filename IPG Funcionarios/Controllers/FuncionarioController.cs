@@ -33,7 +33,7 @@ namespace IPG_Funcionarios.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.FuncionariosId == id);
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -53,7 +53,7 @@ namespace IPG_Funcionarios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionariosId,Nome,Telefone,Telemovel,Email")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -85,9 +85,9 @@ namespace IPG_Funcionarios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionariosId,Nome,Telefone,Telemovel,Email")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada")] Funcionario funcionario)
         {
-            if (id != funcionario.FuncionariosId)
+            if (id != funcionario.FuncionarioId)
             {
                 return NotFound();
             }
@@ -101,7 +101,7 @@ namespace IPG_Funcionarios.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FuncionarioExists(funcionario.FuncionariosId))
+                    if (!FuncionarioExists(funcionario.FuncionarioId))
                     {
                         return NotFound();
                     }
@@ -124,7 +124,7 @@ namespace IPG_Funcionarios.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.FuncionariosId == id);
+                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -146,7 +146,7 @@ namespace IPG_Funcionarios.Controllers
 
         private bool FuncionarioExists(int id)
         {
-            return _context.Funcionario.Any(e => e.FuncionariosId == id);
+            return _context.Funcionario.Any(e => e.FuncionarioId == id);
         }
     }
 }
