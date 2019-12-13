@@ -29,7 +29,7 @@ namespace IPG_Funcionarios.Models
         public string Genero { get; set; }
 
         [Required(ErrorMessage = "Por favor, digite a sua Morada!")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Morada inválido!")]
+     
         public string Morada { get; set; }
 
 
