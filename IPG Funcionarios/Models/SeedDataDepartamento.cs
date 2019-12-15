@@ -16,15 +16,15 @@ namespace IPG_Funcionarios.Models
             if (db.Departamento.Any()) return;
 
             db.Departamento.AddRange(
-                new Departamento { Nome = "Departamento de Engenharia Civil", Contacto = " 222384839" },
-                new Departamento { Nome = "Departamento de Engenharia Informática", Contacto = " 222384839" },
-                new Departamento { Nome = "Departamento de Física", Contacto = " 222384839" },
-                new Departamento { Nome = "Departamento de Engenharia Topográfica", Contacto = " 222384839" },
-                new Departamento { Nome = "Departamento de Energia e Ambiente", Contacto = " 222384839" },
-                new Departamento { Nome = "Departamento de Farmácia", Contacto = " 222384839" },
-                new Departamento { Nome = "Departamento de Hotelaria", Contacto = " 222384839" },
-                new Departamento { Nome = "	Departamento de Desporto", Contacto = " 222384839" },
-                new Departamento { Nome = "	Departamento de Comunicação Multimédia", Contacto = " 222384839" }
+                new Departamento { Nome = "Departamento de Engenharia Civil"},
+                new Departamento { Nome = "Departamento de Engenharia Informática"},
+                new Departamento { Nome = "Departamento de Física", },
+                new Departamento { Nome = "Departamento de Engenharia Topográfica"},
+                new Departamento { Nome = "Departamento de Energia e Ambiente" },
+                new Departamento { Nome = "Departamento de Farmácia" },
+                new Departamento { Nome = "Departamento de Hotelaria"},
+                new Departamento { Nome = "	Departamento de Desporto"},
+                new Departamento { Nome = "	Departamento de Comunicação Multimédia" }
              );
             db.SaveChanges();
 
