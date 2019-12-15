@@ -37,6 +37,39 @@ namespace IPG_Funcionarios.Migrations
                     b.ToTable("Departamento");
                 });
 
+            modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
+                {
+                    b.Property<int>("FuncionarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Morada")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Número")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sexo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FuncionarioId");
+
+                    b.ToTable("Funcionario");
+                });
+
             modelBuilder.Entity("IPG_Funcionarios.Models.Professor", b =>
                 {
                     b.Property<int>("ProfessorId")
