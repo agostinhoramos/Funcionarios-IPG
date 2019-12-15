@@ -10,23 +10,102 @@ using IPG_Funcionarios.Models;
 namespace IPG_Funcionarios.Controllers
 {
     public class FuncionarioController : Controller
+
+
     {
         private readonly IPGFuncionariosDbContext _context;
-
+        private const int PAGE_SIZE = 5;
         public FuncionarioController(IPGFuncionariosDbContext context)
         {
             _context = context;
         }
 
         // GET: Funcionario
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(FuncionarioViewList model = null, int page = 1, string order = null)
         {
-            return View(await _context.Funcionario.ToListAsync());
+            string Funcionario = null;
+            if (model != null)
+            {
+                Funcionario = model.CurrentNome;
+            }
+            var funcionario = _context.Funcionario
+                .Where(p => Funcionario == null || p.Nome.Contains(Funcionario));
+            int numFuncionario = await funcionario.CountAsync();
+
+            if (page > (numFuncionario / PAGE_SIZE) + 1)
+            {
+                page = 1;
+            }
+            IEnumerable<Funcionario> TipoList;
+            if (order == "ID")
+            {
+                TipoList = await funcionario
+                    .OrderBy(p => p.FuncionarioId)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else if (order == "Nome")
+            {
+                TipoList = await funcionario
+                    .OrderBy(p => p.Nome)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else if (order == "Telefone")
+            {
+                TipoList = await funcionario
+                    .OrderBy(p => p.Telefone)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else if (order == "Género")
+            {
+                TipoList = await funcionario
+                    .OrderBy(p => p.Genero)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else if (order == "Morada")
+            {
+                TipoList = await funcionario
+                    .OrderBy(p => p.Morada)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+            else
+            {
+                TipoList = await funcionario
+                    .OrderBy(p => p.FuncionarioId)
+                    .Skip(PAGE_SIZE * (page - 1))
+                    .Take(PAGE_SIZE)
+                    .ToListAsync();
+            }
+
+            return View(
+                new FuncionarioViewList
+                {
+                    Funcionario = TipoList,
+                    Paginacao = new PaginacaoViewModel
+                    {
+                        CurrentPage = page,
+                        PageSize = PAGE_SIZE,
+                        Totaltems = numFuncionario,
+                        Order = order
+                    },
+                    CurrentNome = Funcionario
+                }
+            );
         }
 
-        // GET: Funcionario/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Funcionario/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
+           
             if (id == null)
             {
                 return NotFound();
