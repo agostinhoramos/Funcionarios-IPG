@@ -50,6 +50,7 @@ namespace IPG_Funcionarios.Models {
                 new Professor { Nome = "Rosa Branca Almeida Figueiredo", Contacto = "254076686", Email = "outro18@email.com", Gabinete = "82" },
                 new Professor { Nome = "Rui Manuel Formoso Nobre dos Santos", Contacto = "246543686", Email = "outro19@email.com", Gabinete = "83" }
             );
+
             db.SaveChanges();
         }
     }
