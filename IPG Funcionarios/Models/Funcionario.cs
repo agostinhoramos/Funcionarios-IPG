@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace IPG_Funcionarios.Models
         public string Genero { get; set; }
 
         [Required(ErrorMessage = "Por favor, digite a sua Morada!")]
-        [RegularExpression(@"[A-Z]|[a-z].+", ErrorMessage = "Morada inválido!")]
+     
         public string Morada { get; set; }
 
 

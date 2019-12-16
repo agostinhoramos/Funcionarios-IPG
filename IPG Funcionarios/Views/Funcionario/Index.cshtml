@@ -1,0 +1,68 @@
+﻿@model FuncionarioViewList
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Funcionario</h1>
+<form asp-action="Index">
+    <div>
+        <h3>Pesquisa</h3>
+        <menu>
+            <h5>Nome do Funcionario:<input style="width:250px;" asp-for="CurrentNome" /></h5>
+        </menu>
+        <input type="submit" value="Pesquisar" class="btn btn-info" />
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcionario.First().Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcionario.First().Telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcionario.First().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcionario.First().Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcionario.First().Morada)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Funcionario) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Morada)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
