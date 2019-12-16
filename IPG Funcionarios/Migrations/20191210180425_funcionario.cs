@@ -7,7 +7,7 @@ namespace IPG_Funcionarios.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Número",
+                name: "Numero",
                 table: "Funcionario");
 
             migrationBuilder.DropColumn(
@@ -38,7 +38,7 @@ namespace IPG_Funcionarios.Migrations
                 table: "Funcionario");
 
             migrationBuilder.AddColumn<string>(
-                name: "Número",
+                name: "Numero",
                 table: "Funcionario",
                 type: "nvarchar(max)",
                 nullable: false,
