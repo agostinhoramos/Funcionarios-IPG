@@ -40,29 +40,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Funcionario) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Morada)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Funcionario)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Morada)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<div page-model="@Model.Paginacao"></div>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Adicionar novo Funcionario</a>
+  
+</p>

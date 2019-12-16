@@ -57,7 +57,7 @@ namespace IPG_Funcionarios.Paginacao
                 resultDiv.InnerHtml.AppendHtml(link);
             }
             output.Content.AppendHtml(resultDiv.InnerHtml);
-           // base.Process(context, output);
+            base.Process(context, output);
         }
     }
 }

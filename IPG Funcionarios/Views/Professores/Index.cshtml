@@ -1,66 +1,90 @@
-﻿@model ProfessorViewModel
+﻿@model IEnumerable<IPG_Funcionarios.Models.Professor>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h4 class="card-title">Lista dos Professores</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> ID </th>
+                            <th> Nome </th>
+                            <th> Contacto </th>
+                            <th> Email </th>
+                            <th> Gabinete </th>
+                            <th> &nbsp; </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model) {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProfessorId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Contacto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gabinete)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-warning">Editar</a>
+                                    <a asp-action="Details" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-info">Detalhes</a>
+                                    <a asp-action="Delete" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-danger">Remover</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
-            <div class="card">
-                    <h4 class="card-title">Lista dos Professores</h4>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th> ID </th>
-                                    <th> Nome </th>
-                                    <th> Contacto </th>
-                                    <th> Email </th>
-                                    <th> Gabinete </th>
-                                    <th> &nbsp; </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Professor) {
-                                    <tr>
-                                        <td>
-                                            @item.ProfessorId
-                                        </td>
-                                        <td>
-                                            @item.Nome
-                                        </td>
-                                        <td>
-                                            @item.Contacto
-                                        </td>
-                                        <td>
-                                            @item.Email
-                                        </td>
-                                        <td>
-                                            @item.Gabinete
-                                        </td>
-                                        <td>
-                                            <a asp-action="Edit" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-warning">Editar</a>
-                                            <a asp-action="Details" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-info">Detalhes</a>
-                                            <a asp-action="Delete" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-danger">Remover</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-
-        </div>
-        <div class="col" >
-
-            <a asp-controller="Home" asp-action="" class="btn btn-outline-dark btn-back">Voltar</a>
-            <br /><br />
-            <a asp-action="Create" class="btn btn-outline-success btn-add">Adicionar</a>
-
         </div>
     </div>
+    <div class="col">
+        <div class="ctrl">
+            <a asp-controller="Home" asp-action="" class="btn btn-outline-dark btn-back">Voltar</a>
+            <a asp-action="Create" class="btn btn-outline-success btn-add">Adicionar</a>
+        </div>
+    </div>
+</div>
 
 <style>
-
+.pagination,
+.jsgrid .jsgrid-pager {
+    overflow-x: hidden;
+    margin-top: 40px;
+}
+.ctrl {
+    width: 100%;
+    position: fixed;
+    top: 100px;
+    display: inline-flex;
+}
+.btn-add {
+    margin-left:10px;
+}
 </style>
