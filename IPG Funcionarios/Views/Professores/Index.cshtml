@@ -1,4 +1,4 @@
-﻿@model IPG_Funcionarios.Models.ProfessorViewModel
+﻿@model IEnumerable<IPG_Funcionarios.Models.Professor>
 
 @{
     ViewData["Title"] = "Index";
@@ -21,7 +21,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Professor) {
+
+                        @foreach (var item in Model) {
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.ProfessorId)
@@ -45,6 +46,7 @@
                                 </td>
                             </tr>
                         }
+
                     </tbody>
                 </table>
 
@@ -70,8 +72,39 @@
     <div class="col">
         <div class="ctrl">
             <a asp-controller="Home" asp-action="" class="btn btn-outline-dark btn-back">Voltar</a>
-            <a asp-action="Create" class="btn btn-outline-success btn-add">Adicionar</a>
+            <!-- asp-action="Create" -->
+            <a class="btn btn-outline-success btn-add" data-toggle="modal" data-target="#exampleModal-3">Adicionar</a>
         </div>
+
+
+        <!-- Modal starts -->
+
+        <!--
+        info: data-toggle="modal" data-target="#exampleModal-3"   
+        --->
+
+        <div class="modal fade" id="exampleModal-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-3" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel-3">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ends -->
+
+
     </div>
 </div>
 
@@ -110,3 +143,9 @@
             color: white;
         }
 </style>
+
+<script>
+    $("#search").keypress(function () {
+        console.log($(this).val());
+    });
+</script>
