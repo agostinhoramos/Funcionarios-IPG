@@ -8,8 +8,6 @@ namespace IPG_Funcionarios.Models
 
         [Required]
         public string Nome { get; set; }
-       // public string Contacto { get; set; }
-        
-       // public string NomeRespo { get; set; }
+      
     }
 }

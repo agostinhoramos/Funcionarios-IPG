@@ -49,6 +49,8 @@ namespace IPG_Funcionarios
                 {
                     var db = serviceScope.ServiceProvider.GetService<IPGFuncionariosDbContext>();
                     SeedData.Populate(db);
+                    SeedDataDepartamento.Populate(db);
+                   
                 }
             }
 

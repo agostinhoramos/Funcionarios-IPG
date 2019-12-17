@@ -12,6 +12,8 @@ namespace IPG_Funcionarios.Controllers
     public class DepartamentoController : Controller
     {
         private readonly IPGFuncionariosDbContext _context;
+        private const int PAGE_SIZE = 5;
+        private const int PAGES_BEFORE_AFTER = 0;
 
         public DepartamentoController(IPGFuncionariosDbContext context)
         {
@@ -19,9 +21,24 @@ namespace IPG_Funcionarios.Controllers
         }
 
         // GET: Departamento
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Departamento.ToListAsync());
+            var P = new DepartamentoViewsModels
+            {
+                Departamentos = _context.Departamento
+                //Paginacao
+                //Ordenar
+                .OrderBy(p => p.Nome)
+                .Skip((page - 1)* PAGE_SIZE)
+                .Take(PAGE_SIZE),
+               PaginaCorrente = page,
+                //TotalPages
+               PaginaTotal = 1000,
+               MostrarPrimeiraPagina = Math.Max(1, page - PAGES_BEFORE_AFTER),
+            };
+            P.MostrarUltimaPagina = Math.Min(P.PaginaTotal, page + PAGES_BEFORE_AFTER);
+            //return View(await _context.Departamento.ToListAsync());
+            return View(P);
         }
 
         // GET: Departamento/Details/5

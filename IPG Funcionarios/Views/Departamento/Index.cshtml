@@ -5,50 +5,75 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Departamentos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Departamentos)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Departamentos)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.DepartamentoId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.DepartamentoId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DepartamentoId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<!---->
-@for (int i = Model.MostrarPrimeiraPagina; i <= Model.MostrarUltimaPagina; i++)
-{
-    if (i == Model.PaginaCorrente)
-    {
-        <a asp-action="#" class="btn btn-sm btn-primary">@i</a>
+<div class="row">
+    <div class="col">
+        <div class="card">
 
-    }
-    else
-    {<a asp-action="Index" asp-route="@i" class="btn btn-sm btn-info">@i</a> }
-    
+            <h4 class="card-title">Lista do Departamento</h4>
+            <div>
+                <table class="table table-bordered table-danger">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Departamentos)
+                            </th>
 
- }
-}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Departamentos)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.DepartamentoId" class="badge badge-pill badge-warning">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.DepartamentoId" class="badge badge-pill badge-info">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.DepartamentoId" class="badge badge-pill badge-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+            <nav aria-label="Page navigation example">
+
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link">Previous</a></li>
+
+                    @for (int i = Model.MostrarPrimeiraPagina; i <= Model.MostrarUltimaPagina; i++)
+                    {
+                        @if (i == Model.PaginaCorrente)
+                        {
+                            <li class="page-item active"><a asp-action="@i" class="page-link">@i</a></li>
+
+                        }
+                        else
+                        {
+                            <li class="page-item"><a asp-action="Index" asp-route="@i" class="btn btn-sm btn-info">@i</a></li>
+                        }
+
+
+                    }
+                    <li class="page-item"><a class="page-link">Next</a></li>
+                </ul>
+            </nav>
+           
+            
+            <div>
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+            </div>
+
+</div>
+
+
+

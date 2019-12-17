@@ -9,13 +9,11 @@ namespace IPG_Funcionarios.Models
     {
         public static void Populate(IPGFuncionariosDbContext db)
         {
-            PopulateDepartamento(db);
-        }
-        private static void PopulateDepartamento(IPGFuncionariosDbContext db)
-        {
-            if (db.Departamento.Any()) return;
-
-            db.Departamento.AddRange(
+            if (db.Departamento.Any()) {
+                return;
+            }
+       
+                db.Departamento.AddRange(
                 new Departamento { Nome = "Departamento de Engenharia Civil"},
                 new Departamento { Nome = "Departamento de Engenharia Informática"},
                 new Departamento { Nome = "Departamento de Física", },
@@ -26,6 +24,7 @@ namespace IPG_Funcionarios.Models
                 new Departamento { Nome = "	Departamento de Desporto"},
                 new Departamento { Nome = "	Departamento de Comunicação Multimédia" }
              );
+            
             db.SaveChanges();
 
           
