@@ -14,7 +14,7 @@ namespace IPG_Funcionarios.Controllers
 
     {
         private readonly IPGFuncionariosDbContext _context;
-        private const int PAGE_SIZE = 5;
+        private const int PAGE_SIZE = 10;
         public FuncionarioController(IPGFuncionariosDbContext context)
         {
             _context = context;

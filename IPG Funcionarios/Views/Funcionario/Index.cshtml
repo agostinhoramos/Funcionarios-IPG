@@ -4,71 +4,121 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Funcionario</h1>
 <form asp-action="Index">
-    <div>
-        <h3>Pesquisa</h3>
-        <menu>
-            <h5>Nome do Funcionario:<input style="width:250px;" asp-for="CurrentNome" /></h5>
-        </menu>
-        <input type="submit" value="Pesquisar" class="btn btn-info" />
-    </div>
-</form>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Funcionario.First().Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Funcionario.First().Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Funcionario.First().Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Funcionario.First().Genero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Funcionario.First().Morada)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Funcionario)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telefone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Genero)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Morada)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.FuncionarioId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-<div page-model="@Model.Paginacao"></div>
-<p>
-    <a asp-action="Create" class="btn btn-primary">Adicionar novo Funcionario</a>
   
-</p>
+</form>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <h4 class="card-title">Lista dos Funcionarios</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <!--<thead>
+
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Funcionario.First().Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Funcionario.First().Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Funcionario.First().Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Funcionario.First().Genero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Funcionario.First().Morada)
+        </th>
+        <th></th>
+    </tr>
+    </thead>-->
+                    <thead>
+                        <tr>
+                            <th> Nome </th>
+                            <th> Telefone </th>
+                            <th> Email </th>
+                            <th> Genero </th>
+                            <th> Morada </th>
+                            <th> &nbsp; </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Funcionario)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Telefone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Genero)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Morada)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-warning">Edit</a>
+                                    <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-info">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-danger">Delete</a>
+
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="ctrl">
+            <a asp-controller="Home" asp-action="" class="badge badge-pill badge-info">Voltar</a>
+            <br /><br />
+            <a asp-action="Create" class="badge badge-pill badge-info">Adicionar</a>
+            <div>
+                <h5>Pesquisa</h5>
+               
+                    <h7>Nome do Funcionario:<input style="width:250px;" asp-for="CurrentNome" class="text-center" /></h7>
+                
+                <input type="submit" value="Pesquisar" class="badge badge-pill badge-info" />
+            </div>
+            <div>
+                <a asp-action="Index" asp-route-order="Nome" class="badge badge-pill badge-dark mt-3">Ordenar o nome</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pagination,
+    .jsgrid .jsgrid-pager {
+        overflow-x: hidden;
+        margin-top: 40px;
+    }
+</style>
+
+
+
