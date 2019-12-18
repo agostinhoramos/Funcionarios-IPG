@@ -4,45 +4,70 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+    <div class="main-panel" style="width:100%;">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title"> Criar professor </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Professores</a></li>
+                        <li class="breadcrumb-item"><a href="#">Views</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Create</li>
+                    </ol>
+                </nav>
+            </div>
 
-<h4>Professor</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+            <div class="row">
+                <div class="col">
+                    <div class="panel">
+                        <!-- COLUNA 1 -->
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <input asp-for="Nome" placeholder="Nome" class="form-control" />
+                                <span asp-validation-for="Nome" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Contacto" placeholder="Contacto" class="form-control" />
+                                <span asp-validation-for="Contacto" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Email" placeholder="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Gabinete" placeholder="Gabinete" class="form-control" />
+                                <span asp-validation-for="Gabinete" class="text-danger"></span>
+                            </div>
+                            <div class="form-group ctrl">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <input asp-action="Index" type="button" value="Back to List" class="btn btn-secondary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Contacto" class="control-label"></label>
-                <input asp-for="Contacto" class="form-control" />
-                <span asp-validation-for="Contacto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gabinete" class="control-label"></label>
-                <input asp-for="Gabinete" class="form-control" />
-                <span asp-validation-for="Gabinete" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<style>
+.panel {
+    width: 500px;
+    height: 480px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 25px 35px;
+    border-radius: 15px;
+}
+.panel .ctrl {
+    position: relative;
+    bottom: -95px;
+    text-align: center;
+}
+</style>

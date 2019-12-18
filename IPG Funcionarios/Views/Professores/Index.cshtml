@@ -1,8 +1,17 @@
-﻿@model IPG_Funcionarios.Models.ProfessorViewModel
+﻿
+@model ProfessorViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
+    <script>
+        $(document).ready(function () {
+            $("#search").keyup(function (event) {
+            var url = 'https://' + window.location.host + '/Professores?page=1&sort=true&searchString=' + $(this).val();
+            url ? window.location.assign(url) : null;
+        }).val('@Model.StringProcura').focus();
+    });
+    </script>
 
 <div class="row">
     <div class="col">
@@ -21,6 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach (var item in Model.Professor) {
                             <tr>
                                 <td>
@@ -45,24 +55,34 @@
                                 </td>
                             </tr>
                         }
+
                     </tbody>
                 </table>
 
+                @if(Model.TotalPaginas > 1){
                 <!-- Paginação -->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                         <li class="page-item disabled">
                             <a class="page-link" href="#" tabindex="-1">Previous</a>
                         </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <!-- page-item active -->
+                        @for (int i = 1; i <= Model.TotalPaginas; i++) {
+
+                            @if (i == Model.PaginaActual) {
+                                <li class="page-item active"><a class="page-link" href="#">@i</a></li>
+                            } else {
+                                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.StringProcura" asp-route-sort="@Model.Sort" >@i</a></li>
+                            }
+
+                        }
                         <li class="page-item">
                             <a class="page-link" href="#">Next</a>
                         </li>
                     </ul>
                 </nav>
                 <!-- Paginação -->
+                }
 
             </div>
         </div>
@@ -70,43 +90,73 @@
     <div class="col">
         <div class="ctrl">
             <a asp-controller="Home" asp-action="" class="btn btn-outline-dark btn-back">Voltar</a>
+            <!--  -->
             <a asp-action="Create" class="btn btn-outline-success btn-add">Adicionar</a>
         </div>
+
+
+        <!-- Modal starts -->
+        <!--
+        info: data-toggle="modal" data-target="#exampleModal-3"
+        --->
+
+        <div class="modal fade" id="exampleModal-3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-3" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel-3">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">Submit</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ends -->
+
+
     </div>
 </div>
 
 <style>
-    .pagination,
-    .jsgrid .jsgrid-pager {
-        overflow-x: hidden;
-        margin-top: 40px;
-    }
+.pagination,
+.jsgrid .jsgrid-pager {
+overflow-x: hidden;
+margin-top: 40px;
+}
 
-    .ctrl {
-        width: 100%;
-        position: fixed;
-        top: 100px;
-        display: inline-flex;
-    }
+.ctrl {
+  width: 100%;
+  position: fixed;
+  top: 100px;
+  display: inline-flex;
+}
 
-    .btn-add {
-        margin-left: 10px;
-    }
+.btn-add {
+   margin-left: 10px;
+}
 
-    a.btn {
-        border: none;
-        border-radius: 50px;
-    }
+a.btn {
+   border: none;
+   border-radius: 50px;
+}
 
-        a.btn.btn-back {
-            background-color: #6c757d;
-            border-color: #6c757d;
-            color: white;
-        }
+a.btn.btn-back {
+   background-color: #6c757d;
+   border-color: #6c757d;
+   color: white;
+}
 
-        a.btn.btn-add {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: white;
-        }
+a.btn.btn-add {
+   background-color: #007bff;
+   border-color: #007bff;
+   color: white;
+}
 </style>
