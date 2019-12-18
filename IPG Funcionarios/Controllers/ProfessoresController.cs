@@ -13,15 +13,54 @@ namespace IPG_Funcionarios.Controllers
     {
         private readonly IPGFuncionariosDbContext _context;
 
+        public int TamanhoPagina = 10;
+
         public ProfessoresController(IPGFuncionariosDbContext context)
         {
             _context = context;
         }
 
         // GET: Professores
+        /*
         public async Task<IActionResult> Index()
         {
             return View(await _context.Professor.ToListAsync());
+        }
+        */
+
+        public IActionResult Index(int page = 1, string searchString = "", string sort = "true") {
+            var professores = from p in _context.Professor
+                              select p;
+
+            if (!String.IsNullOrEmpty(searchString)) {
+                professores = professores.Where(p => p.Nome.Contains(searchString));
+            }
+
+            decimal nProfessores = professores.Count();
+
+            int NUMERO_PAGINAS_ANTES_DEPOIS = ((int)nProfessores / TamanhoPagina);
+
+            if (nProfessores % TamanhoPagina == 0) {
+                NUMERO_PAGINAS_ANTES_DEPOIS -= 1;
+            }
+
+            ProfessorViewModel vm = new ProfessorViewModel {
+                Sort = sort,
+                PaginaActual = page,
+                PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
+                TotalPaginas = (int)Math.Ceiling(nProfessores / TamanhoPagina)
+            };
+
+            if (sort.Equals("true")) {
+                vm.Professor = professores.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
+            } else {
+                vm.Professor = professores.OrderByDescending(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
+            }
+
+            vm.UltimaPagina = Math.Min(vm.TotalPaginas, page + NUMERO_PAGINAS_ANTES_DEPOIS);
+            vm.StringProcura = searchString;
+
+            return View(vm);
         }
 
         // GET: Professores/Details/5
