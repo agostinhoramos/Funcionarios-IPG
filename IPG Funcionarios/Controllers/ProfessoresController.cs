@@ -13,52 +13,87 @@ namespace IPG_Funcionarios.Controllers
     {
         private readonly IPGFuncionariosDbContext _context;
 
-        public int TamanhoPagina = 10;
+        private int PRODUCTS_PER_PAGE = 10;
 
         public ProfessoresController(IPGFuncionariosDbContext context)
         {
             _context = context;
         }
 
-        // GET: Professores
-        /*
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Professor.ToListAsync());
-        }
-        */
+        public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome") {
+            
+            decimal nRows = _context.Professor.Count();
 
-        public IActionResult Index(int page = 1, string searchString = "", string sort = "true") {
-            var professores = from p in _context.Professor
-                              select p;
+            int PAGES_BEFORE_AND_AFTER = ((int)nRows / PRODUCTS_PER_PAGE );
 
-            if (!String.IsNullOrEmpty(searchString)) {
-                professores = professores.Where(p => p.Nome.Contains(searchString));
-            }
-
-            decimal nProfessores = professores.Count();
-
-            int NUMERO_PAGINAS_ANTES_DEPOIS = ((int)nProfessores / TamanhoPagina);
-
-            if (nProfessores % TamanhoPagina == 0) {
-                NUMERO_PAGINAS_ANTES_DEPOIS -= 1;
+            if (nRows % PRODUCTS_PER_PAGE == 0) {
+                PAGES_BEFORE_AND_AFTER -= 1;
             }
 
             ProfessorViewModel vm = new ProfessorViewModel {
-                Sort = sort,
-                PaginaActual = page,
-                PrimeiraPagina = Math.Max(1, page - NUMERO_PAGINAS_ANTES_DEPOIS),
-                TotalPaginas = (int)Math.Ceiling(nProfessores / TamanhoPagina)
+                Professor = _context.Professor.Take((int)nRows),
+                CurrentPage = page,
+                AllPages = (int)Math.Ceiling(nRows / PRODUCTS_PER_PAGE),
+                FirstPage = Math.Max(2, page - PAGES_BEFORE_AND_AFTER),
+
+
+                entries_per_page = PRODUCTS_PER_PAGE,
+                entries_start = PRODUCTS_PER_PAGE * (page - 1) > 0 ? PRODUCTS_PER_PAGE * (page - 1) + 1 : ((int)Math.Ceiling(nRows) < 1 ? 0 : 1),
+                entries_end = PRODUCTS_PER_PAGE * page < (int)Math.Ceiling(nRows) ?
+                PRODUCTS_PER_PAGE * page : (int)Math.Ceiling(nRows),
+                entries_all = (int)Math.Ceiling(nRows)
             };
 
-            if (sort.Equals("true")) {
-                vm.Professor = professores.OrderBy(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
-            } else {
-                vm.Professor = professores.OrderByDescending(p => p.Nome).Skip((page - 1) * TamanhoPagina).Take(TamanhoPagina);
+            if (!String.IsNullOrEmpty(q) && !String.IsNullOrEmpty(o)) {
+                vm.CurrentSearch = q;
+                switch (o) {
+                    case "nome":
+                        vm.Professor = vm.Professor.Where(p => p.Nome.Contains(q, StringComparison.CurrentCultureIgnoreCase));
+                        vm.CurrentOption = "nome";
+                        break;
+                    case "contacto":
+                        vm.Professor = vm.Professor.Where(p => p.Contacto.Contains(q, StringComparison.CurrentCultureIgnoreCase));
+                        vm.CurrentOption = "contacto";
+                        break;
+                    case "email":
+                        vm.Professor = vm.Professor.Where(p => p.Email.Contains(q, StringComparison.CurrentCultureIgnoreCase));
+                        vm.CurrentOption = "email";
+                        break;
+                }
             }
 
-            vm.UltimaPagina = Math.Min(vm.TotalPaginas, page + NUMERO_PAGINAS_ANTES_DEPOIS);
-            vm.StringProcura = searchString;
+            if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o)) {
+                switch (o) {
+                    case "id":
+                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.ProfessorId) :
+                                                     vm.Professor.OrderByDescending(p => p.ProfessorId);
+                        break;
+                    case "nome":
+                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Nome) :
+                                                     vm.Professor.OrderByDescending(p => p.Nome);
+                        break;
+                    case "contacto":
+                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Contacto) :
+                                                     vm.Professor.OrderByDescending(p => p.Contacto);
+                        break;
+                    case "email":
+                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Email) :
+                                                     vm.Professor.OrderByDescending(p => p.Email);
+                        break;
+                    case "gabinete":
+                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Gabinete) :
+                                                     vm.Professor.OrderByDescending(p => p.Gabinete);
+                        break;
+                }
+                vm.Sort = sort;
+            }
+
+            vm.Professor = vm.Professor.Skip((page - 1) * PRODUCTS_PER_PAGE);
+            vm.Professor = vm.Professor.Take(PRODUCTS_PER_PAGE);
+            vm.LastPage = Math.Min(vm.AllPages, page + PAGES_BEFORE_AND_AFTER);
+            vm.FirstPage = 1;
+            vm.LastPage = vm.AllPages;
+            vm.CurrentOption = o;
 
             return View(vm);
         }
