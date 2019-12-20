@@ -14,6 +14,9 @@
             sort_contacto = Model.CurrentOption == "contacto" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"",
             sort_email = Model.CurrentOption == "email" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"", 
             sort_gabinete = Model.CurrentOption == "gabinete" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"";
+
+    string entries_ = (Model.entries_start.ToString()!=Model.entries_end.ToString())? 
+        "de "+Model.entries_start.ToString() + " até " + Model.entries_end.ToString() : Model.entries_end.ToString(); 
 }
 <div class="main-panel view-html" style="width:100%;">
     <div class="content-wrapper">
@@ -41,95 +44,98 @@
                                             <a asp-controller="Home" asp-action="" class="c-btn c-btn-secundary">Voltar</a>
                                             <a asp-action="Create" class="c-btn c-btn-primary">Adicionar</a>
                                             <select id="entries_per_page" value="@Model.entries_per_page" name="order-listing_length"
-                                            aria-controls="order-listing" class="custom-select custom-select-sm form-control">
+                                                    aria-controls="order-listing" class="custom-select custom-select-sm form-control">
                                                 @for (int i = entries_per_page_min; i <= entries_per_page_max; i += entries_per_page_min) {
                                                     <option value="@i">@i</option>
                                                 }
-                                                    <option value="-1">Todas</option>
+                                                <option value="-1">Todas</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
                                     </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <table id="order-listing" class="table dataTable no-footer" role="grid" aria-describedby="order-listing_info">
-                                                <thead>
-                                                    <tr role="row" class="sort">
-                                                        <th class="sort" tabindex="0" sort="@sort_id" rowspan="1" colspan="1" style="width: 70px;">
-                                                            &nbsp;ID&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_nome" rowspan="1" colspan="1" style="width:450px;">
-                                                            &nbsp;Nome&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_contacto" rowspan="1" colspan="1" style="width: 100px;">
-                                                            &nbsp;Contacto&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_email" rowspan="1" colspan="1" style="width: 150px;">
-                                                            &nbsp;Email&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_gabinete" rowspan="1" colspan="1" style="width: 95px;">
-                                                            &nbsp;Gabinete&nbsp;
-                                                        </th>
-                                                </thead>
-                                                <tbody>
+                                    @if (Model.entries_all > 0) {
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <table id="order-listing" class="table dataTable no-footer" role="grid" aria-describedby="order-listing_info">
+                                                    <thead>
+                                                        <tr role="row" class="sort">
+                                                            <th class="sort" tabindex="0" sort="@sort_id" rowspan="1" colspan="1" style="width: 70px;">
+                                                                &nbsp;ID&nbsp;
+                                                            </th>
+                                                            <th class="sort" tabindex="0" sort="@sort_nome" rowspan="1" colspan="1" style="width:450px;">
+                                                                &nbsp;Nome&nbsp;
+                                                            </th>
+                                                            <th class="sort" tabindex="0" sort="@sort_contacto" rowspan="1" colspan="1" style="width: 100px;">
+                                                                &nbsp;Contacto&nbsp;
+                                                            </th>
+                                                            <th class="sort" tabindex="0" sort="@sort_email" rowspan="1" colspan="1" style="width: 150px;">
+                                                                &nbsp;Email&nbsp;
+                                                            </th>
+                                                            <th class="sort" tabindex="0" sort="@sort_gabinete" rowspan="1" colspan="1" style="width: 95px;">
+                                                                &nbsp;Gabinete&nbsp;
+                                                            </th>
+                                                    </thead>
+                                                    <tbody>
 
-                                                    @foreach (var item in Model.Professor) {
-                                                        <tr role="row" class="even">
-                                                            <td class="sorting_1">
-                                                                @Html.DisplayFor(modelItem => item.ProfessorId)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Nome)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Contacto)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Email)
-                                                            </td>
-                                                            <td class="t-center">
-                                                                @Html.DisplayFor(modelItem => item.Gabinete)
-                                                            </td>
-                                                            <td class="t-center">
-                                                                <a asp-action="Edit" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-warning">Editar</a>
-                                                                <a asp-action="Details" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-info">Detalhes</a>
-                                                                <a asp-action="Delete" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-danger">Remover</a>
-                                                            </td>
-                                                        </tr>
-                                                    }
-
-                                                </tbody>
-                                            </table>
+                                                        @foreach (var item in Model.Professor) {
+                                                            <tr role="row" class="even">
+                                                                <td class="sorting_1">
+                                                                    @Html.DisplayFor(modelItem => item.ProfessorId)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Nome)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Contacto)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Email)
+                                                                </td>
+                                                                <td class="t-center">
+                                                                    @Html.DisplayFor(modelItem => item.Gabinete)
+                                                                </td>
+                                                                <td class="t-center">
+                                                                    <a asp-action="Edit" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-warning">Editar</a>
+                                                                    <a asp-action="Details" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-info">Detalhes</a>
+                                                                    <a asp-action="Delete" asp-route-id="@item.ProfessorId" class="badge badge-pill badge-danger">Remover</a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
+                                        @if (Model.AllPages > 1 && String.IsNullOrEmpty(Model.CurrentSearch)) {
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-5">
+                                                    <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @entries_ de @Model.entries_all registros</div>
+                                                </div>
+                                            </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-5">
-                                            <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando de @Model.entries_start até @Model.entries_end de @Model.entries_all registros</div>
-                                        </div>
-                                    </div>
-                                    @if (Model.AllPages > 1) {
-                                        <!-- Paginação -->
-                                        <nav aria-label="Page navigation" class="pages">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="page-item">
-                                                    <a class="page-link" id="prev">Anterior</a>
-                                                </li>
-                                                @for (int i = Model.FirstPage; i <= Model.AllPages; i++) {
+                                            <!-- Paginação -->
+                                            <nav aria-label="Page navigation" class="pages">
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item">
+                                                        <a class="page-link" id="prev">Anterior</a>
+                                                    </li>
+                                                    @for (int i = Model.FirstPage; i <= Model.AllPages; i++) {
 
-                                                    @if (i == Model.CurrentPage) {
-                                                        <li class="page-item active"><a class="page-link">@i</a></li>
-                                                    } else {
-                                                        <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.CurrentSearch" asp-route-sort="@Model.Sort">@i</a></li>
+                                                        @if (i == Model.CurrentPage) {
+                                                            <li class="page-item active"><a class="page-link">@i</a></li>
+                                                        } else {
+                                                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.CurrentSearch" asp-route-sort="@Model.Sort">@i</a></li>
+                                                        }
                                                     }
-                                                }
-                                                <li class="page-item">
-                                                    <a class="page-link" id="next">Próximo</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                        <!-- Paginação -->
+                                                    <li class="page-item">
+                                                        <a class="page-link" id="next">Próximo</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                            <!-- Paginação -->
+                                        }
+                                    } else {
+                                        <br />
+                                        <h3>Nenhum item encontrado :(</h3>
                                     }
                                 </div>
                             </div>
@@ -198,15 +204,15 @@
 
             $("tr.sort th").click(function () {
                 let type = $(this).text().trim().toLowerCase();
-                var url = baseURL + "?o="+type+"&sort="+(boo_sort()?'0':'1');
+                var url = baseURL + "?o=" + type + "&sort=" + (boo_sort() ? '0' : '1');
+                url += (cstrg ? "&q="+cstrg: "");
                 url ? window.location.assign(url) : null;
             });
         });
 
     function boo_sort() {
-        try {
-            return location.href.split("sort=")[1]
-                .split("&")[0] === '1';
+        try { return location.href.split("sort=")[1]
+              .split("&")[0] === '1';
         } catch (e) { return false; }
     }
 </script>

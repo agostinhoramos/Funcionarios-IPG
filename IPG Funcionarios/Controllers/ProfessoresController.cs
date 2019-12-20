@@ -21,8 +21,10 @@ namespace IPG_Funcionarios.Controllers
         }
 
         public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome") {
-            
-            decimal nRows = _context.Professor.Count();
+
+            var prof = from p in _context.Professor select p;
+
+            decimal nRows = prof.Count();
 
             int PAGES_BEFORE_AND_AFTER = ((int)nRows / PRODUCTS_PER_PAGE );
 
@@ -31,10 +33,9 @@ namespace IPG_Funcionarios.Controllers
             }
 
             ProfessorViewModel vm = new ProfessorViewModel {
-                Professor = _context.Professor.Take((int)nRows),
                 CurrentPage = page,
                 AllPages = (int)Math.Ceiling(nRows / PRODUCTS_PER_PAGE),
-                FirstPage = Math.Max(2, page - PAGES_BEFORE_AND_AFTER),
+                FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),
 
 
                 entries_per_page = PRODUCTS_PER_PAGE,
@@ -44,55 +45,52 @@ namespace IPG_Funcionarios.Controllers
                 entries_all = (int)Math.Ceiling(nRows)
             };
 
-            if (!String.IsNullOrEmpty(q) && !String.IsNullOrEmpty(o)) {
+            if (!String.IsNullOrEmpty(q)) {
                 vm.CurrentSearch = q;
-                switch (o) {
-                    case "nome":
-                        vm.Professor = vm.Professor.Where(p => p.Nome.Contains(q, StringComparison.CurrentCultureIgnoreCase));
-                        vm.CurrentOption = "nome";
-                        break;
-                    case "contacto":
-                        vm.Professor = vm.Professor.Where(p => p.Contacto.Contains(q, StringComparison.CurrentCultureIgnoreCase));
-                        vm.CurrentOption = "contacto";
-                        break;
-                    case "email":
-                        vm.Professor = vm.Professor.Where(p => p.Email.Contains(q, StringComparison.CurrentCultureIgnoreCase));
-                        vm.CurrentOption = "email";
-                        break;
+                if (!String.IsNullOrEmpty(o)) {
+                    switch (o) {
+                        case "nome":
+                            prof = prof.Where(p => p.Nome.Contains(q));
+                            break;
+                        case "contacto":
+                            prof = prof.Where(p => p.Contacto.Contains(q));
+                            break;
+                        case "email":
+                            prof = prof.Where(p => p.Email.Contains(q));
+                            break;
+                    }
                 }
             }
 
             if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o)) {
                 switch (o) {
                     case "id":
-                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.ProfessorId) :
-                                                     vm.Professor.OrderByDescending(p => p.ProfessorId);
+                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.ProfessorId).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE)) :
+                                                     (prof.OrderByDescending(p => p.ProfessorId).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE));
                         break;
                     case "nome":
-                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Nome) :
-                                                     vm.Professor.OrderByDescending(p => p.Nome);
+                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Nome).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE)) :
+                                                     (prof.OrderByDescending(p => p.Nome).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE));
                         break;
                     case "contacto":
-                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Contacto) :
-                                                     vm.Professor.OrderByDescending(p => p.Contacto);
+                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Contacto).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE)) :
+                                                     (prof.OrderByDescending(p => p.Contacto).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE));
                         break;
                     case "email":
-                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Email) :
-                                                     vm.Professor.OrderByDescending(p => p.Email);
+                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Email).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE)) :
+                                                     (prof.OrderByDescending(p => p.Email).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE));
                         break;
                     case "gabinete":
-                        vm.Professor = sort == "1" ? vm.Professor.OrderBy(p => p.Gabinete) :
-                                                     vm.Professor.OrderByDescending(p => p.Gabinete);
+                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Gabinete).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE)) :
+                                                     (prof.OrderByDescending(p => p.Gabinete).Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE));
                         break;
                 }
-                vm.Sort = sort;
+                        vm.Sort = sort;
+            } else {
+                        vm.Professor = prof.Skip((page - 1) * PRODUCTS_PER_PAGE).Take(PRODUCTS_PER_PAGE);
             }
 
-            vm.Professor = vm.Professor.Skip((page - 1) * PRODUCTS_PER_PAGE);
-            vm.Professor = vm.Professor.Take(PRODUCTS_PER_PAGE);
             vm.LastPage = Math.Min(vm.AllPages, page + PAGES_BEFORE_AND_AFTER);
-            vm.FirstPage = 1;
-            vm.LastPage = vm.AllPages;
             vm.CurrentOption = o;
 
             return View(vm);
