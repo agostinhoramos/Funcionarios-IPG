@@ -106,3 +106,25 @@
     table#order-listing th.sort[sort="0"] {
         color: #0e0e0e;
     }
+
+.view-html .panel {
+    width: 450px;
+    height: 210px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 25px 5px;
+    border-radius: 5px;
+}
+
+    .view-html .panel .ctrl,
+    .view-html .panel form {
+        position: relative;
+        bottom: -20px;
+        text-align: center;
+    }
+
+.view-html button.c-btn,
+.view-html a.c-btn {
+    margin: 0 5px;
+}
+

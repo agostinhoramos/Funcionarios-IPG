@@ -4,14 +4,14 @@
     ViewData["Title"] = "Details";
 }
 
-    <div class="main-panel" style="width:100%;">
+    <div class="main-panel view-html" style="width:100%;">
         <div class="content-wrapper" >
             <div class="page-header">
                 <h3 class="page-title"> Detalhes do professor</h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Professores</a></li>
-                        <li class="breadcrumb-item"><a href="#">Views</a></li>
+                        <li class="breadcrumb-item">Views</li>
+                        <li class="breadcrumb-item"><a asp-action="Index">Professores</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Details</li>
                     </ol>
                 </nav>
@@ -22,38 +22,37 @@
                 <div class="col">
                     <div class="panel">
                         <!-- COLUNA 1 -->
-                        <!-- TODO CONTEÚDO AQUI! -->
-                        <dl class="row">
-                            <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Nome)
-                            </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Nome)
-                            </dd>
-                            <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Contacto)
-                            </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Contacto)
-                            </dd>
-                            <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Email)
-                            </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Email)
-                            </dd>
-                            <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.Gabinete)
-                            </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Gabinete)
-                            </dd>
-                        </dl>
+                            <dl class="row">
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Nome)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Nome)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Contacto)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Contacto)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Email)
+                                </dd>
+                                <dt class="col-sm-2">
+                                    @Html.DisplayNameFor(model => model.Gabinete)
+                                </dt>
+                                <dd class="col-sm-10">
+                                    @Html.DisplayFor(model => model.Gabinete)
+                                </dd>
+                            </dl>
 
-                        <div class="ctrl" >
-                            <a class="badge badge-success" asp-action="Edit" asp-route-id="@Model.ProfessorId">Edit</a> |
-                            <a asp-action="Index">Back to List</a>
-                        </div>
+                            <div class="ctrl">
+                                <a class="c-btn c-btn-primary" asp-action="Edit" asp-route-id="@Model.ProfessorId">Edit</a>
+                                <a class="c-btn c-btn-secundary" asp-action="Index">Back to List</a>
+                            </div>
                         </div>
 
                     </div>
@@ -61,19 +60,10 @@
         </div>
     </div>
 
-    <style>
-        .panel {
-            width: 450px;
-            height: 220px;
-            background-color: white;
-            margin: 0 auto;
-            padding: 25px 5px;
-            border-radius: 15px;
-        }
-
-        .panel .ctrl {
-            position: relative;
-            bottom: -20px;
-            text-align: center;
-        }
-    </style>
+<style>
+    form.d-flex.align-items-center.h-100,
+      .navbar-menu-wrapper span{
+       display: none;
+       visibility: hidden;
+    }
+</style>
