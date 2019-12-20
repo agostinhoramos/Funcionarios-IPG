@@ -177,21 +177,22 @@
 
         <div class="row">
             <div class="col-12 grid-margin">
-                <br />
-                <div class="text-center force-link">
-                    <button type="button" class="btn btn-outline-info">
-                        <a asp-controller="Professores" asp-action="">Professor</a>
-                    </button>
-                    <button type="button" class="btn btn-outline-info">
-                        <a asp-controller="Funcionario" asp-action="Index">Funcionario</a>
-                    </button>
-                    <!--<div>
-                         <a asp-controller="Funcionario" asp-action="Index" class="btn btn-outline-info">Funcionario</a>
-                     </div>-->
-                     <button type="button" class="btn btn-outline-info">
-                        <a asp-controller="Departamento" asp-action="Index">Departamento</a>
-                    </button>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="mdi mdi-settings"></i>&nbsp;Módulos</h4>
+                        <div class="table-responsive">
+
+                            <div class="text-center force-link">
+                                <a class="btn btn-outline-info" asp-controller="Professores" asp-action="">Professor</a>
+                                <a class="btn btn-outline-info" asp-controller="Funcionario" asp-action="Index">Funcionario</a>
+                                <a class="btn btn-outline-info" asp-controller="Departamento" asp-action="Index">Departamento</a>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+                
             </div>
         </div>
 

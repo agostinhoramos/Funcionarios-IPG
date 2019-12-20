@@ -12387,7 +12387,7 @@
   .btn-outline-info:hover, .btn-outline-info:focus, .btn-outline-info:active {
     background: -webkit-gradient(linear, left top, right top, from(#90caf9), color-stop(99%, #047edf));
     background: linear-gradient(to right, #90caf9, #047edf 99%);
-    color: #000; }
+    color: #fff; }
   
   .btn-inverse-warning {
     background-color: rgba(254, 215, 19, 0.2);
