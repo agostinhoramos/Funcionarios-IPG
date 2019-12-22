@@ -1,0 +1,130 @@
+﻿    .view-html nav.pages {
+        margin-top: 30px;
+    }
+
+        .view-html nav.pages ul {
+            overflow-x: auto;
+        }
+
+    .view-html .dataTables_info {
+        color: #808080;
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+
+    .view-html .dataTables_wrapper .dataTables_info {
+        font-size: 0.875rem;
+    }
+
+    .view-html .ctrl-a {
+        display: inherit;
+        margin-bottom: 10px;
+    }
+
+        .view-html .ctrl-a select {
+            margin: 0 0 0 auto;
+            width: 100px;
+        }
+
+        .view-html .ctrl-a a {
+            margin: 0 2.5px;
+        }
+
+    .view-html td.t-center {
+        text-align: center;
+    }
+
+    .view-html .card {
+        overflow: hidden;
+    }
+
+    .view-html #next, .view-html #prev {
+        cursor: pointer;
+    }
+
+    .view-html li.disabled a:hover {
+        background-color: #f1f1f1 !important;
+    }
+
+    .view-html li.disabled a {
+        color: #CCC !important;
+    }
+
+        .view-html li.disabled a#prev,
+        .view-html li.disabled a#next {
+            background: transparent;
+            border-color: #aaaaaa61;
+        }
+
+    .view-html .badge.badge-pill {
+        border-radius: 0;
+        margin: 0 2.5px;
+    }
+
+        .view-html .badge.badge-pill:hover {
+            color: white;
+        }
+
+    .view-html .table thead th {
+        cursor: default;
+    }
+
+.view-html li, li a, th,
+.badge, .c-btn {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    table#order-listing th.sort::before,
+    table#order-listing th.sort::after {
+        line-height: 2.5;
+        font-family: Material Design Icons;
+        font-size: .65rem;
+    }
+
+    table#order-listing th.sort::before {
+        content: "\F05D";
+    }
+
+    table#order-listing th.sort::after {
+        content: "\F045";
+    }
+
+    table#order-listing th.sort,
+    table#order-listing th.sort::before,
+    table#order-listing th.sort::after {
+        color: #bfbfbf;
+    }
+
+    table#order-listing th.sort[sort="1"]::before,
+    table#order-listing th.sort[sort="0"]::after,
+    table#order-listing th.sort[sort="1"],
+    table#order-listing th.sort[sort="0"] {
+        color: #0e0e0e;
+    }
+
+.view-html .panel {
+    width: 450px;
+    height: 210px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 25px 5px;
+    border-radius: 5px;
+}
+
+    .view-html .panel .ctrl,
+    .view-html .panel form {
+        position: relative;
+        bottom: -20px;
+        text-align: center;
+    }
+
+.view-html button.c-btn,
+.view-html a.c-btn {
+    margin: 0 5px;
+}
+

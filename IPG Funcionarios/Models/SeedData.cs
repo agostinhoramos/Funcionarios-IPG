@@ -7,6 +7,12 @@ namespace IPG_Funcionarios.Models {
     public class SeedData {
 
         public static void Populate(IPGFuncionariosDbContext db) {
+            PopulateProfesor(db);
+            //PopulateFuncionario(db);
+            PopulateDepartamento(db);
+        }
+
+        private static void PopulateProfesor(IPGFuncionariosDbContext db) {
             if (db.Professor.Any()) {
                 return;
             }
@@ -50,12 +56,27 @@ namespace IPG_Funcionarios.Models {
                 new Professor { Nome = "Mário José da Silva Meleiro", Contacto = "246432546", Email = "outro17@email.com", Gabinete = "81" },
                 new Professor { Nome = "Rosa Branca Almeida Figueiredo", Contacto = "254076686", Email = "outro18@email.com", Gabinete = "82" },
                 new Professor { Nome = "Rui Manuel Formoso Nobre dos Santos", Contacto = "246543686", Email = "outro19@email.com", Gabinete = "83" }
+            );
+
+            db.SaveChanges();
+        }
+        private static void PopulateFuncionario(IPGFuncionariosDbContext db) {
+            if (db.Funcionario.Any()) {
+                return;
+            }
+
+            db.Funcionario.AddRange(
+
+            );
+
+            db.SaveChanges();
+        }
+        private static void PopulateDepartamento(IPGFuncionariosDbContext db) {
+            if (db.Departamento.Any()) {
+                return;
+            }
             
-               );
-           
-          
-           //Dados do Departamento 
-            
+            // Dados do departamento
             db.Departamento.AddRange(
                 new Departamento { Nome = "Departamento de Engenharia Civil" },
                 new Departamento { Nome = "Departamento de Engenharia Informática" },
@@ -66,11 +87,8 @@ namespace IPG_Funcionarios.Models {
                 new Departamento { Nome = "Departamento de Hotelaria" },
                 new Departamento { Nome = "	Departamento de Desporto" },
                 new Departamento { Nome = "	Departamento de Comunicação Multimédia" }
-
-         );
-
-
-
+            );
+            
             db.SaveChanges();
         }
     }
