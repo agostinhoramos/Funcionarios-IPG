@@ -107,14 +107,14 @@
         color: #0e0e0e;
     }
 
-.view-html .panel {
-    width: 450px;
-    height: 210px;
-    background-color: white;
-    margin: 0 auto;
-    padding: 25px 5px;
-    border-radius: 5px;
-}
+    .view-html .panel {
+        width: 450px;
+        height: 210px;
+        background-color: white;
+        margin: 0 auto;
+        padding: 25px 5px;
+        border-radius: 5px;
+    }
 
     .view-html .panel .ctrl,
     .view-html .panel form {
@@ -123,8 +123,25 @@
         text-align: center;
     }
 
-.view-html button.c-btn,
-.view-html a.c-btn {
-    margin: 0 5px;
-}
+    .view-html button.c-btn,
+    .view-html a.c-btn {
+        margin: 0 5px;
+    }
 
+    .view-html .page-title {
+        font-size: larger;
+    }
+
+    .view-html .page-title a:hover {
+        color: #de7a89;
+    }
+
+    .view-html .page-title a {
+        color: #808080;
+        text-decoration:none;
+    }
+
+.modal-header {
+    background-color: #fff;
+    color: #de7a89;
+}

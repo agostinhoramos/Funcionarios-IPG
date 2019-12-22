@@ -7,7 +7,9 @@
 <div class="main-panel view-html" style="width:100%;">
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> Tem certeza de que deseja excluir? </h3>
+            <h3 class="page-title">
+                <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+            </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">Views</li>
@@ -18,8 +20,9 @@
         </div>
         <div class="row">
             <div class="col">
-
+                <h4 class="page-title"> Tem certeza de que deseja excluir? </h4>
                 <div class="panel">
+
                     <dl class="row">
                         <dt class="col-sm-2">
                             @Html.DisplayNameFor(model => model.Nome)
@@ -48,8 +51,8 @@
                     </dl>
                     <form asp-action="Delete">
                         <input type="hidden" asp-for="ProfessorId" />
-                        <a asp-action="Index" class="c-btn c-btn-secundary">Voltar a lista</a>
                         <input type="submit" value="Delete" class="c-btn c-btn-primary" />
+                        <a class="c-btn c-btn-secundary w-100" asp-action="Index">Cancelar</a>
                     </form>
                 </div>
             </div>

@@ -7,7 +7,9 @@
     <div class="main-panel view-html" style="width:100%;">
         <div class="content-wrapper" >
             <div class="page-header">
-                <h3 class="page-title"> Detalhes do professor</h3>
+                <h3 class="page-title">
+                    <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+                </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Views</li>
@@ -50,7 +52,6 @@
                             </dl>
 
                             <div class="ctrl">
-                                <a class="c-btn c-btn-secundary" asp-action="Index">Voltar a lista</a>
                                 <a class="c-btn c-btn-primary" asp-action="Edit" asp-route-id="@Model.ProfessorId">Edit</a>
                             </div>
                         </div>

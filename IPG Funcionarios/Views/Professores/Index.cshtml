@@ -20,7 +20,9 @@
 <div class="main-panel view-html" style="width:100%;">
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"> Lista @views_name </h3>
+            <h3 class="page-title" >
+                <a asp-controller="Home" asp-action=""><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+            </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">Views</li>
@@ -34,17 +36,18 @@
 
                 <div class="card">
                     <div class="card-body">
+
                         <div class="row">
                             <div class="col-12">
                                 <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                    <div class="row">
 
+                                    <div class="row">
                                         <div class="col-sm-12 ctrl-a">
-                                            <a asp-controller="Home" asp-action="" class="c-btn c-btn-secundary">Voltar</a>
                                             <a asp-action="Create" class="c-btn c-btn-primary">Adicionar</a>
                                             <select id="entries_per_page" value="@Model.entries_per_page" name="order-listing_length"
                                                     aria-controls="order-listing" class="custom-select custom-select-sm form-control">
-                                                @for (int i = entries_per_page_min; i <= entries_per_page_max; i += entries_per_page_min) {
+                                                @for (int i = entries_per_page_min; i <= entries_per_page_max; i += entries_per_page_min)
+                                                {
                                                     <option value="@i">@i</option>
                                                 }
                                                 <option value="-1">Todas</option>
@@ -52,7 +55,8 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
                                     </div>
-                                    @if (Model.entries_all > 0) {
+                                    @if (Model.entries_all > 0)
+                                    {
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <table id="order-listing" class="table table-striped dataTable no-footer" role="grid" aria-describedby="order-listing_info">
@@ -76,7 +80,8 @@
                                                     </thead>
                                                     <tbody>
 
-                                                        @foreach (var item in Model.Professor) {
+                                                        @foreach (var item in Model.Professor)
+                                                        {
                                                             <tr role="row" class="even">
                                                                 <td class="sorting_1">
                                                                     @Html.DisplayFor(modelItem => item.ProfessorId)
@@ -104,7 +109,8 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        @if (Model.AllPages > 1 && String.IsNullOrEmpty(Model.CurrentSearch)) {
+                                        @if (Model.AllPages > 1 && String.IsNullOrEmpty(Model.CurrentSearch))
+                                        {
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-5">
                                                     <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @entries_ de @Model.entries_all registros</div>
@@ -117,11 +123,15 @@
                                                     <li class="page-item">
                                                         <a class="page-link" id="prev">Anterior</a>
                                                     </li>
-                                                    @for (int i = Model.FirstPage; i <= Model.AllPages; i++) {
+                                                    @for (int i = Model.FirstPage; i <= Model.AllPages; i++)
+                                                    {
 
-                                                        @if (i == Model.CurrentPage) {
+                                                        @if (i == Model.CurrentPage)
+                                                        {
                                                             <li class="page-item active"><a class="page-link">@i</a></li>
-                                                        } else {
+                                                        }
+                                                        else
+                                                        {
                                                             <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.CurrentSearch" asp-route-sort="@Model.Sort">@i</a></li>
                                                         }
                                                     }
@@ -132,7 +142,9 @@
                                             </nav>
                                             <!-- Paginação -->
                                         }
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         <br />
                                         <h3>Nenhum item encontrado :(</h3>
                                     }
