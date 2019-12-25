@@ -92,11 +92,23 @@
     <div class="content-wrapper">
         @* ALL PAGE CONTENT HERE *@
 
+        @{
+            int hour = DateTime.Now.Hour;
+            string greeting;
+            if (hour >= 7 && hour < 12) {
+                greeting = "Bom dia";
+            } else
+            if (hour >= 12 && hour <20) {
+                greeting = "Boa tarde";
+            } else{
+                greeting = "Boa noite";
+            }
+        }
         <div class="page-header">
             <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white mr-2">
                     <i class="mdi mdi-home"></i>
-                </span> Seja bem vindo!
+                </span> @greeting, Seja bem vindo!
             </h3>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
@@ -107,27 +119,23 @@
             </nav>
         </div>
 
-        <div class="row">
-            <div class="col-12 grid-margin">
-
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title"><i class="mdi mdi-settings"></i>&nbsp;Módulos</h4>
-                        <div class="table-responsive">
-
-                            <div class="text-center force-link">
-                                <a class="btn btn-outline-info" asp-controller="Professores" asp-action="">Professor</a>
-                                <a class="btn btn-outline-info" asp-controller="Funcionario" asp-action="Index">Funcionario</a>
-                                <a class="btn btn-outline-info" asp-controller="Departamento" asp-action="Index">Departamento</a>
+                <div class="row">
+                    <div class="col grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"><i class="mdi mdi-settings"></i>&nbsp;Módulos</h4>
+                                <div class="table-responsive">
+                                    <div class="text-center force-link">
+                                        <a class="btn btn-outline-info" asp-controller="Professores" asp-action="">Professor</a>
+                                        <a class="btn btn-outline-info" asp-controller="Funcionario" asp-action="Index">Funcionario</a>
+                                        <a class="btn btn-outline-info" asp-controller="Departamento" asp-action="Index">Departamento</a>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-                
-            </div>
-        </div>
 
-        @* ALL PAGE CONTENT HERE *@
-    </div>
+                @* ALL PAGE CONTENT HERE *@
+            </div>
 </div>

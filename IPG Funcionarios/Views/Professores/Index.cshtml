@@ -32,7 +32,15 @@
             </nav>
         </div>
         <div class="row">
+
+
             <div class="col">
+
+                @if (true) {
+                    <div class="alert alert-success" role="alert" id="auto-hide">
+                        <strong>Parabéns!</strong> O professor foi criado com sucesso.
+                    </div>
+                }
 
                 <div class="card">
                     <div class="card-body">
@@ -226,6 +234,14 @@
               .split("&")[0] === '1';
         } catch (e) { return false; }
     }
+
+    let pop_up = $("#auto-hide.alert");
+    let timeID = setInterval(function(){
+        if( pop_up.css("display") == "block" ){
+            pop_up.hide();
+            clearInterval(timeID);
+        }
+    },5500);
 </script>
 
 <style>
