@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
+
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,17 @@ using System.Threading.Tasks;
 
 namespace IPG_Funcionarios.Paginacao
 {
-    [HtmlTargetElement("div",Attributes ="page-model")]
-    public class Paginacao :TagHelper
+    [HtmlTargetElement("div", Attributes = "modelo-pagina")]
+    public class Paginacao : TagHelper
+    {/*
+        private readonly int MaxLinkPorPag = 10;
 
-    {
-        private readonly int MaxPagelinks = 10;
+        public PaginacaoViewModel ModeloPagina { get; set; }
 
-        public PaginacaoViewModel PageModel { get; set; }
+        public string AccaoDaPagin { get; set; }
 
-        public string PageAction { get; set; }
         private IUrlHelperFactory urlHelperFactory;
+
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
@@ -31,33 +34,40 @@ namespace IPG_Funcionarios.Paginacao
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
-            var resultDiv = new TagBuilder("div");
-            int initialPage = PageModel.CurrentPage - MaxPagelinks / 2;
-            if (initialPage < 1) initialPage = 1;
 
-            int finalPage = initialPage + MaxPagelinks - 1;
-            if (finalPage > PageModel.NumberPages) finalPage = PageModel.NumberPages;
+            var resultaDaDiv = new TagBuilder("div");
 
-            for(int p = initialPage; p <= finalPage; p++)
+
+            int pagInicial = ModeloPagina.PaginaCorrente - MaxLinkPorPag / 2;
+            if (pagInicial < 1) pagInicial = 1;
+
+
+            int pagfinal = pagInicial + MaxLinkPorPag - 1;
+            if (pagfinal > ModeloPagina.NumeroPagina) pagfinal = ModeloPagina.NumeroPagina;
+
+
+            for (int p = pagInicial; p <= pagfinal; p++)
             {
-                var link = new TagBuilder("a");
-                link.Attributes["href"] = urlHelper.Action(PageAction, new { page = p });
-                link.AddCssClass("btn");
-                if (p == PageModel.CurrentPage)
+                var ligacao = new TagBuilder("a");
+
+                ligacao.Attributes["href"] = urlHelper.Action(AccaoDaPagin, new { pagina = p });
+
+                ligacao.AddCssClass("btn");
+
+                if (p == ModeloPagina.PaginaCorrente)
                 {
-                    link.AddCssClass("btn-info");
+                    ligacao.AddCssClass("btn-info");
                 }
                 else
                 {
-                    link.AddCssClass("btn-default");
+                    ligacao.AddCssClass("btn-primary");
                 }
 
-                link.InnerHtml.Append(p.ToString());
-
-                resultDiv.InnerHtml.AppendHtml(link);
+                ligacao.InnerHtml.Append(p.ToString());
+                resultaDaDiv.InnerHtml.AppendHtml(ligacao);
             }
-            output.Content.AppendHtml(resultDiv.InnerHtml);
-     //       base.Process(context, output);
-        }
+
+            output.Content.AppendHtml(resultaDaDiv.InnerHtml);
+        }*/
     }
 }

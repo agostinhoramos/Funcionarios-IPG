@@ -6,10 +6,6 @@ namespace IPG_Funcionarios.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Contacto",
-                table: "Departamento");
-
             migrationBuilder.CreateTable(
                 name: "Funcionario",
                 columns: table => new
@@ -20,7 +16,8 @@ namespace IPG_Funcionarios.Migrations
                     Telefone = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Genero = table.Column<string>(nullable: false),
-                    Morada = table.Column<string>(nullable: false)
+                    Morada = table.Column<string>(nullable: false),
+                    DataNascionento = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,12 +29,6 @@ namespace IPG_Funcionarios.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Funcionario");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Contacto",
-                table: "Departamento",
-                type: "nvarchar(max)",
-                nullable: true);
         }
     }
 }

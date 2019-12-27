@@ -14,93 +14,137 @@ namespace IPG_Funcionarios.Controllers
 
     {
         private readonly IPGFuncionariosDbContext _context;
-        private const int PAGE_SIZE = 10;
+        private const int PAGE_SIZE = 5;
         public FuncionarioController(IPGFuncionariosDbContext context)
         {
             _context = context;
         }
 
         // GET: Funcionario
-        public async Task<IActionResult> Index(FuncionarioViewList model = null, int page = 1, string order = null)
+        public async Task<IActionResult> Index(string ordem, string filtroAtual, string filtro, int? pagina)
         {
-            string Funcionario = null;
-            if (model != null)
-            {
-                Funcionario = model.CurrentNome;
-            }
-            var funcionario = _context.Funcionario
-                .Where(p => Funcionario == null || p.Nome.Contains(Funcionario));
-            int numFuncionario = await funcionario.CountAsync();
+            ViewData["ordemAtual"] = ordem;
+            ViewData["NomeParm"] = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
+            ViewData["DataParm"] = ordem == "Data" ? "data_desc" : "Data";
 
-            if (page > (numFuncionario / PAGE_SIZE) + 1)
+            if (filtro != null)
             {
-                page = 1;
-            }
-            IEnumerable<Funcionario> TipoList;
-            if (order == "ID")
-            {
-                TipoList = await funcionario
-                    .OrderBy(p => p.FuncionarioId)
-                    .Skip(PAGE_SIZE * (page - 1))
-                    .Take(PAGE_SIZE)
-                    .ToListAsync();
-            }
-            else if (order == "Nome")
-            {
-                TipoList = await funcionario
-                    .OrderBy(p => p.Nome)
-                    .Skip(PAGE_SIZE * (page - 1))
-                    .Take(PAGE_SIZE)
-                    .ToListAsync();
-            }
-            else if (order == "Telefone")
-            {
-                TipoList = await funcionario
-                    .OrderBy(p => p.Telefone)
-                    .Skip(PAGE_SIZE * (page - 1))
-                    .Take(PAGE_SIZE)
-                    .ToListAsync();
-            }
-            else if (order == "Género")
-            {
-                TipoList = await funcionario
-                    .OrderBy(p => p.Genero)
-                    .Skip(PAGE_SIZE * (page - 1))
-                    .Take(PAGE_SIZE)
-                    .ToListAsync();
-            }
-            else if (order == "Morada")
-            {
-                TipoList = await funcionario
-                    .OrderBy(p => p.Morada)
-                    .Skip(PAGE_SIZE * (page - 1))
-                    .Take(PAGE_SIZE)
-                    .ToListAsync();
+                pagina = 1;
             }
             else
             {
-                TipoList = await funcionario
-                    .OrderBy(p => p.FuncionarioId)
-                    .Skip(PAGE_SIZE * (page - 1))
-                    .Take(PAGE_SIZE)
-                    .ToListAsync();
+                filtro = filtroAtual;
             }
+            ViewData["filtroAtual"] = filtro;
+            var funcionario = from est in _context.Funcionario select est;
+            if (!String.IsNullOrEmpty(filtro))
+            {
+                funcionario = funcionario.Where(est => est.Email.Contains(filtro) || est.Nome.Contains(filtro));
+            }
+            switch (ordem)
+            {
+                case "nome_desc":
+                    funcionario = funcionario.OrderByDescending(est => est.Nome);
+                    break;
+                case "Data":
+                    funcionario = funcionario.OrderBy(est => est.DataNascionento);
+                    break;
+                case "data_desc":
+                    funcionario = funcionario.OrderByDescending(est => est.DataNascionento);
+                    break;
+                case "telefone":
+                    funcionario = funcionario.OrderBy(est => est.Telefone);
+                    break;
+                case "morada":
+                    funcionario = funcionario.OrderBy(est => est.Morada);
+                    break;
+                default:
+                    funcionario = funcionario.OrderBy(est => est.Email);
+                    break;
+            }
+            return View(await PaginacaoViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pagina ?? 1, PAGE_SIZE));
 
-            return View(
-                new FuncionarioViewList
-                {
-                    Funcionario = TipoList,
-                    Paginacao = new PaginacaoViewModel
+            //  public async Task<IActionResult> Index(FuncionarioViewList model = null, int pagina = 1, string order = null)
+            //{
+                //            string Funcionario = null;
+                /*    if (model != null !! model.Nome!=null)
                     {
-                        CurrentPage = page,
-                        PageSize = PAGE_SIZE,
-                        Totaltems = numFuncionario,
-                        Order = order
-                    },
-                    CurrentNome = Funcionario
-                }
-            );
-        }
+                        nome= model.Nome;
+                    }
+                    var funcionario = _context.Funcionario
+                        .Where(p => Funcionario == null || p.Nome.Contains(Funcionario));
+                    int numFuncionario = await funcionario.CountAsync();
+
+                    if (pagina > (numFuncionario / PAGE_SIZE) + 1)
+                    {
+                        pagina = 1;
+                    }
+                    IEnumerable<Funcionario> TipoList;
+                    if (order == "ID")
+                    {
+                        TipoList = await funcionario
+                            .OrderBy(p => p.FuncionarioId)
+                            .Skip(PAGE_SIZE * (pagina - 1))
+                            .Take(PAGE_SIZE)
+                            .ToListAsync();
+                    }
+                    else if (order == "Nome")
+                    {
+                        TipoList = await funcionario
+                            .OrderBy(p => p.Nome)
+                            .Skip(PAGE_SIZE * (pagina - 1))
+                            .Take(PAGE_SIZE)
+                            .ToListAsync();
+                    }
+                    else if (order == "Telefone")
+                    {
+                        TipoList = await funcionario
+                            .OrderBy(p => p.Telefone)
+                            .Skip(PAGE_SIZE * (pagina - 1))
+                            .Take(PAGE_SIZE)
+                            .ToListAsync();
+                    }
+                    else if (order == "Género")
+                    {
+                        TipoList = await funcionario
+                            .OrderBy(p => p.Genero)
+                            .Skip(PAGE_SIZE * (pagina - 1))
+                            .Take(PAGE_SIZE)
+                            .ToListAsync();
+                    }
+                    else if (order == "Morada")
+                    {
+                        TipoList = await funcionario
+                            .OrderBy(p => p.Morada)
+                            .Skip(PAGE_SIZE * (pagina - 1))
+                            .Take(PAGE_SIZE)
+                            .ToListAsync();
+                    }
+                    else
+                    {
+                        TipoList = await funcionario
+                            .OrderBy(p => p.FuncionarioId)
+                            .Skip(PAGE_SIZE * (pagina - 1))
+                            .Take(PAGE_SIZE)
+                            .ToListAsync();
+                    }
+
+                    return View(
+                        new FuncionarioViewList
+                        {
+                            Funcionario = TipoList,
+                            Paginacao = new PaginacaoViewModel
+                            {
+                                PaginaCorrente = pagina,
+                                TamanhoPagina = PAGE_SIZE,
+                                TotalItens = numFuncionario,
+
+                                CurrentNome = Funcionario
+                            },
+                            CurrentNome = Funcionario
+                        }
+                    );*/
+            }
 
             // GET: Funcionario/Details/5
             public async Task<IActionResult> Details(int? id)

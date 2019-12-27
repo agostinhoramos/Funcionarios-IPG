@@ -30,10 +30,11 @@ namespace IPG_Funcionarios.Models
         public string Genero { get; set; }
 
         [Required(ErrorMessage = "Por favor, digite a sua Morada!")]
-     
-        public string Morada { get; set; }
+         public string Morada { get; set; }
 
-
-
+        [Required(ErrorMessage = "Por favor, introduza a data de nascimento")]
+        [DataType(DataType.Date, ErrorMessage = "Data de nascimento inválida")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
+        public string DataNascionento { get;  internal set; }
     }
 }

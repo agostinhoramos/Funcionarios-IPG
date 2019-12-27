@@ -6,7 +6,7 @@
 
 <h1>Delete</h1>
 <div>
-    <h4>Funcionario</h4>
+
     <h3>Deseja apagar Funcionario @Html.DisplayFor(model => model.Nome) ?</h3>
 
     <hr />
@@ -40,6 +40,12 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Morada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataNascionento)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataNascionento)
         </dd>
     </dl>
 

@@ -38,10 +38,15 @@
                 <span asp-validation-for="Morada" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="DataNascionento" class="control-label"></label>
+                <input asp-for="DataNascionento" class="form-control" />
+                <span asp-validation-for="DataNascionento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                 <a asp-action="Index" class="btn btn-default">Voltar atrás</a>
-                </div>
-</form>
+                <a asp-controller="Home" asp-action="" class="badge badge-pill badge-info">Voltar</a>
+            </div>
+        </form>
     </div>
 </div>
 
