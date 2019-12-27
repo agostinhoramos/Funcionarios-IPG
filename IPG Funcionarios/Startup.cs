@@ -15,12 +15,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using IPG_Funcionarios.Models;
 
-namespace IPG_Funcionarios
-{
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+namespace IPG_Funcionarios {
+    public class Startup {
+        public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
@@ -28,39 +25,31 @@ namespace IPG_Funcionarios
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddDbContext<IPGFuncionariosDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("IPGFuncionariosDbContext")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<IPGFuncionariosDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-        services.AddDbContext<IPGFuncionariosDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ProfessoresDbContext")));
+            services.AddDbContext<IPGFuncionariosDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("IPGFuncionariosDbContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
-        {
-            if (env.IsDevelopment())
-            {
-                using (var serviceScope = app.ApplicationServices.CreateScope())
-                {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory) {
+            if (env.IsDevelopment()) {
+                using (var serviceScope = app.ApplicationServices.CreateScope()) {
                     var db = serviceScope.ServiceProvider.GetService<IPGFuncionariosDbContext>();
                     SeedData.Populate(db);
-                    SeedDataDepartamento.Populate(db);
-                   
                 }
             }
 
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
-		        app.UseDatabaseErrorPage();
-            }
-            else
-            {
+                app.UseDatabaseErrorPage();
+            } else {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
@@ -73,8 +62,7 @@ namespace IPG_Funcionarios
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

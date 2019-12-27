@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="//cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
     <link rel="stylesheet" href="~/assets/css/style.css">
-    <link rel="stylesheet" href="~/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" href="~/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/assets/css/custom_style.css" />
     <link rel="shortcut icon" href="~/assets/image/favicon.ico" />
+    <script src="~/assets/js/jquery.js"></script>
 </head>
 <body>
     <div class="container-scroller">
@@ -22,12 +24,12 @@
                     <span class="mdi mdi-menu"></span>
                 </button>
                 <div class="search-field d-none d-md-block">
-                    <form class="d-flex align-items-center h-100" action="#">
+                    <form class="d-flex align-items-center h-100" style="width:550px;" action="#">
                         <div class="input-group">
                             <div class="input-group-prepend bg-transparent">
                                 <i class="input-group-text border-0 mdi mdi-magnify"></i>
                             </div>
-                            <input type="text" class="form-control bg-transparent border-0" placeholder="Procurar tarefas">
+                            <input id="search" type="text" class="form-control bg-transparent border-0" placeholder="" />
                         </div>
                     </form>
                 </div>
@@ -38,49 +40,12 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                            <h6 class="p-3 mb-0">Messages</h6>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <img src="http://www.bootstrapdash.com/demo/purple/jquery/template/assets/images/faces/face4.jpg" alt="image" class="profile-pic">
-                                </div>
-                                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
-                                    <p class="text-gray mb-0"> 1 Minutes ago </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <img src="http://www.bootstrapdash.com/demo/purple/jquery/template/assets/images/faces/face2.jpg" alt="image" class="profile-pic">
-                                </div>
-                                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
-                                    <p class="text-gray mb-0"> 15 Minutes ago </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <img src="http://www.bootstrapdash.com/demo/purple/jquery/template/assets/images/faces/face3.jpg" alt="image" class="profile-pic">
-                                </div>
-                                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
-                                    <p class="text-gray mb-0"> 18 Minutes ago </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="p-3 mb-0 text-center">4 new messages</h6>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                             <i class="mdi mdi-bell-outline"></i>
                             <span class="count-symbol bg-danger"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                            <h6 class="p-3 mb-0">Notifications</h6>
+                            <h6 class="p-3 mb-0">Notificações</h6>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
@@ -89,40 +54,16 @@
                                     </div>
                                 </div>
                                 <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
-                                    <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
+                                    <h6 class="preview-subject font-weight-normal mb-1">Evento de hoje</h6>
+                                    <p class="text-gray ellipsis mb-0"> Novo professor foi adicionado a lista. </p>
                                 </div>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-warning">
-                                        <i class="mdi mdi-settings"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
-                                    <p class="text-gray ellipsis mb-0"> Update dashboard </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-info">
-                                        <i class="mdi mdi-link-variant"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                    <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
-                                    <p class="text-gray ellipsis mb-0"> New admin wow! </p>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="p-3 mb-0 text-center">See all notifications</h6>
+                            <h6 class="p-3 mb-0 text-center">Ver todas notificações</h6>
                         </div>
                     </li>
-                    <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item nav-logout d-none d-lg-block" title="Terminar sessão">
+                        <a class="nav-link" data-toggle="modal" data-target="#login-model-pop01">
                             <i class="mdi mdi-power"></i>
                         </a>
                     </li>
@@ -136,10 +77,34 @@
                     <span class="mdi mdi-menu"></span>
                 </button>
             </div>
+
         </nav>
         <div class="container-fluid page-body-wrapper">
             @RenderBody()
         </div>
+
+        <!-- Modal Start -->
+        <div class="modal fade" id="login-model-pop01" tabindex="-1" role="dialog" aria-labelledby="login-model-pop01" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="login-model-pop01">Login</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Encerrar a sessão agora?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="c-btn c-btn-primary">Terminar sessão</button>
+                        <button type="button" class="c-btn c-btn-secundary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ends -->
+
         <!-- page-body-wrapper ends -->
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
@@ -148,16 +113,6 @@
             </div>
         </footer>
     </div>
-
-    <style>
-    /* AJUSTE NO HTML gerado pelo SCAFFOLDING  */
-    .page-body-wrapper .col-md-4 .form-group input{
-	    width:800px;
-    }
-    .page-body-wrapper .col-md-4 form {
-        padding-top:20px;
-    }
-    </style>
 
     <script src="~/assets/vendors/bundle.base/script.js"></script>
     <script src="~/assets/vendors/Chart/script.js"></script>

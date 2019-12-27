@@ -12,5 +12,7 @@ namespace IPG_Funcionarios.Models
         public int PaginaTotal {get; set;}
         public int MostrarPrimeiraPagina {get; set;}
         public  int MostrarUltimaPagina {get; set;}
+        public string StringProcura { get; set; }
+        public string Sort { get; set; }
     }
 }

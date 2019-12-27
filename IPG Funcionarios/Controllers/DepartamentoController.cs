@@ -12,8 +12,8 @@ namespace IPG_Funcionarios.Controllers
     public class DepartamentoController : Controller
     {
         private readonly IPGFuncionariosDbContext _context;
-        private const int PAGE_SIZE = 5;
-        private const int PAGES_BEFORE_AFTER = 0;
+        public int PAGE_SIZE = 10;
+       
 
         public DepartamentoController(IPGFuncionariosDbContext context)
         {
@@ -21,11 +21,38 @@ namespace IPG_Funcionarios.Controllers
         }
 
         // GET: Departamento
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int page = 1, string searchString = "", string sort = "true")
         {
-            var P = new DepartamentoViewsModels
+            var departamento = from p in _context.Departamento
+                               select p;
+            if (!String.IsNullOrEmpty(searchString)) {
+                departamento = departamento.Where(p => p.Nome.Contains(searchString)); }
+
+            decimal nDepartamento = departamento.Count();
+            int PAGES_BEFORE_AFTER = ((int)nDepartamento / PAGE_SIZE);
+
+            if (nDepartamento % PAGE_SIZE == 0)
             {
-                Departamentos = _context.Departamento
+                PAGES_BEFORE_AFTER -= 1;
+            }
+            DepartamentoViewsModels vm = new DepartamentoViewsModels
+            {
+                Sort = sort,
+                PaginaCorrente = page,
+                MostrarPrimeiraPagina = Math.Max(1, page - PAGES_BEFORE_AFTER),
+                PaginaTotal = (int)Math.Ceiling(nDepartamento / PAGE_SIZE)
+            };
+            if (sort.Equals("true"))
+            {
+                vm.Departamentos = departamento.OrderBy(p => p.Nome).Skip((page - 1) * PAGE_SIZE).Take(PAGE_SIZE);
+            }
+            vm.MostrarUltimaPagina = Math.Min(vm.PaginaTotal, page + PAGES_BEFORE_AFTER);
+
+            vm.StringProcura = searchString;
+            return View(vm);
+        }
+
+                /*
                 //Paginacao
                 //Ordenar
                 .OrderBy(p => p.Nome)
@@ -40,9 +67,10 @@ namespace IPG_Funcionarios.Controllers
             //return View(await _context.Departamento.ToListAsync());
             return View(P);
         }
+        */
 
-        // GET: Departamento/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Departamento/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {

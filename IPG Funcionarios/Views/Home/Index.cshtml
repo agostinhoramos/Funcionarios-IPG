@@ -2,12 +2,11 @@
     ViewData["Title"] = "My Page";
 }
 
-<div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
 <div id="right-sidebar" class="settings-panel">
     <i class="settings-close mdi mdi-close"></i>
     <ul class="nav nav-tabs bg-gradient-primary" id="setting-panel" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">Lista de Tarefas</a>
         </li>
     </ul>
     <div class="tab-content" id="setting-content">
@@ -15,8 +14,8 @@
             <div class="add-items d-flex px-3 mb-0">
                 <form class="form w-100">
                     <div class="form-group d-flex">
-                        <input type="text" class="form-control todo-list-input" placeholder="Add To-do">
-                        <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Add</button>
+                        <input type="text" class="form-control todo-list-input" placeholder="Adicione tarefas aqui">
+                        <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Adicionar</button>
                     </div>
                 </form>
             </div>
@@ -25,84 +24,17 @@
                     <li>
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input class="checkbox" type="checkbox"> Team review meeting at 3.00 PM
-                            </label>
-                        </div>
-                        <i class="remove mdi mdi-close-circle-outline"></i>
-                    </li>
-                    <li>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="checkbox" type="checkbox"> Prepare for presentation
-                            </label>
-                        </div>
-                        <i class="remove mdi mdi-close-circle-outline"></i>
-                    </li>
-                    <li>
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="checkbox" type="checkbox"> Resolve all the low priority tickets due today
-                            </label>
-                        </div>
-                        <i class="remove mdi mdi-close-circle-outline"></i>
-                    </li>
-                    <li class="completed">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="checkbox" type="checkbox" checked> Schedule meeting for next week
-                            </label>
-                        </div>
-                        <i class="remove mdi mdi-close-circle-outline"></i>
-                    </li>
-                    <li class="completed">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="checkbox" type="checkbox" checked> Project review
+                                <input class="checkbox" type="checkbox"> Lembrar de marcar presença dos alunos
                             </label>
                         </div>
                         <i class="remove mdi mdi-close-circle-outline"></i>
                     </li>
                 </ul>
             </div>
-            <div class="events py-4 border-bottom px-3">
-                <div class="wrapper d-flex mb-2">
-                    <i class="mdi mdi-circle-outline text-primary mr-2"></i>
-                    <span>Feb 11 2018</span>
-                </div>
-                <p class="mb-0 font-weight-thin text-gray">Creating component page</p>
-                <p class="text-gray mb-0">build a js based app</p>
-            </div>
-            <div class="events pt-4 px-3">
-                <div class="wrapper d-flex mb-2">
-                    <i class="mdi mdi-circle-outline text-primary mr-2"></i>
-                    <span>Feb 7 2018</span>
-                </div>
-                <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
-                <p class="text-gray mb-0 ">Call Sarah Graves</p>
-            </div>
         </div>
     </div>
 </div>
-<div id="theme-settings" class="settings-panel">
-    <i class="settings-close mdi mdi-close"></i>
-    <p class="settings-heading">SIDEBAR SKINS</p>
-    <div class="sidebar-bg-options selected" id="sidebar-default-theme">
-        <div class="img-ss rounded-circle bg-light border mr-3"></div>Default
-    </div>
-    <div class="sidebar-bg-options" id="sidebar-dark-theme">
-        <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
-    </div>
-    <p class="settings-heading mt-2">HEADER SKINS</p>
-    <div class="color-tiles mx-0 px-4">
-        <div class="tiles primary"></div>
-        <div class="tiles success"></div>
-        <div class="tiles warning"></div>
-        <div class="tiles danger"></div>
-        <div class="tiles info"></div>
-        <div class="tiles dark"></div>
-        <div class="tiles default light"></div>
-    </div>
-</div>
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
 
@@ -160,11 +92,23 @@
     <div class="content-wrapper">
         @* ALL PAGE CONTENT HERE *@
 
+        @{
+            int hour = DateTime.Now.Hour;
+            string greeting;
+            if (hour >= 7 && hour < 12) {
+                greeting = "Bom dia";
+            } else
+            if (hour >= 12 && hour <20) {
+                greeting = "Boa tarde";
+            } else{
+                greeting = "Boa noite";
+            }
+        }
         <div class="page-header">
             <h3 class="page-title">
                 <span class="page-title-icon bg-gradient-primary text-white mr-2">
                     <i class="mdi mdi-home"></i>
-                </span> Seja bem vindo!
+                </span> @greeting, Seja bem vindo!
             </h3>
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb">
@@ -175,26 +119,23 @@
             </nav>
         </div>
 
-        <div class="row">
-            <div class="col-12 grid-margin">
-                <br />
-                <div class="text-center force-link">
-                    <button type="button" class="btn btn-outline-info">
-                        <a asp-controller="Professores" asp-action="">Professor</a>
-                    </button>
-                    <button type="button" class="btn btn-outline-info">
-                        <a asp-controller="Funcionario" asp-action="Index">Funcionario</a>
-                    </button>
-                    <!--<div>
-                         <a asp-controller="Funcionario" asp-action="Index" class="btn btn-outline-info">Funcionario</a>
-                     </div>-->
-                     <button type="button" class="btn btn-outline-info">
-                        <a asp-controller="Departamento" asp-action="Index">Departamento</a>
-                    </button>
+                <div class="row">
+                    <div class="col grid-margin">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title"><i class="mdi mdi-settings"></i>&nbsp;Módulos</h4>
+                                <div class="table-responsive">
+                                    <div class="text-center force-link">
+                                        <a class="btn btn-outline-info" asp-controller="Professores" asp-action="">Professor</a>
+                                        <a class="btn btn-outline-info" asp-controller="Funcionario" asp-action="Index">Funcionario</a>
+                                        <a class="btn btn-outline-info" asp-controller="Departamento" asp-action="Index">Departamento</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        @* ALL PAGE CONTENT HERE *@
-    </div>
+                @* ALL PAGE CONTENT HERE *@
+            </div>
 </div>
