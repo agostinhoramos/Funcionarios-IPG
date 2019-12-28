@@ -14,7 +14,7 @@ namespace IPG_Funcionarios.Models {
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o seu número de telemóvel/telefone!")]
-        [RegularExpression(@"(2\d{8})|(9[1236]\d{7})", ErrorMessage = "Contacto inválido!")]
+        [RegularExpression(@"(2\d{8})|(9[0123456789]\d{7})", ErrorMessage = "Contacto inválido!")]
         public string Contacto { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o email!")]

@@ -159,9 +159,8 @@ namespace IPG_Funcionarios.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProfessorId,Nome,Contacto,Email,Gabinete")] Professor professor)
         {
-            if (id != professor.ProfessorId)
-            {
-                return NotFound();
+            if (id > 0 && ProfessorExists(id)) {
+                professor.ProfessorId = id;
             }
 
             if (ModelState.IsValid)
@@ -182,9 +181,11 @@ namespace IPG_Funcionarios.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                return View();
             }
-            return View(professor);
+            
+            return View("message"); //professor 
         }
 
         // GET: Professores/Delete/5
