@@ -131,9 +131,14 @@ namespace IPG_Funcionarios.Controllers
             {
                 _context.Add(professor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                ViewBag.title = "Criação do professor";
+                ViewBag.type = "alert-success";
+                ViewBag.message = "Os dados do professor " + professor.Nome + " foram criados com sucesso!";
+                ViewBag.redirect = "/Professores/"; // Request.Path
             }
-            return View(professor);
+
+            return View("message");
         }
 
         // GET: Professores/Edit/5
@@ -182,7 +187,10 @@ namespace IPG_Funcionarios.Controllers
                     }
                 }
 
-                return View();
+                ViewBag.title = "Edição do professor";
+                ViewBag.type = "alert-success";
+                ViewBag.message = "Os dados do professor " + professor.Nome + " foram atualizados com sucesso!";
+                ViewBag.redirect = "/Professores/"; // Request.Path
             }
             
             return View("message"); //professor 
@@ -214,7 +222,13 @@ namespace IPG_Funcionarios.Controllers
             var professor = await _context.Professor.FindAsync(id);
             _context.Professor.Remove(professor);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            ViewBag.title = "Apagar professor";
+            ViewBag.type = "alert-success";
+            ViewBag.message = "Os dados do professor " + professor.Nome + " foram apagados com sucesso!";
+            ViewBag.redirect = "/Professores/"; // Request.Path
+
+            return View("message");
         }
 
         private bool ProfessorExists(int id)
