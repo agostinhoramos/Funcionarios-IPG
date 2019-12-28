@@ -4,67 +4,91 @@
     ViewData["Title"] = "Details";
 }
 
-    <div class="main-panel view-html" style="width:100%;">
-        <div class="content-wrapper" >
-            <div class="page-header">
-                <h3 class="page-title">
-                    <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
-                </h3>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Views</li>
-                        <li class="breadcrumb-item"><a asp-action="Index">Professores</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Details</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="row">
+<div class="main-panel view-html" style="width:100%;">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Views</li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Professores</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Details</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!--HTML -->
 
-
-                <div class="col">
-                    <div class="panel">
-                        <!-- COLUNA 1 -->
-                            <dl class="row">
-                                <dt class="col-sm-2">
-                                    @Html.DisplayNameFor(model => model.Nome)
-                                </dt>
-                                <dd class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Nome)
-                                </dd>
-                                <dt class="col-sm-2">
-                                    @Html.DisplayNameFor(model => model.Contacto)
-                                </dt>
-                                <dd class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Contacto)
-                                </dd>
-                                <dt class="col-sm-2">
-                                    @Html.DisplayNameFor(model => model.Email)
-                                </dt>
-                                <dd class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Email)
-                                </dd>
-                                <dt class="col-sm-2">
-                                    @Html.DisplayNameFor(model => model.Gabinete)
-                                </dt>
-                                <dd class="col-sm-10">
-                                    @Html.DisplayFor(model => model.Gabinete)
-                                </dd>
-                            </dl>
-
-                            <div class="ctrl">
-                                <a class="c-btn c-btn-primary" asp-action="Edit" asp-route-id="@Model.ProfessorId">Edit</a>
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Detalhes do Professor:
+                        </p>
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="order-listing" class="table dataTable no-footer">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <tbody>
+                                                    <div role="row" class="even">
+                                                        <div class="mb-2">
+                                                            <input asp-for="Nome" placeholder="Nome" class="form-control" disabled>
+                                                            <span asp-validation-for="Nome" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <input asp-for="Contacto" placeholder="Contacto" class="form-control" disabled>
+                                                            <span asp-validation-for="Contacto" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <input asp-for="Email" placeholder="Email" class="form-control" disabled>
+                                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <input asp-for="Gabinete" placeholder="Gabinete" class="form-control" disabled>
+                                                            <span asp-validation-for="Gabinete" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <div class="w-100 d-flex">
+                                                                <a class="c-btn c-btn-secundary w-100 m-0 mt-2"
+                                                                   asp-action="Edit" asp-route-id="@Model.ProfessorId">
+                                                                    Editar
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
+                <!--HTML -->
+            </div>
         </div>
     </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 <style>
-    form.d-flex.align-items-center.h-100,
-      .navbar-menu-wrapper span{
-       display: none;
-       visibility: hidden;
+    .search-field,
+    button[data-toggle="minimize"],
+    #todo-task {
+        display: none;
+        visibility: hidden;
     }
 </style>

@@ -14,7 +14,7 @@
             sort_email = Model.CurrentOption == "email" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"", 
             sort_gabinete = Model.CurrentOption == "gabinete" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"";
 
-    string entries_ = (Model.entries_start.ToString()!=Model.entries_end.ToString())? 
+    string entries_ = (Model.entries_start.ToString() != Model.entries_end.ToString())? 
         "de "+Model.entries_start.ToString() + " até " + Model.entries_end.ToString() : Model.entries_end.ToString(); 
 }
 <div class="main-panel view-html" style="width:100%;">
@@ -168,15 +168,15 @@
 </div>
 
 <script>
-        $(document).ready(function () {
-            var baseURL = location.protocol + '//' + '@Context.Request.Host/@views_name';
-            var cpage = parseInt('@Model.CurrentPage');
-            var csort = '@Model.Sort';
-            var cstrg = encodeURIComponent('@Model.CurrentSearch').trim().toLowerCase();
-            var cstgq = '@Context.Request.QueryString';
-            var tpage = parseInt('@Model.AllPages');
-            var phold = 'Procurar @Model.CurrentOption';
+        var baseURL = location.protocol + '//' + '@Context.Request.Host/@views_name';
+        var cpage = parseInt('@Model.CurrentPage');
+        var csort = '@Model.Sort';
+        var cstrg = encodeURIComponent('@Model.CurrentSearch').trim().toLowerCase();
+        var cstgq = '@Context.Request.QueryString';
+        var tpage = parseInt('@Model.AllPages');
+        var phold = 'Procurar @Model.CurrentOption';
 
+        $(document).ready(function () {
             if ( true ) {
                     $("li a#prev").click(function () {
                         if (cpage > 1) {
@@ -245,7 +245,8 @@
 </script>
 
 <style>
-    .navbar-menu-wrapper span{
+    button[data-toggle="minimize"],
+    #todo-task {
         display: none;
         visibility: hidden;
     }
