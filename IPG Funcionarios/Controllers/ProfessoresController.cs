@@ -129,16 +129,40 @@ namespace IPG_Funcionarios.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(professor);
-                await _context.SaveChangesAsync();
+                if (
+                   isEqual("Nome", professor.Nome) ||
+                   isEqual("Contacto", professor.Contacto) ||
+                   isEqual("Email", professor.Email) ||
+                   isEqual("Gabinete", professor.Gabinete)
+                   )
+                {
+                    string  repeated = isEqual("Nome", professor.Nome) ? "Nome " : "";
+                            repeated += isEqual("Contacto", professor.Contacto) ? "Contacto " : "";
+                            repeated += isEqual("Email", professor.Email) ? "Email " : "";
+                            repeated += isEqual("Gabinete", professor.Gabinete) ? "Gabinete " : "";
 
-                ViewBag.title = "Criação do professor";
-                ViewBag.type = "alert-success";
-                ViewBag.message = "Os dados do professor " + professor.Nome + " foram criados com sucesso!";
-                ViewBag.redirect = "/Professores/"; // Request.Path
+                    ViewBag.type = "alert-danger";
+                    ViewBag.title = "Erro ao criar o professor";
+                    ViewBag.message = "Não foi possível criar novo Professor porque,"+
+                                      "existem dados repetidos em todos ou um dos "+
+                                      "campos [ " + repeated + "]";
+
+                    ViewBag.redirect = "/Professores/Create"; // Request.Path
+                    return View("message");
+                }
+                else {
+                    _context.Add(professor);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.type = "alert-success";
+                    ViewBag.title = "Criação do professor";
+                    ViewBag.message = "O professor '" + professor.Nome + "' criado com sucesso!";
+                    ViewBag.redirect = "/Professores/"; // Request.Path
+                    return View("message");
+                }
             }
 
-            return View("message");
+            return View(professor);
         }
 
         // GET: Professores/Edit/5
@@ -170,6 +194,7 @@ namespace IPG_Funcionarios.Controllers
 
             if (ModelState.IsValid)
             {
+
                 try
                 {
                     _context.Update(professor);
@@ -187,13 +212,15 @@ namespace IPG_Funcionarios.Controllers
                     }
                 }
 
-                ViewBag.title = "Edição do professor";
+                ViewBag.title = "Atualização do professor";
                 ViewBag.type = "alert-success";
-                ViewBag.message = "Os dados do professor " + professor.Nome + " foram atualizados com sucesso!";
+                ViewBag.message = "Os dados do professor '" + professor.Nome + "' foram atualizados com sucesso!";
                 ViewBag.redirect = "/Professores/"; // Request.Path
+                return View("message");
+
             }
             
-            return View("message"); //professor 
+            return View(professor); //professor 
         }
 
         // GET: Professores/Delete/5
@@ -234,6 +261,25 @@ namespace IPG_Funcionarios.Controllers
         private bool ProfessorExists(int id)
         {
             return _context.Professor.Any(e => e.ProfessorId == id);
+        }
+
+        private bool isEqual(string type, string value) {
+            bool result = false;
+            switch (type) {
+                case "Nome":
+                    result = _context.Professor.Any(e => e.Nome == value);
+                    break;
+                case "Email":
+                    result = _context.Professor.Any(e => e.Email == value);
+                    break;
+                case "Contacto":
+                    result = _context.Professor.Any(e => e.Contacto == value);
+                    break;
+                case "Gabinete":
+                    result = _context.Professor.Any(e => e.Gabinete == value);
+                    break;
+            }
+            return result;
         }
     }
 }

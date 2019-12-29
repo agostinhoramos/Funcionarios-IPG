@@ -85,8 +85,8 @@ namespace IPG_Funcionarios.Models {
                 new Departamento { Nome = "Departamento de Energia e Ambiente" },
                 new Departamento { Nome = "Departamento de Farmácia" },
                 new Departamento { Nome = "Departamento de Hotelaria" },
-                new Departamento { Nome = "	Departamento de Desporto" },
-                new Departamento { Nome = "	Departamento de Comunicação Multimédia" }
+                new Departamento { Nome = "Departamento de Desporto" },
+                new Departamento { Nome = "Departamento de Comunicação Multimédia" }
             );
             
             db.SaveChanges();
