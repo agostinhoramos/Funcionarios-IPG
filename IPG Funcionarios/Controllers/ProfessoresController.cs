@@ -194,33 +194,48 @@ namespace IPG_Funcionarios.Controllers
 
             if (ModelState.IsValid)
             {
-
-                try
+                if (
+                    !isUnique("Nome", professor.Nome ,id) ||
+                    !isUnique("Email", professor.Email, id) ||
+                    !isUnique("Contacto", professor.Contacto, id) ||
+                    !isUnique("Gabinete", professor.Gabinete, id)
+                   )
                 {
-                    _context.Update(professor);
-                    await _context.SaveChangesAsync();
+                    ViewBag.title = "Ocorreu um erro!";
+                    ViewBag.type = "alert-danger";
+                    ViewBag.message = "Já existe professores com o mesmo dados, por favor tente um dado diferente!";
+                    ViewBag.redirect = Request.Path;
+                    return View("message");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!ProfessorExists(professor.ProfessorId))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(professor);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!ProfessorExists(professor.ProfessorId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+
+                    ViewBag.title = "Atualização do professor";
+                    ViewBag.type = "alert-success";
+                    ViewBag.message = "Os dados do professor '" + professor.Nome + "' foram atualizados com sucesso!";
+                    ViewBag.redirect = "/Professores/"; // Request.Path
+                    return View("message");
                 }
-
-                ViewBag.title = "Atualização do professor";
-                ViewBag.type = "alert-success";
-                ViewBag.message = "Os dados do professor '" + professor.Nome + "' foram atualizados com sucesso!";
-                ViewBag.redirect = "/Professores/"; // Request.Path
-                return View("message");
-
+                
             }
             
-            return View(professor); //professor 
+            return View(professor);
         }
 
         // GET: Professores/Delete/5
@@ -280,6 +295,27 @@ namespace IPG_Funcionarios.Controllers
                     break;
             }
             return result;
+        }
+
+        // É o único professor com [type], com exceção de [id]
+        private bool isUnique(string type, string value, int id) {
+            bool result = false;
+            switch (type)
+            {
+                case "Nome":
+                    result = _context.Professor.Any(e => e.Nome == value && e.ProfessorId != id);
+                    break;
+                case "Email":
+                    result = _context.Professor.Any(e => e.Email == value && e.ProfessorId != id);
+                    break;
+                case "Contacto":
+                    result = _context.Professor.Any(e => e.Contacto == value && e.ProfessorId != id);
+                    break;
+                case "Gabinete":
+                    result = _context.Professor.Any(e => e.Gabinete == value && e.ProfessorId != id);
+                    break;
+            }
+            return !result;
         }
     }
 }

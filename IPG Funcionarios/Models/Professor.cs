@@ -22,5 +22,10 @@ namespace IPG_Funcionarios.Models {
         public string Email { get; set; }
         [Required]
         public string Gabinete { get; set; }
+
+        public static implicit operator bool(Professor v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
