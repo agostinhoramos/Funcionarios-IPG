@@ -5,17 +5,27 @@
 
     /* Main */
     string views_name = Context.Request.Path.ToString().Replace("/", "");
-    int entries_per_page_min = 10;
+    int entries_per_page_min = 5;
     int entries_per_page_max = 100;
 
-    string  sort_id = Model.CurrentOption == "id" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"", 
-            sort_nome = Model.CurrentOption == "nome" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"", 
-            sort_contacto = Model.CurrentOption == "contacto" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"",
-            sort_email = Model.CurrentOption == "email" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"", 
-            sort_gabinete = Model.CurrentOption == "gabinete" ? (!String.IsNullOrEmpty(Model.Sort)?Model.Sort:""):"";
+    string sort_id = Model.CurrentOption == "id" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
+            sort_nome = Model.CurrentOption == "nome" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
+            sort_contacto = Model.CurrentOption == "contacto" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
+            sort_email = Model.CurrentOption == "email" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
+            sort_gabinete = Model.CurrentOption == "gabinete" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "";
 
-    string entries_ = (Model.entries_start.ToString() != Model.entries_end.ToString())? 
-        "de "+Model.entries_start.ToString() + " até " + Model.entries_end.ToString() : Model.entries_end.ToString(); 
+    string entries_ = (Model.entries_start.ToString() != Model.entries_end.ToString()) ?
+        "de " + Model.entries_start.ToString() + " até " + Model.entries_end.ToString() : Model.entries_end.ToString();
+
+    string crq = Context.Request.QueryString.ToString();
+    string _u_page, _u_sort, _u_q, _u_o, _u_ipp;
+    
+    try { _u_page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_page = ""; }
+    try { _u_sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_sort = ""; }
+    try { _u_q = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_q = ""; }
+    try { _u_o = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_o = ""; }
+    try { _u_ipp = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_ipp = ""; }
+    
 }
 <div class="main-panel view-html" style="width:100%;">
     <div class="content-wrapper">
@@ -44,8 +54,8 @@
                                     <div class="row">
                                         <div class="col-sm-12 ctrl-a">
                                             <a asp-action="Create" class="c-btn c-btn-primary">Adicionar</a>
-                                            <select id="entries_per_page" value="@Model.entries_per_page" name="order-listing_length"
-                                                    aria-controls="order-listing" class="custom-select custom-select-sm form-control">
+                                            <select id="entries_per_page" name="order-listing_length"
+                                                aria-controls="order-listing" class="custom-select custom-select-sm form-control" >
                                                 @for (int i = entries_per_page_min; i <= entries_per_page_max; i += entries_per_page_min)
                                                 {
                                                     <option value="@i">@i</option>
@@ -168,19 +178,24 @@
         var tpage = parseInt('@Model.AllPages');
         var phold = 'Procurar @Model.CurrentOption';
 
-        $(document).ready(function () {
+    $(document).ready(function () {
+
+            _auto_item_per_page("@Model.entries_per_page");
+
             if ( true ) {
                     $("li a#prev").click(function () {
                         if (cpage > 1) {
                             var url = baseURL + '?page='
-                                + (cpage - 1) + (csort?'&sort='+csort:'') + (cstrg?'&q='+cstrg:'');
+                                + (cpage - 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
+                                + '&o=@_u_o&ipp=@_u_ipp';
                             url ? window.location.assign(url) : null;
                         }
                     });
                     $("li a#next").click(function () {
                         if (cpage < tpage) {
                             var url = baseURL + '?page='
-                                + (cpage + 1) + (csort?'&sort='+csort:'') + (cstrg?'&q='+cstrg:'');
+                                + (cpage + 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
+                                + '&o=@_u_o&ipp=@_u_ipp';
                             url ? window.location.assign(url) : null;
                         }
                     });
@@ -199,10 +214,11 @@
                 var query = $(this).val();
                 clearTimeout(id_wait);
                 if (!query || query.length < 1) {
+                    baseURL = baseURL + '?page=1&sort=@_u_sort&q=&o=@_u_o&ipp=@_u_ipp';
                     baseURL ? window.location.assign(baseURL) : null;
                 } else {
                     id_wait = setTimeout(function () {
-                        baseURL = baseURL + '?page=1&sort=1&q=' + query;
+                        baseURL = baseURL + '?page=1&sort=@_u_sort&q='+query+'&o=@_u_o&ipp=@_u_ipp';
                         baseURL ? window.location.assign(baseURL) : null;
                     },2000);
                 }
@@ -210,22 +226,29 @@
               .focus().attr("placeholder", phold);
 
             $("#entries_per_page").change(function () {
-                alert( $(this).val() );
+
+                baseURL = baseURL + '?page=@_u_o&sort=@_u_sort&q=@_u_q&o=@_u_o' + '&ipp=' + $(this).val();
+                baseURL ? window.location.assign(baseURL) : null;
             });
 
             $("tr.sort th").click(function () {
                 let type = $(this).text().trim().toLowerCase();
-                var url = baseURL + "?o=" + type + "&sort=" + (boo_sort() ? '0' : '1');
-                url += (cstrg ? "&q="+cstrg: "");
+                var s, o;
+                try {
+                    s = location.href.split("sort=")[1].split("&")[0];
+                } catch (e) { s = ""; }
+                try {
+                    o = location.href.split("o=")[1].split("&")[0];
+                } catch (e) { o = ""; }
+
+                var url = baseURL + '?page=@_u_page&sort=' + (((s == '0') ? '1'
+                    : (o !== type ? '1' : '0')) + (cstrg ? "&q=" + cstrg : ""))
+                    + '&o=' + type + '&ipp=@_u_ipp';
+
                 url ? window.location.assign(url) : null;
             });
         });
 
-    function boo_sort() {
-        try { return location.href.split("sort=")[1]
-              .split("&")[0] === '1';
-        } catch (e) { return false; }
-    }
 </script>
 
 <style>

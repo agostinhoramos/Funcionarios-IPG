@@ -18,7 +18,7 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10/* item per page */) {
+        public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10) {
 
             var prof = from p in _context.Professor select p;
             decimal nRows = prof.Count();

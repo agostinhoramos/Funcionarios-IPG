@@ -19,6 +19,11 @@ function _form(path, params, method) {
     form.submit();
 }
 
+function _auto_item_per_page(val) {
+    var el = $("#entries_per_page");
+    el.find('option').attr("selected", null);
+    el.find('option[value="' + val + '"]').attr("selected", true);
+}
 
 /* ----------------------------------------------------- */
 $(document).ready(function () {
