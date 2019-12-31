@@ -22,6 +22,11 @@ namespace IPG_Funcionarios.Controllers
 
             var prof = from p in _context.Professor select p;
             decimal nRows = prof.Count();
+            
+            if (ipp <= 1) {
+                ipp = (int)Math.Ceiling(nRows);
+            }
+            
             int PAGES_BEFORE_AND_AFTER = ((int)nRows / ipp);
 
             if (nRows % ipp == 0) {
@@ -40,10 +45,13 @@ namespace IPG_Funcionarios.Controllers
                 entries_all = (int)Math.Ceiling(nRows)
             };
 
+            // Algoritmo de pesquisa
             if (!String.IsNullOrEmpty(q)) {
                 vm.CurrentSearch = q;
-                if (!String.IsNullOrEmpty(o)) {
-                    switch (o) {
+                if (!String.IsNullOrEmpty(o))
+                {
+                    switch (o)
+                    {
                         case "nome":
                             prof = prof.Where(p => p.Nome.Contains(q));
                             break;
@@ -53,31 +61,46 @@ namespace IPG_Funcionarios.Controllers
                         case "email":
                             prof = prof.Where(p => p.Email.Contains(q));
                             break;
+                        case "gabinete":
+                            prof = prof.Where(p => p.Gabinete.CompareTo(q) == 0);
+                            break;
+                        case "id":
+                            prof = prof.Where(p => p.ProfessorId.CompareTo(Int32.Parse(q)) == 0);
+                            break;
                     }
+                }
+                else {
+                    prof = prof.Where(p => p.Nome.Contains(q));
                 }
             }
 
+            // Algoritmo de ordenação de caracteres
             if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o)) {
                 switch (o) {
                     case "id":
-                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.ProfessorId).Skip((page - 1) * ipp).Take(ipp)) :
-                                                     (prof.OrderByDescending(p => p.ProfessorId).Skip((page - 1) * ipp).Take(ipp));
+                        vm.Professor = (sort == "1") ? 
+                            (prof.OrderBy(p => p.ProfessorId).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.ProfessorId).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "nome":
-                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Nome).Skip((page - 1) * ipp).Take(ipp)) :
-                                                     (prof.OrderByDescending(p => p.Nome).Skip((page - 1) * ipp).Take(ipp));
+                        vm.Professor = (sort == "1") ? 
+                            (prof.OrderBy(p => p.Nome).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.Nome).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "contacto":
-                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Contacto).Skip((page - 1) * ipp).Take(ipp)) :
-                                                     (prof.OrderByDescending(p => p.Contacto).Skip((page - 1) * ipp).Take(ipp));
+                        vm.Professor = (sort == "1") ? 
+                            (prof.OrderBy(p => p.Contacto).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.Contacto).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "email":
-                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Email).Skip((page - 1) * ipp).Take(ipp)) :
-                                                     (prof.OrderByDescending(p => p.Email).Skip((page - 1) * ipp).Take(ipp));
+                        vm.Professor = (sort == "1") ? 
+                            (prof.OrderBy(p => p.Email).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.Email).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "gabinete":
-                        vm.Professor = (sort == "1") ? (prof.OrderBy(p => p.Gabinete).Skip((page - 1) * ipp).Take(ipp)) :
-                                                     (prof.OrderByDescending(p => p.Gabinete).Skip((page - 1) * ipp).Take(ipp));
+                        vm.Professor = (sort == "1") ? 
+                            (prof.OrderBy(p => p.Gabinete).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.Gabinete).Skip((page - 1) * ipp).Take(ipp));
                         break;
                 }
                         vm.Sort = sort;

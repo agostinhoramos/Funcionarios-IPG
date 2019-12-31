@@ -19,7 +19,6 @@
 
     string crq = Context.Request.QueryString.ToString();
     string _u_page, _u_sort, _u_q, _u_o, _u_ipp;
-    
     try { _u_page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_page = ""; }
     try { _u_sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_sort = ""; }
     try { _u_q = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_q = ""; }
@@ -56,11 +55,11 @@
                                             <a asp-action="Create" class="c-btn c-btn-primary">Adicionar</a>
                                             <select id="entries_per_page" name="order-listing_length"
                                                 aria-controls="order-listing" class="custom-select custom-select-sm form-control" >
+                                                    <option value="0">Todas</option>
                                                 @for (int i = entries_per_page_min; i <= entries_per_page_max; i += entries_per_page_min)
                                                 {
                                                     <option value="@i">@i</option>
                                                 }
-                                                <option value="-1">Todas</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
@@ -142,7 +141,9 @@
                                                         }
                                                         else
                                                         {
-                                                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchString="@Model.CurrentSearch" asp-route-sort="@Model.Sort">@i</a></li>
+                                                            <li class="page-item">
+                                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@_u_sort" asp-route-o="@_u_o" asp-route-ipp="@_u_ipp" asp-route-q="@_u_q" >@i</a>
+                                                            </li>
                                                         }
                                                     }
                                                     <li class="page-item">
