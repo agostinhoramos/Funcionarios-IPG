@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IPG_Funcionarios.Models;
+using Nest;
 
 namespace IPG_Funcionarios.Controllers
 {
@@ -69,8 +70,20 @@ namespace IPG_Funcionarios.Controllers
                             break;
                     }
                 }
-                else {
-                    prof = prof.Where(p => p.Nome.Contains(q));
+                else { // Avançada
+                    String[] sep = {" "};
+                    int word_limit = 20;
+                    String[] data = q.Split(sep, word_limit, StringSplitOptions.RemoveEmptyEntries);
+                    int len = data.Length - 1;
+                    if (len > 0) {
+                        for (int i = 0; i < len; i++)
+                        {
+                            prof = prof.Where(p => p.Nome.Contains(data[i]));
+                        }
+                    }
+                    else {
+                        prof = prof.Where(p => p.Nome.Contains(data[0]));
+                    }
                 }
             }
 
