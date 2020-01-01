@@ -23,6 +23,16 @@ namespace IPG_Funcionarios.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult Registar()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
