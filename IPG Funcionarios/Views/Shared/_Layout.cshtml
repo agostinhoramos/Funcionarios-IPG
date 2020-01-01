@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    @using Microsoft.AspNetCore.Identity
+    @inject SignInManager<IdentityUser> SignInManager
+    @inject UserManager<IdentityUser> UserManager
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,7 +29,7 @@
                     <span class="mdi mdi-menu"></span>
                 </button>
                 <div class="search-field d-none d-md-block">
-                    <form class="d-flex align-items-center h-100" style="width:550px;" action="#">
+                    <form class="d-flex align-items-center h-100" style="width:400px;" action="#">
                         <div class="input-group">
                             <div class="input-group-prepend bg-transparent">
                                 <i class="input-group-text border-0 mdi mdi-magnify"></i>
@@ -34,12 +39,36 @@
                     </form>
                 </div>
                 <ul class="navbar-nav navbar-nav-right">
-                    <li class="nav-item d-none d-lg-block full-screen-link" id="full-screen" >
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item nav-profile dropdown">
+                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                                <div class="nav-profile-img">
+                                    <img src="~/assets/image/user-48.png" alt="image">
+                                    <span class="availability-status online"></span>
+                                </div>
+                                <div class="nav-profile-text">
+                                    <p class="mb-1 text-black">David Greymaax</p>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="mdi mdi-logout mr-2 text-primary"></i> Signout
+                                </a>
+                            </div>
+                        </li>
+                    }
+
+                    <li class="nav-item d-none d-lg-block full-screen-link" id="full-screen">
                         <a class="nav-link">
                             <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown" id="notification" >
+                    <li class="nav-item dropdown" id="notification">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                             <i class="mdi mdi-bell-outline"></i>
                             <span class="count-symbol bg-danger"></span>
@@ -62,20 +91,20 @@
                             <h6 class="p-3 mb-0 text-center">Ver todas notificações</h6>
                         </div>
                     </li>
-                    <li class="nav-item nav-logout d-none d-lg-block" title="Terminar sessão" id="power" >
-                        <a class="nav-link" data-toggle="modal" data-target="#login-model-pop01">
-                            <i class="mdi mdi-power"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item nav-settings d-none d-lg-block" id="todo-task" >
+
+                    <partial name="_LoginPartial" />
+
+                    <li class="nav-item nav-settings d-none d-lg-block" id="todo-task">
                         <a class="nav-link" href="#">
                             <i class="mdi mdi-format-line-spacing"></i>
                         </a>
                     </li>
                 </ul>
+
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
                     <span class="mdi mdi-menu"></span>
                 </button>
+
             </div>
 
         </nav>
@@ -104,12 +133,11 @@
             </div>
         </div>
         <!-- Modal Ends -->
-
         <!-- page-body-wrapper ends -->
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="http://www.ipg.pt/website/" target="_blank">IPG</a> Todos os direitos reservados</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a> - Made with <i class="mdi mdi-heart text-danger"></i>by Group 05</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a> - Made with &nbsp;<i class="mdi mdi-heart text-danger"></i>by Group 05</span>
             </div>
         </footer>
     </div>
@@ -123,7 +151,7 @@
     <script src="~/assets/js/settings.js"></script>
     <script src="~/assets/js/todolist.js"></script>
     <script src="~/assets/js/dashboard.js"></script>
-    <script src="~/assets/js/custom_script.js" ></script>
+    <script src="~/assets/js/custom_script.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
