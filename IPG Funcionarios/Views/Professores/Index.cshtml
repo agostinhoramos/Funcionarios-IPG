@@ -24,18 +24,18 @@
     try { _u_q = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_q = ""; }
     try { _u_o = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_o = ""; }
     try { _u_ipp = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_ipp = ""; }
-    
+
 }
 <div class="main-panel view-html" style="width:100%;">
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title" >
+            <h3 class="page-title">
                 <a asp-controller="Home" asp-action=""><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">Views</li>
-                    <li class="breadcrumb-item"><a asp-action="Index" >@views_name</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">@views_name</a></li>
                     <li class="breadcrumb-item active" aria-current="page"></li>
                 </ol>
             </nav>
@@ -54,8 +54,8 @@
                                         <div class="col-sm-12 ctrl-a">
                                             <a asp-action="Create" class="c-btn c-btn-primary">Adicionar</a>
                                             <select id="entries_per_page" name="order-listing_length"
-                                                aria-controls="order-listing" class="custom-select custom-select-sm form-control" >
-                                                    <option value="0">Todas</option>
+                                                    aria-controls="order-listing" class="custom-select custom-select-sm form-control">
+                                                <option value="0">Todas</option>
                                                 @for (int i = entries_per_page_min; i <= entries_per_page_max; i += entries_per_page_min)
                                                 {
                                                     <option value="@i">@i</option>
@@ -142,7 +142,7 @@
                                                         else
                                                         {
                                                             <li class="page-item">
-                                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@_u_sort" asp-route-o="@_u_o" asp-route-ipp="@_u_ipp" asp-route-q="@_u_q" >@i</a>
+                                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@_u_sort" asp-route-o="@_u_o" asp-route-ipp="@_u_ipp" asp-route-q="@_u_q">@i</a>
                                                             </li>
                                                         }
                                                     }
@@ -170,7 +170,8 @@
     </div>
 </div>
 
-<script>
+@section Scripts {
+    <script>
         var baseURL = location.protocol + '//' + '@Context.Request.Host/@views_name';
         var cpage = parseInt('@Model.CurrentPage');
         var csort = '@Model.Sort';
@@ -250,7 +251,8 @@
             });
         });
 
-</script>
+    </script>
+}
 
 <style>
     button[data-toggle="minimize"],

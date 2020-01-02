@@ -13,5 +13,7 @@ namespace IPG_Funcionarios.Data
             : base(options)
         {
         }
+
+        public DbSet<IPG_Funcionarios.Models.UserAccount> userAccount { get; set; }
     }
 }

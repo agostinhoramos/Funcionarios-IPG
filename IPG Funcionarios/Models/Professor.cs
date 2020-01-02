@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IPG_Funcionarios.Models {
     public class Professor {
-        [Required]
+        [Key]
         public int ProfessorId { get; set; }
 
         [Required(ErrorMessage = "Por favor, introduza o nome do professor.")]

@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\Account\**" />
+    <Compile Remove="Areas\Identity\NewFolder\**" />
+    <Content Remove="Areas\Identity\Account\**" />
+    <Content Remove="Areas\Identity\NewFolder\**" />
+    <EmbeddedResource Remove="Areas\Identity\Account\**" />
+    <EmbeddedResource Remove="Areas\Identity\NewFolder\**" />
+    <None Remove="Areas\Identity\Account\**" />
+    <None Remove="Areas\Identity\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\UserAccountViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />

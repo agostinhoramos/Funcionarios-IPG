@@ -16,6 +16,7 @@ namespace IPG_Funcionarios.Models
         public IPGFuncionariosDbContext(DbContextOptions<IPGFuncionariosDbContext> options)
             : base(options)
         {
+
         }
 
         public DbSet<IPG_Funcionarios.Models.Professor> Professor { get; set; }
