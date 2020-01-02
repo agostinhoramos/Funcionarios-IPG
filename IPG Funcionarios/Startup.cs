@@ -65,7 +65,7 @@ namespace IPG_Funcionarios {
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Default}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

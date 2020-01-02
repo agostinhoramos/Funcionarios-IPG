@@ -176,7 +176,7 @@ namespace IPG_Funcionarios.Controllers
                     ViewBag.title = "Erro ao criar o professor";
                     ViewBag.message = "Não foi possível criar novo Professor porque,"+
                                       "existem dados repetidos em todos ou um dos "+
-                                      "campos [ " + repeated + "]";
+                                      "campos <strong>" + repeated + "</strong>";
 
                     ViewBag.redirect = "/Professores/Create"; // Request.Path
                     return View("message");
@@ -187,8 +187,8 @@ namespace IPG_Funcionarios.Controllers
 
                     ViewBag.type = "alert-success";
                     ViewBag.title = "Criação do professor";
-                    ViewBag.message = "O professor '" + professor.Nome + "' criado com sucesso!";
-                    ViewBag.redirect = "/Professores/"; // Request.Path
+                    ViewBag.message = "O professor <strong>" + professor.Nome + "</strong> <strong>criado</strong> com sucesso!";
+                    ViewBag.redirect = "/Professores/Index"; // Request.Path
                     return View("message");
                 }
             }
@@ -234,7 +234,7 @@ namespace IPG_Funcionarios.Controllers
                 {
                     ViewBag.title = "Ocorreu um erro!";
                     ViewBag.type = "alert-danger";
-                    ViewBag.message = "Já existe professores com o mesmo dados, por favor tente um dado diferente!";
+                    ViewBag.message = "Já existe <strong>professores com o mesmo dados</strong>, por favor tente um dado diferente!";
                     ViewBag.redirect = Request.Path;
                     return View("message");
                 }
@@ -259,8 +259,8 @@ namespace IPG_Funcionarios.Controllers
 
                     ViewBag.title = "Atualização do professor";
                     ViewBag.type = "alert-success";
-                    ViewBag.message = "Os dados do professor '" + professor.Nome + "' foram atualizados com sucesso!";
-                    ViewBag.redirect = "/Professores/"; // Request.Path
+                    ViewBag.message = "Os dados do professor <strong>" + professor.Nome + "</strong> foram <strong>atualizados</strong> com sucesso!";
+                    ViewBag.redirect = "/Professores/Index"; // Request.Path
                     return View("message");
                 }
                 
@@ -298,8 +298,8 @@ namespace IPG_Funcionarios.Controllers
 
             ViewBag.title = "Apagar professor";
             ViewBag.type = "alert-success";
-            ViewBag.message = "Os dados do professor " + professor.Nome + " foram apagados com sucesso!";
-            ViewBag.redirect = "/Professores/"; // Request.Path
+            ViewBag.message = "Os dados do professor <strong>" + professor.Nome + "</strong> foram <strong>apagados</strong> com sucesso!";
+            ViewBag.redirect = "/Professores/Index"; // Request.Path
 
             return View("message");
         }

@@ -20,9 +20,25 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
+        public IActionResult Default() {
+            
+            if (User.Identity.IsAuthenticated)
+            {
+                return View("Index");
+            }
+            
+            return View();
+        }
+
         public IActionResult Index()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+            else {
+                return View("Default");
+            }
         }
 
         public IActionResult Privacy()

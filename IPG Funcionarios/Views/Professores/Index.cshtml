@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 
     /* Main */
-    string views_name = Context.Request.Path.ToString().Replace("/", "");
+    string views_name = "Professores/Index"; //Context.Request.Path.ToString().Replace("/", "");
     int entries_per_page_min = 5;
     int entries_per_page_max = 100;
 
@@ -35,7 +35,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">Views</li>
-                    <li class="breadcrumb-item"><a asp-action="Index">@views_name</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Professores</a></li>
                     <li class="breadcrumb-item active" aria-current="page"></li>
                 </ol>
             </nav>
