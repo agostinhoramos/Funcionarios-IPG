@@ -9,26 +9,29 @@ namespace IPG_Funcionarios.Models
     public class UserAccount
     {
         [Key]
-        public int UserId { get; set; }
+        public int id { get; set; }
 
-        [Required(ErrorMessage = "Por favor introduza o número mecanográfico respetivo")]
-        public string NumeroMecanografico { get; set; }
+        [Required(ErrorMessage = "Por favor, insira o seu nome")]
+        [StringLength(50)]
+        [Display(Name = "Nome:")]
+        public string FnameAccount { get; set; }
 
-        [Required(ErrorMessage = "Por favor introduza o nome")]
-        public string Nome { get; set; }
+        [Required(ErrorMessage = "Por favor, insira o seu apelido")]
+        [StringLength(75)]
+        [Display(Name = "Sobrenome:")]
 
-        [Required(ErrorMessage = "Por favor, introduza o email")]
+        public string LnameAccount { get; set; }
+        [EmailAddress(ErrorMessage = "Por favor, insira um email válido.")]
+        [StringLength(200)]
+
+        [Display(Name = "Email:")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Por favor introduza o número mecanográfico respetivo")]
-        public string Codigo { get; set; }
-
-        [Required(ErrorMessage = "Por favor introduza a password")]
+        [Required(ErrorMessage = "Insira uma senha.")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Compare("Password", ErrorMessage = "As passwords não são iguais")]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
+        public string PasswordHash { get; set; }
+        
+        [Required]
+        public bool IsValidAccount { get; set; }
     }
 }

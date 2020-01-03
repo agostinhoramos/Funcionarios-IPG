@@ -61,7 +61,22 @@ namespace IPG_Funcionarios.Models {
                 new Professor { Nome = "Maria João Marques Alves da Costa", Contacto = "245076354", Email = "outro16@email.com", Gabinete = "80" },
                 new Professor { Nome = "Mário José da Silva Meleiro", Contacto = "246432546", Email = "outro17@email.com", Gabinete = "81" },
                 new Professor { Nome = "Rosa Branca Almeida Figueiredo", Contacto = "254076686", Email = "outro18@email.com", Gabinete = "82" },
-                new Professor { Nome = "Rui Manuel Formoso Nobre dos Santos", Contacto = "246543686", Email = "outro19@email.com", Gabinete = "83" }
+                new Professor { Nome = "Rui Manuel Formoso Nobre dos Santos", Contacto = "246543686", Email = "outro19@email.com", Gabinete = "83" },
+
+                /* Apenas Dados */
+                new Professor { Nome = "Bill Gates", Contacto = "985279130", Email = "email100@gmail.com", Gabinete = "E100" },
+                new Professor { Nome = "Will Smith", Contacto = "911998189", Email = "email101@gmail.com", Gabinete = "E101" },
+                new Professor { Nome = "Neil deGrasse Tyson", Contacto = "915734639", Email = "email102@gmail.com", Gabinete = "E102" },
+                new Professor { Nome = "Abel Garcia Abejas", Contacto = "965636170", Email = "email103@gmail.com", Gabinete = "E103" },
+                new Professor { Nome = "Abel João Padrão Gomes", Contacto = "961739593", Email = "email104@gmail.com", Gabinete = "E104" },
+                new Professor { Nome = "Abílio Manuel Pereira da Silva", Contacto = "989647558", Email = "email105@gmail.com", Gabinete = "E105" },
+                new Professor { Nome = "Victor Moreno Pérez", Contacto = "968667809", Email = "email106@gmail.com", Gabinete = "E106" },
+                new Professor { Nome = "Vitor Hugo Borrata dos Santos", Contacto = "959809001", Email = "email107@gmail.com", Gabinete = "E107" },
+                new Professor { Nome = "Vitor Manuel Pinto de Figueiredo", Contacto = "970506834", Email = "email108@gmail.com", Gabinete = "E108" },
+                new Professor { Nome = "Zélia Maria da Silva Serrasqueiro Teixeira", Contacto = "910687324", Email = "email109@gmail.com", Gabinete = "E109" },
+                new Professor { Nome = "Tiago Jorge Alves Fernandes", Contacto = "920786237", Email = "email110@gmail.com", Gabinete = "E110" },
+                new Professor { Nome = "Toufek Metidji", Contacto = "933778242", Email = "email111@gmail.com", Gabinete = "E111" },
+                new Professor { Nome = "Susana Maria Palavra Garrido Azevedo", Contacto = "989597527", Email = "email112@gmail.com", Gabinete = "E112" }
             );
 
             db.SaveChanges();
@@ -106,8 +121,8 @@ namespace IPG_Funcionarios.Models {
                 new Departamento { Nome = "Departamento de Energia e Ambiente" },
                 new Departamento { Nome = "Departamento de Farmácia" },
                 new Departamento { Nome = "Departamento de Hotelaria" },
-                new Departamento { Nome = "	Departamento de Desporto" },
-                new Departamento { Nome = "	Departamento de Comunicação Multimédia" }
+                new Departamento { Nome = "Departamento de Desporto" },
+                new Departamento { Nome = "Departamento de Comunicação Multimédia" }
             );
             
             db.SaveChanges();
