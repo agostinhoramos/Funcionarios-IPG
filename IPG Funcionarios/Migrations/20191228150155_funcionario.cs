@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IPG_Funcionarios.Migrations
 {
@@ -16,8 +17,8 @@ namespace IPG_Funcionarios.Migrations
                     Telefone = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Genero = table.Column<string>(nullable: false),
-                    Morada = table.Column<string>(nullable: false),
-                    DataNascionento = table.Column<string>(nullable: false)
+                    Morada = table.Column<string>(maxLength: 50, nullable: false),
+                    DataNascionento = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

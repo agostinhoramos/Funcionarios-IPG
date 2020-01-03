@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IPG_Funcionarios.Models;
 
+
 namespace IPG_Funcionarios.Controllers
 {
     public class FuncionarioController : Controller
@@ -26,6 +27,7 @@ namespace IPG_Funcionarios.Controllers
             ViewData["ordemAtual"] = ordem;
             ViewData["NomeParm"] = String.IsNullOrEmpty(ordem) ? "nome_desc" : "";
             ViewData["DataParm"] = ordem == "Data" ? "data_desc" : "Data";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(ordem) ? "name_desc" : "";
 
             if (filtro != null)
             {
@@ -62,92 +64,13 @@ namespace IPG_Funcionarios.Controllers
                     funcionario = funcionario.OrderBy(est => est.Email);
                     break;
             }
-            return View(await PaginacaoViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), pagina ?? 1, PAGE_SIZE));
+            int numeroPage = (pagina ?? 1);
+            return View(await PaginacaoViewModel<Funcionario>.CreateAsync(funcionario.AsNoTracking(), numeroPage, PAGE_SIZE));
+           
+        }
 
-            //  public async Task<IActionResult> Index(FuncionarioViewList model = null, int pagina = 1, string order = null)
-            //{
-                //            string Funcionario = null;
-                /*    if (model != null !! model.Nome!=null)
-                    {
-                        nome= model.Nome;
-                    }
-                    var funcionario = _context.Funcionario
-                        .Where(p => Funcionario == null || p.Nome.Contains(Funcionario));
-                    int numFuncionario = await funcionario.CountAsync();
-
-                    if (pagina > (numFuncionario / PAGE_SIZE) + 1)
-                    {
-                        pagina = 1;
-                    }
-                    IEnumerable<Funcionario> TipoList;
-                    if (order == "ID")
-                    {
-                        TipoList = await funcionario
-                            .OrderBy(p => p.FuncionarioId)
-                            .Skip(PAGE_SIZE * (pagina - 1))
-                            .Take(PAGE_SIZE)
-                            .ToListAsync();
-                    }
-                    else if (order == "Nome")
-                    {
-                        TipoList = await funcionario
-                            .OrderBy(p => p.Nome)
-                            .Skip(PAGE_SIZE * (pagina - 1))
-                            .Take(PAGE_SIZE)
-                            .ToListAsync();
-                    }
-                    else if (order == "Telefone")
-                    {
-                        TipoList = await funcionario
-                            .OrderBy(p => p.Telefone)
-                            .Skip(PAGE_SIZE * (pagina - 1))
-                            .Take(PAGE_SIZE)
-                            .ToListAsync();
-                    }
-                    else if (order == "Género")
-                    {
-                        TipoList = await funcionario
-                            .OrderBy(p => p.Genero)
-                            .Skip(PAGE_SIZE * (pagina - 1))
-                            .Take(PAGE_SIZE)
-                            .ToListAsync();
-                    }
-                    else if (order == "Morada")
-                    {
-                        TipoList = await funcionario
-                            .OrderBy(p => p.Morada)
-                            .Skip(PAGE_SIZE * (pagina - 1))
-                            .Take(PAGE_SIZE)
-                            .ToListAsync();
-                    }
-                    else
-                    {
-                        TipoList = await funcionario
-                            .OrderBy(p => p.FuncionarioId)
-                            .Skip(PAGE_SIZE * (pagina - 1))
-                            .Take(PAGE_SIZE)
-                            .ToListAsync();
-                    }
-
-                    return View(
-                        new FuncionarioViewList
-                        {
-                            Funcionario = TipoList,
-                            Paginacao = new PaginacaoViewModel
-                            {
-                                PaginaCorrente = pagina,
-                                TamanhoPagina = PAGE_SIZE,
-                                TotalItens = numFuncionario,
-
-                                CurrentNome = Funcionario
-                            },
-                            CurrentNome = Funcionario
-                        }
-                    );*/
-            }
-
-            // GET: Funcionario/Details/5
-            public async Task<IActionResult> Details(int? id)
+        // GET: Funcionario/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
            
             if (id == null)

@@ -8,13 +8,13 @@ namespace IPG_Funcionarios.Models {
 
         public static void Populate(IPGFuncionariosDbContext db) {
 
-            SeedFuncionario(db);
+          //  SeedFuncionario(db);
 
         
        
             
             PopulateProfesor(db);
-            //PopulateFuncionario(db);
+            PopulateFuncionario(db);
             PopulateDepartamento(db);
         }
 
@@ -66,7 +66,7 @@ namespace IPG_Funcionarios.Models {
 
             db.SaveChanges();
         }
-        private static void SeedFuncionario(IPGFuncionariosDbContext db)
+     /*   private static void SeedFuncionario(IPGFuncionariosDbContext db)
         {
             if (db.Funcionario.Any()) return;
 
@@ -76,13 +76,17 @@ namespace IPG_Funcionarios.Models {
                 new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria " , DataNascionento = "01/09/2011 00:00:00" }
                 );
             db.SaveChanges();
-        }
+        }*/
         private static void PopulateFuncionario(IPGFuncionariosDbContext db) {
             if (db.Funcionario.Any()) {
                 return;
             }
 
             db.Funcionario.AddRange(
+                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1972, 07, 03) },
+                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1972, 07, 03)},
+                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) }
+               
 
             );
 
