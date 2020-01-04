@@ -9,10 +9,6 @@ namespace IPG_Funcionarios.Models
 {
     public class IPGFuncionariosDbContext : DbContext
     {
-        public IPGFuncionariosDbContext()
-        {
-
-        }
         public IPGFuncionariosDbContext(DbContextOptions<IPGFuncionariosDbContext> options)
             : base(options)
         {

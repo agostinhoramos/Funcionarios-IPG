@@ -36,8 +36,8 @@ namespace IPG_Funcionarios.Controllers
             ViewData["AllFuncionario"] = ParseDbCount(func.Count());
             ViewData["AllDepartamento"] = ParseDbCount(dept.Count());
             ViewData["AllServicos"] = "0";
-            ViewData["AllEscola"] = "0";
-            ViewData["AllTarefa"] = "0";
+            ViewData["AllEscolas"] = "0";
+            ViewData["AllTarefas"] = "0";
             ViewData["AllCargos"] = "0";
 
             if (User.Identity.IsAuthenticated)
