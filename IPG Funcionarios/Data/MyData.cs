@@ -12,8 +12,8 @@ namespace IPG_Funcionarios.Data
             "Funcionario",
             "Departamento",
             "Servicos",
-            "Escola",
-            "Tarefa",
+            "Escolas",
+            "Tarefas",
             "Cargos"
         };
     }
