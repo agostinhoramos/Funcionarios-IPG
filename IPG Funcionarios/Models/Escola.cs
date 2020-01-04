@@ -8,6 +8,7 @@ namespace IPG_Funcionarios.Models
 {
     public class Escola
     {
+        [Key]
         public int EscolaID { get; set; }
 
         [Required]
