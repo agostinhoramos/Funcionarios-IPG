@@ -11,7 +11,7 @@
 
                 <div class="alert @ViewBag.type" role="alert">
                     <h4 class="alert-heading">@ViewBag.title</h4>
-                    <p>@ViewBag.message</p>
+                    <p>@Html.Raw(ViewBag.message)</p>
                 </div>
 
             </div>
