@@ -7,8 +7,8 @@
 @{ 
   /* Main */
     string mainUrl = "Professores/Index";
-    int entries_per_page_min = 5;
-    int entries_per_page_max = 100;
+    int Entries_per_page_min = 5;
+    int Entries_per_page_max = 100;
 
     string sort_id = Model.CurrentOption == "id" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
          sort_nome = Model.CurrentOption == "nome" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
@@ -16,8 +16,8 @@
          sort_email = Model.CurrentOption == "email" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
          sort_gabinete = Model.CurrentOption == "gabinete" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "";
 
-    string entries_ = (Model.entries_start.ToString() != Model.entries_end.ToString()) ?
-         "de " + Model.entries_start.ToString() + " até " + Model.entries_end.ToString() : Model.entries_end.ToString();
+    string Entries_ = (Model.Entries_start.ToString() != Model.Entries_end.ToString()) ?
+         "de " + Model.Entries_start.ToString() + " até " + Model.Entries_end.ToString() : Model.Entries_end.ToString();
 
          string crq = Context.Request.QueryString.ToString();
          string _u_page, _u_sort, _u_q, _u_o, _u_ipp;
@@ -58,7 +58,7 @@
                                             <select id="entries_per_page" name="order-listing_length"
                                                     aria-controls="order-listing" class="custom-select custom-select-sm form-control">
                                                 <option value="0">Todas</option>
-                                                @for (int i = entries_per_page_min; i <= entries_per_page_max; i += entries_per_page_min)
+                                                @for (int i = Entries_per_page_min; i <= Entries_per_page_max; i += Entries_per_page_min)
                                                 {
                                                     <option value="@i">@i</option>
                                                 }
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
                                     </div>
-                                    @if (Model.entries_all > 0)
+                                    @if (Model.Entries_all > 0)
                                     {
                                         <div class="row">
                                             <div class="table-responsive">
@@ -124,7 +124,7 @@
                                         {
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-5">
-                                                    <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @entries_ de @Model.entries_all registos</div>
+                                                    <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @Entries_ de @Model.Entries_all registos</div>
                                                 </div>
                                             </div>
 
@@ -184,7 +184,7 @@
 
     $(document).ready(function () {
 
-            _auto_item_per_page("@Model.entries_per_page");
+            _auto_item_per_page("@Model.Entries_per_page");
 
             if ( true ) {
                     $("li a#prev").click(function () {

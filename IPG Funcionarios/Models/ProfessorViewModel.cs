@@ -13,9 +13,9 @@ namespace IPG_Funcionarios.Models {
         public string CurrentSearch { get; set; }
         public string CurrentOption { get; set; }
         public string Sort { get; set; }
-        public int entries_all { get; set; }
-        public int entries_start { get; set; }
-        public int entries_end { get; set; }
-        public int entries_per_page { get; set; }
+        public int Entries_all { get; set; }
+        public int Entries_start { get; set; }
+        public int Entries_end { get; set; }
+        public int Entries_per_page { get; set; }
     }
 }
