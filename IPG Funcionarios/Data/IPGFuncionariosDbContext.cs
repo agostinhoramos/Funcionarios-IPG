@@ -23,5 +23,6 @@ namespace IPG_Funcionarios.Models
         public DbSet<IPG_Funcionarios.Models.Departamento> Departamento { get; set; }
         public DbSet<IPG_Funcionarios.Models.Funcionario> Funcionario { get; set; }
         public DbSet<IPG_Funcionarios.Models.Servico> Servico { get; set; }
+        public DbSet<IPG_Funcionarios.Models.Escola> Escola { get; set; }
     }
 }
