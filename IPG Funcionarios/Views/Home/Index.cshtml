@@ -1,234 +1,235 @@
-﻿@{
-    ViewData["Title"] = "My Page";
-}
+﻿@using IPG_Funcionarios.Data;
+@model BroadViewModel;
 
 @{
     @using Microsoft.AspNetCore.Identity
     @inject SignInManager<IdentityUser> SignInManager
     @inject UserManager<IdentityUser> UserManager
+
+    string[] ListModels = MyData.ListModels;
 }
 
 @{
-    string[] allModelName = { "Professores3", "Funcionario", "Departamento", "Servicos", "Escola", "Tarefa", "Cargos" };
+    ViewData["Title"] = "My Page";
 }
 
-    <div id="right-sidebar" class="settings-panel">
-        <i class="settings-close mdi mdi-close"></i>
-        <ul class="nav nav-tabs bg-gradient-primary" id="setting-panel" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">Lista de Tarefas</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="setting-content">
-            <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
-                <div class="add-items d-flex px-3 mb-0">
-                    <form class="form w-100">
-                        <div class="form-group d-flex">
-                            <input type="text" class="form-control todo-list-input" placeholder="Adicione tarefas aqui">
-                            <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Adicionar</button>
+
+<div id="right-sidebar" class="settings-panel">
+    <i class="settings-close mdi mdi-close"></i>
+    <ul class="nav nav-tabs bg-gradient-primary" id="setting-panel" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">Lista de Tarefas</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="setting-content">
+        <div class="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+            <div class="add-items d-flex px-3 mb-0">
+                <form class="form w-100">
+                    <div class="form-group d-flex">
+                        <input type="text" class="form-control todo-list-input" placeholder="Adicione tarefas aqui">
+                        <button type="submit" class="add btn btn-primary todo-list-add-btn" id="add-task">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="list-wrapper px-3">
+                <ul class="d-flex flex-column-reverse todo-list">
+                    <li>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="checkbox" type="checkbox"> Lembrar de marcar presença dos alunos
+                            </label>
                         </div>
-                    </form>
-                </div>
-                <div class="list-wrapper px-3">
-                    <ul class="d-flex flex-column-reverse todo-list">
-                        <li>
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="checkbox" type="checkbox"> Lembrar de marcar presença dos alunos
-                                </label>
-                            </div>
-                            <i class="remove mdi mdi-close-circle-outline"></i>
-                        </li>
-                    </ul>
-                </div>
+                        <i class="remove mdi mdi-close-circle-outline"></i>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
 
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                    <img src="/assets/image/user-48.png" alt="profile">
+                    <span class="login-status online"></span>
+                </div>
+                <div class="nav-profile-text d-flex flex-column overflow-hidden">
+                    <span class="font-weight-bold mb-2">@User.Identity.Name</span>
+                    <span class="text-secondary text-small">Tipo Funcionário</span>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/Index">
+                <span class="menu-title">Página Inicial</span>
+                <i class="mdi mdi-home menu-icon menu-icon"></i>
+            </a>
+        </li>
 
-            <li class="nav-item nav-profile">
-                <a href="#" class="nav-link">
-                    <div class="nav-profile-image">
-                        <img src="/assets/image/user-48.png" alt="profile">
-                        <span class="login-status online"></span>
-                    </div>
-                    <div class="nav-profile-text d-flex flex-column overflow-hidden">
-                        <span class="font-weight-bold mb-2">@User.Identity.Name</span>
-                        <span class="text-secondary text-small">Tipo Funcionário</span>
-                    </div>
-                </a>
-            </li>
+        <div class="border-bottom"></div>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="/">
+                <span class="menu-title">Painel de controle</span>
+                <i class="mdi mdi-chart-line menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/">
+                <span class="menu-title">Meu perfil</span>
+                <i class="mdi mdi-account-box menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/">
+                <span class="menu-title">Ver Utilizadores</span>
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/">
+                <span class="menu-title">Sobre</span>
+                <i class="mdi mdi-newspaper menu-icon"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/Home/">
+                <span class="menu-title">Configurações</span>
+                <i class="mdi mdi-settings-box menu-icon"></i>
+            </a>
+        </li>
+
+        <div class="border-bottom"></div>
+        @foreach (string item in ListModels)
+        {
             <li class="nav-item">
-                <a class="nav-link" href="/Home/Index">
-                    <span class="menu-title">Página Inicial</span>
-                    <i class="mdi mdi-home menu-icon menu-icon"></i>
+                <a class="nav-link" data-toggle="collapse" href="@Html.Raw("#pgrup_"+item)"
+                   aria-expanded="false" aria-controls="@Html.Raw("pgrup_"+item)">
+                    <span class="menu-title">@item &nbsp;</span>
+                    <i class="menu-arrow"></i>
                 </a>
+                <div class="collapse" id="@Html.Raw("pgrup_"+item)" style="">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="@item" asp-action="Index">Ver todos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#">Limpar todos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#">Configurações</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
+        }
+    </ul>
+</nav>
+<div class="main-panel">
+    <div class="content-wrapper">
+        @* ALL PAGE CONTENT HERE *@
 
-            <div class="border-bottom"></div>
-
-            <li class="nav-item active">
-                <a class="nav-link" href="/">
-                    <span class="menu-title">Painel de controle</span>
-                    <i class="mdi mdi-chart-line menu-icon"></i>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/Home/">
-                    <span class="menu-title">Meu perfil</span>
-                    <i class="mdi mdi-account-box menu-icon"></i>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/Home/">
-                    <span class="menu-title">Ver Utilizadores</span>
-                    <i class="mdi mdi-account-multiple menu-icon"></i>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/Home/">
-                    <span class="menu-title">Sobre</span>
-                    <i class="mdi mdi-newspaper menu-icon"></i>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/Home/">
-                    <span class="menu-title">Configurações</span>
-                    <i class="mdi mdi-settings-box menu-icon"></i>
-                </a>
-            </li>
-
-            <div class="border-bottom"></div>
-            @foreach (string item in allModelName)
+        @{
+            int hour = DateTime.Now.Hour;
+            string greeting;
+            if (hour >= 7 && hour < 12)
             {
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="@Html.Raw("#pgrup_"+item)"
-                       aria-expanded="false" aria-controls="@Html.Raw("pgrup_"+item)">
-                        <span class="menu-title">@item &nbsp;</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="@Html.Raw("pgrup_"+item)" style="">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/#">Ver todos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/#">Limpar todos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/#">Configurações</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                greeting = "Bom dia";
             }
-        </ul>
-    </nav>
-    <div class="main-panel">
-        <div class="content-wrapper">
-            @* ALL PAGE CONTENT HERE *@
-
-            @{
-                int hour = DateTime.Now.Hour;
-                string greeting;
-                if (hour >= 7 && hour < 12)
-                {
-                    greeting = "Bom dia";
-                }
-                else
-                if (hour >= 12 && hour < 20)
-                {
-                    greeting = "Boa tarde";
-                }
-                else
-                {
-                    greeting = "Boa noite";
-                }
+            else
+            if (hour >= 12 && hour < 20)
+            {
+                greeting = "Boa tarde";
             }
-            <div class="page-header">
-                <h3 class="page-title">
-                    <span class="page-title-icon bg-gradient-primary text-white mr-2">
-                        <i class="mdi mdi-chart-line menu-icon"></i>
-                    </span> @greeting, Seja bem vindo!
-                </h3>
-                <nav aria-label="breadcrumb">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">
-                            <span></span>Painel de controle &nbsp;<i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
-            <div class="row">
-                <div class="col grid-margin">
-
-                    <!-- TOP HTML --->
-
-                    <div class="col mb-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title"><i class="mdi mdi-settings"></i>&nbsp;Módulos</h4>
-                                <div class="table-responsive">
-                                    <div class="text-center force-link">
-                                        @foreach (string item in allModelName)
-                                        {
-                                            <a class="btn btn-outline-info m-2" asp-controller="@item" asp-action="Index">@item</a>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- BUTTON HTML --->
-
-                    <div class="col mb-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Lista de Atividades ( Professor )</h4>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th> Nome </th>
-                                                <th> Descrição </th>
-                                                <th> Estado </th>
-                                                <th> Última atualização </th>
-                                                <th> Tracking ID </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @for (int i = 0; i < 3; i++)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        <img src="~/assets/image/user-48.png" class="mr-2" alt="image"> Ramos Pina
-                                                    </td>
-                                                    <td> Dar aulas </td>
-                                                    <td>
-                                                        <label class="badge badge-gradient-success">DONE</label>
-                                                    </td>
-                                                    <td> Dec 5, 2019 </td>
-                                                    <td> WD-12345 </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            @* ALL PAGE CONTENT HERE *@
+            else
+            {
+                greeting = "Boa noite";
+            }
+        }
+        <div class="page-header">
+            <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                    <i class="mdi mdi-chart-line menu-icon"></i>
+                </span> @greeting, Seja bem vindo!
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <span></span>Painel de controle &nbsp;<i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                    </li>
+                </ul>
+            </nav>
         </div>
+
+        <div class="row">
+            <div class="col grid-margin">
+
+                <!-- TOP HTML --->
+
+                <div class="col mb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="mdi mdi-settings"></i>&nbsp;Módulos</h4>
+                            <div class="table-responsive">
+                                <div class="text-center force-link">
+                                    @foreach (string item in ListModels)
+                                    {
+                                    <a class="btn btn-outline-info m-2" asp-controller="@item" asp-action="Index">@item ( @ViewData["All"+item] )</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BUTTON HTML --->
+
+                <div class="col mb-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Lista de Atividades ( Professor )</h4>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th> Nome </th>
+                                            <th> Descrição </th>
+                                            <th> Estado </th>
+                                            <th> Última atualização </th>
+                                            <th> Tracking ID </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < 3; i++)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img src="~/assets/image/user-48.png" class="mr-2" alt="image"> Ramos Pina
+                                                </td>
+                                                <td> Dar aulas </td>
+                                                <td>
+                                                    <label class="badge badge-gradient-success">DONE</label>
+                                                </td>
+                                                <td> Dec 5, 2019 </td>
+                                                <td> WD-12345 </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        @* ALL PAGE CONTENT HERE *@
     </div>
+</div>
