@@ -12,7 +12,7 @@ namespace IPG_Funcionarios.Migrations
                 {
                     CargoID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NomeNome = table.Column<string>(maxLength: 250, nullable: false)
+                    NomeCargo = table.Column<string>(maxLength: 250, nullable: false)
                 },
                 constraints: table =>
                 {

@@ -39,11 +39,11 @@ namespace IPG_Funcionarios.Controllers
                 AllPages = (int)Math.Ceiling(nRows / ipp),
                 FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),
 
-                Entries_per_page = ipp,
-                Entries_start = ipp * (page - 1) > 0 ? ipp * (page - 1) + 1 : ((int)Math.Ceiling(nRows) < 1 ? 0 : 1),
-                Entries_end = ipp * page < (int)Math.Ceiling(nRows) ?
+                EntriesPerPage = ipp,
+                EntriesStart = ipp * (page - 1) > 0 ? ipp * (page - 1) + 1 : ((int)Math.Ceiling(nRows) < 1 ? 0 : 1),
+                EntriesEnd = ipp * page < (int)Math.Ceiling(nRows) ?
                 ipp * page : (int)Math.Ceiling(nRows),
-                Entries_all = (int)Math.Ceiling(nRows)
+                EntriesAll = (int)Math.Ceiling(nRows)
             };
 
             // Algoritmo de pesquisa

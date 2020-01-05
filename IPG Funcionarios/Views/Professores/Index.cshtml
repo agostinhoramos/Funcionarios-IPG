@@ -16,8 +16,8 @@
          sort_email = Model.CurrentOption == "email" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
          sort_gabinete = Model.CurrentOption == "gabinete" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "";
 
-    string Entries_ = (Model.Entries_start.ToString() != Model.Entries_end.ToString()) ?
-         "de " + Model.Entries_start.ToString() + " até " + Model.Entries_end.ToString() : Model.Entries_end.ToString();
+    string Entries_ = (Model.EntriesStart.ToString() != Model.EntriesEnd.ToString()) ?
+         "de " + Model.EntriesStart.ToString() + " até " + Model.EntriesEnd.ToString() : Model.EntriesEnd.ToString();
 
          string crq = Context.Request.QueryString.ToString();
          string _u_page, _u_sort, _u_q, _u_o, _u_ipp;
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
                                     </div>
-                                    @if (Model.Entries_all > 0)
+                                    @if (Model.EntriesAll > 0)
                                     {
                                         <div class="row">
                                             <div class="table-responsive">
@@ -124,7 +124,7 @@
                                         {
                                             <div class="row">
                                                 <div class="col-sm-12 col-md-5">
-                                                    <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @Entries_ de @Model.Entries_all registos</div>
+                                                    <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @Entries_ de @Model.EntriesAll registos</div>
                                                 </div>
                                             </div>
 
@@ -184,7 +184,7 @@
 
     $(document).ready(function () {
 
-            _auto_item_per_page("@Model.Entries_per_page");
+            _auto_item_per_page("@Model.EntriesPerPage");
 
             if ( true ) {
                     $("li a#prev").click(function () {

@@ -10,6 +10,7 @@ namespace IPG_Funcionarios.Models
     {
         [Key]
         public int CargoID { get; set; }
+
         [Required(ErrorMessage = "Por favor, insira um nome de cargo")]
         [StringLength(250)]
         [Display(Name = "Nome")]

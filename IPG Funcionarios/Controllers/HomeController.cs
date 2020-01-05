@@ -31,14 +31,18 @@ namespace IPG_Funcionarios.Controllers
             var prof = from q in _contextB.Professor select q;
             var func = from q in _contextB.Funcionario select q;
             var dept = from q in _contextB.Departamento select q;
+            var serv = from q in _contextB.Servico select q;
+            var escl = from q in _contextB.Escola select q;
+            var tarf = from q in _contextB.Tarefa select q;
+            var carg = from q in _contextB.Cargo select q;
 
             ViewData["AllProfessores"] = ParseDbCount(prof.Count());
             ViewData["AllFuncionario"] = ParseDbCount(func.Count());
             ViewData["AllDepartamento"] = ParseDbCount(dept.Count());
-            ViewData["AllServicos"] = "0";
-            ViewData["AllEscolas"] = "0";
-            ViewData["AllTarefas"] = "0";
-            ViewData["AllCargos"] = "0";
+            ViewData["AllServicos"] = ParseDbCount(serv.Count());
+            ViewData["AllEscolas"] = ParseDbCount(escl.Count());
+            ViewData["AllTarefas"] = ParseDbCount(tarf.Count());
+            ViewData["AllCargos"] = ParseDbCount(carg.Count());
 
             if (User.Identity.IsAuthenticated)
             {
