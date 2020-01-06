@@ -8,17 +8,92 @@ namespace IPG_Funcionarios.Models {
 
         public static void Populate(IPGFuncionariosDbContext db) {
 
-          //  SeedFuncionario(db);
-
-        
-       
-            
             PopulateProfesor(db);
             PopulateFuncionario(db);
             PopulateDepartamento(db);
+
+            PopulateServico(db);
+            PopulateEscola(db);
+            PopulateTarefa(db);
+            PopulateCargo(db);
         }
 
-        private static void PopulateProfesor(IPGFuncionariosDbContext db) {
+        private static void PopulateServico(IPGFuncionariosDbContext db)
+        {
+            if (db.Servico.Any())
+            {
+                return;
+            }
+
+            db.Servico.AddRange(
+                new Servico { Nome = "Correção dos exames" },
+                new Servico { Nome = "Criação de novo horário escolar" },
+                new Servico { Nome = "Marcar as datas das frequências" },
+                new Servico { Nome = "Vigiar alunos no Exame" },
+                new Servico { Nome = "Ajudar nas compras das escolas" },
+                new Servico { Nome = "Fazer Limpeza" },
+                new Servico { Nome = "Manter segurança no recinto escolar" },
+                new Servico { Nome = "Dirigir a viatura da escola" },
+                new Servico { Nome = "Pagar os consumo da escola" }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateEscola(IPGFuncionariosDbContext db)
+        {
+            if (db.Escola.Any())
+            {
+                return;
+            }
+
+            db.Escola.AddRange(
+                new Escola { Nome = "ESECD", Descricao = "Escola Superior de Educação, Comunicação e Desporto", Localizacao = "Guarda" },
+                new Escola { Nome = "ESTG", Descricao = "Escola Superior de Tecnologia e Gestão", Localizacao = "Guarda" },
+                new Escola { Nome = "ESTH", Descricao = "Escola Superior de Turismo e Hotelaria", Localizacao = "Seia" },
+                new Escola { Nome = "ESS", Descricao = "Escola Superior de Saúde", Localizacao = "Guarda" }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateTarefa(IPGFuncionariosDbContext db)
+        {
+            if (db.Tarefa.Any())
+            {
+                return;
+            }
+
+            db.Tarefa.AddRange(
+                new Tarefa { Nome = "Tarefa A", Descricao = "Descrição A", Data = new DateTime(2019, 03, 04) },
+                new Tarefa { Nome = "Tarefa B", Descricao = "Descrição B", Data = new DateTime(2020, 01, 07) },
+                new Tarefa { Nome = "Tarefa C", Descricao = "Descrição C", Data = new DateTime(2016, 02, 20) },
+                new Tarefa { Nome = "Tarefa D", Descricao = "Descrição D", Data = new DateTime(2019, 11, 17) }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateCargo(IPGFuncionariosDbContext db)
+        {
+            if (db.Cargo.Any())
+            {
+                return;
+            }
+
+            db.Cargo.AddRange(
+                new Cargo { NomeCargo = "Presidente" },
+                new Cargo { NomeCargo = "Professor" },
+                new Cargo { NomeCargo = "Segurança" },
+                new Cargo { NomeCargo = "Funcionário de Limpeza" },
+                new Cargo { NomeCargo = "Funcionário de Secretaria" }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateProfesor(IPGFuncionariosDbContext db) 
+        {
             if (db.Professor.Any()) {
                 return;
             }
@@ -81,17 +156,6 @@ namespace IPG_Funcionarios.Models {
 
             db.SaveChanges();
         }
-     /*   private static void SeedFuncionario(IPGFuncionariosDbContext db)
-        {
-            if (db.Funcionario.Any()) return;
-
-            db.Funcionario.AddRange(
-                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento="01/09/2010 00:00:00 "},
-                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento = " 01/09/2012 00:00:00" },
-                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria " , DataNascionento = "01/09/2011 00:00:00" }
-                );
-            db.SaveChanges();
-        }*/
         private static void PopulateFuncionario(IPGFuncionariosDbContext db) {
             if (db.Funcionario.Any()) {
                 return;
@@ -112,6 +176,9 @@ namespace IPG_Funcionarios.Models {
                 new Funcionario { Nome = "Paulo Rita", Telefone = "923456213", Email = "pa@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(07, 03, 1972) }
 
 
+                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1972, 07, 03) },
+                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1972, 07, 03)},
+                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) }
             );
 
             db.SaveChanges();

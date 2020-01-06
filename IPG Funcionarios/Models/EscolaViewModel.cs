@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IPG_Funcionarios.Models {
-    public class ProfessorViewModel {
-        public IEnumerable<Professor> Professor { get; set; }
+namespace IPG_Funcionarios.Models
+{
+    public class EscolaViewModel
+    {
+        public IEnumerable<Escola> Escolas { get; set; }
         public int CurrentPage { get; set; }
         public int AllPages { get; set; }
         public int FirstPage { get; set; }

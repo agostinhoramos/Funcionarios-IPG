@@ -9,10 +9,6 @@ namespace IPG_Funcionarios.Models
 {
     public class IPGFuncionariosDbContext : DbContext
     {
-        public IPGFuncionariosDbContext()
-        {
-
-        }
         public IPGFuncionariosDbContext(DbContextOptions<IPGFuncionariosDbContext> options)
             : base(options)
         {
@@ -22,5 +18,9 @@ namespace IPG_Funcionarios.Models
         public DbSet<IPG_Funcionarios.Models.Professor> Professor { get; set; }
         public DbSet<IPG_Funcionarios.Models.Departamento> Departamento { get; set; }
         public DbSet<IPG_Funcionarios.Models.Funcionario> Funcionario { get; set; }
+        public DbSet<IPG_Funcionarios.Models.Servico> Servico { get; set; }
+        public DbSet<IPG_Funcionarios.Models.Escola> Escola { get; set; }
+        public DbSet<IPG_Funcionarios.Models.Cargo> Cargo { get; set; }
+        public DbSet<IPG_Funcionarios.Models.Tarefa> Tarefa { get; set; }
     }
 }
