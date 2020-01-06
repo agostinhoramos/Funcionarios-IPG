@@ -12,7 +12,7 @@
 
 
     
-    <div class="main-panel view-html" style="width:auto;">
+    <div class="main-panel view-html" style="width:100%;">
 
     <div class="content-wrapper">
         <div class="page-header">
@@ -61,7 +61,7 @@
                                                         <th> Telefone </th>
                                                         <th> Email </th>
                                                         <th> Genero </th>
-                                                        <th> Morada </th>
+                                                        
                                                         <th>
                                                             <a asp-action="Index" asp-route-ordem="@ViewData["DataParm"]" asp-route-filtroAtual="@ViewData["filtroAtual"]">Data de Nascimento</a>
 
@@ -85,9 +85,7 @@
                                                             <td>
                                                                 @Html.DisplayFor(modelItem => item.Genero)
                                                             </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Morada)
-                                                            </td>
+                                                        
                                                             <td>
                                                                 @Html.DisplayFor(modelItem => item.DataNascionento)
                                                             </td>
