@@ -1,0 +1,262 @@
+﻿@model TarefaViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    /* Main */
+    string mainUrl = "Tarefas/Index";
+    int Entries_per_page_min = 5;
+    int Entries_per_page_max = 100;
+
+    string sort_id = Model.CurrentOption == "id" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
+         sort_nome = Model.CurrentOption == "nome" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
+         sort_descricao = Model.CurrentOption == "desc" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
+         sort_data = Model.CurrentOption == "data" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "";
+
+    string Entries_ = (Model.EntriesStart.ToString() != Model.EntriesEnd.ToString()) ?
+         "de " + Model.EntriesStart.ToString() + " até " + Model.EntriesEnd.ToString() : Model.EntriesEnd.ToString();
+
+    string crq = Context.Request.QueryString.ToString();
+    string _u_page, _u_sort, _u_q, _u_o, _u_ipp;
+    try { _u_page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_page = ""; }
+    try { _u_sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_sort = ""; }
+    try { _u_q = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_q = ""; }
+    try { _u_o = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_o = ""; }
+    try { _u_ipp = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_ipp = ""; }
+
+}
+
+@section Scripts {
+    <script>
+        var baseURL = location.protocol + '//' + '@Context.Request.Host/@mainUrl';
+        var cpage = parseInt('@Model.CurrentPage');
+        var csort = '@Model.Sort';
+        var cstrg = encodeURIComponent('@Model.CurrentSearch').trim().toLowerCase();
+        var cstgq = '@Context.Request.QueryString';
+        var tpage = parseInt('@Model.AllPages');
+        var phold = 'Procurar @Model.CurrentOption';
+
+        $(document).ready(function () {
+
+            _auto_item_per_page("@Model.EntriesPerPage");
+
+            if (true) {
+                    $("li a#prev").click(function () {
+                        if (cpage > 1) {
+                            var url = baseURL + '?page='
+                                + (cpage - 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
+                                + '&o=@_u_o&ipp=@_u_ipp';
+                            url ? window.location.assign(url) : null;
+                        }
+                    });
+                    $("li a#next").click(function () {
+                        if (cpage < tpage) {
+                            var url = baseURL + '?page='
+                                + (cpage + 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
+                                + '&o=@_u_o&ipp=@_u_ipp';
+                            url ? window.location.assign(url) : null;
+                        }
+                    });
+                    if (cpage != 1) {$("a#prev").parent().removeClass("disabled");}else{$("a#prev").parent().addClass("disabled");}
+                    if (cpage != tpage) {$("a#next").parent().removeClass("disabled");}else{$("a#next").parent().addClass("disabled");}
+            }
+            let id_wait = null;
+
+            if (cstrg) { $('html, body').animate({ scrollTop : 90 }, 'slow'); }
+
+            try {
+                cstrg = decodeURIComponent(cstgq.split("q=")[1].split("&")[0]);
+            } catch (e) { cstrg = ""; }
+
+            $("#search").keyup(function () {
+                var query = $(this).val();
+                clearTimeout(id_wait);
+                if (!query || query.length < 1) {
+                    baseURL = baseURL + '?page=1&sort=@_u_sort&q=&o=@_u_o&ipp=@_u_ipp';
+                    baseURL ? window.location.assign(baseURL) : null;
+                } else {
+                    id_wait = setTimeout(function () {
+                        baseURL = baseURL + '?page=1&sort=@_u_sort&q='+query+'&o=@_u_o&ipp=@_u_ipp';
+                        baseURL ? window.location.assign(baseURL) : null;
+                    },2000);
+                }
+            }).val(cstrg).attr("autocomplete","off")
+              .focus().attr("placeholder", phold);
+
+            $("#entries_per_page").change(function () {
+                let ipp = $(this).val();
+                baseURL = baseURL + '?page=' + ('@_u_page' ? '@_u_page' : '1')
+                    + ('@_u_sort' ? '&sort=' + '@_u_sort' : '')
+                    + ('@_u_q' ? '&q=' + '@_u_q' : '')
+                    + ('@_u_o' ? '&o=' + '@_u_o' : '')
+                    + (ipp ? '&ipp=' + ipp : '');
+
+                baseURL ? window.location.assign(baseURL) : null;
+            });
+
+            $("tr.sort th").click(function () {
+                let s, o, url='', type = $(this).text().trim().toLowerCase();
+                try { s = location.href.split("sort=")[1].split("&")[0];
+                } catch (e) { s = ""; }
+                try { o = location.href.split("o=")[1].split("&")[0];
+                } catch (e) { o = ""; }
+
+                if (s!=='0') {
+                    url = '&sort=' + ((s == '0') ? '1'
+                    : (o !== type ? '1' : '0')) + '&o=' + type;
+                }
+
+                url = baseURL + "?page=" + ('@_u_page' ? '@_u_page' : '1')
+                    + ('@_u_ipp' ? "&ipp=@_u_ipp" : "") + url
+                    + (cstrg ? "&q=" + cstrg : "");
+                url ? window.location.assign(url) : null;
+            });
+        });
+    </script>
+    <style>
+        button[data-toggle="minimize"], #todo-task {
+            display: none;
+            visibility: hidden;
+        }
+    </style>
+}
+
+<div class="main-panel view-html" style="width:100%;">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                <a asp-controller="Home" asp-action=""><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Views</li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Tarefas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                                    <div class="row">
+                                        <div class="col-sm-12 ctrl-a">
+                                            <a asp-action="Create" class="c-btn c-btn-primary">Adicionar</a>
+                                            <select id="entries_per_page" name="order-listing_length"
+                                                    aria-controls="order-listing" class="custom-select custom-select-sm form-control">
+                                                <option value="0">Todas</option>
+                                                @for (int i = Entries_per_page_min; i <= Entries_per_page_max; i += Entries_per_page_min)
+                                                {
+                                                    <option value="@i">@i</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
+                                    </div>
+                                    @if (Model.EntriesAll > 0)
+                                    {
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table id="order-listing" class="table table-striped" role="grid" aria-describedby="order-listing_info">
+                                                    <thead>
+                                                        <tr role="row" class="sort">
+                                                            <th class="sort" tabindex="0" sort="@sort_id" rowspan="1" colspan="1">
+                                                                &nbsp;ID&nbsp;
+                                                            </th>
+                                                            <th class="sort" tabindex="0" sort="@sort_nome" rowspan="1" colspan="1">
+                                                                &nbsp;Nome&nbsp;
+                                                            </th>
+                                                            <th class="sort" tabindex="0" sort="@sort_descricao" rowspan="1" colspan="1">
+                                                                &nbsp;Descrição&nbsp;
+                                                            </th>
+                                                            <th class="sort" tabindex="0" sort="@sort_data" rowspan="1" colspan="1">
+                                                                &nbsp;Data&nbsp;
+                                                            </th>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach (var item in Model.Tarefas)
+                                                        {
+                                                            <tr role="row" class="even">
+                                                                <td class="sorting_1">
+                                                                    @Html.DisplayFor(modelItem => item.TarefaID)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Nome)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => item.Data)
+                                                                </td>
+                                                                <td class="t-center">
+                                                                    <a asp-action="Edit" asp-route-id="@item.TarefaID" class="badge badge-pill badge-warning">Editar</a>
+                                                                    <a asp-action="Details" asp-route-id="@item.TarefaID" class="badge badge-pill badge-info">Detalhes</a>
+                                                                    <a asp-action="Delete" asp-route-id="@item.TarefaID" class="badge badge-pill badge-danger">Remover</a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        @if (Model.AllPages > 1 && String.IsNullOrEmpty(Model.CurrentSearch))
+                                        {
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-5">
+                                                    <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @Entries_ de @Model.EntriesAll registos</div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Paginação -->
+                                            <nav aria-label="Page navigation" class="pages">
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item">
+                                                        <a class="page-link" id="prev">Anterior</a>
+                                                    </li>
+                                                    @for (int i = Model.FirstPage; i <= Model.AllPages; i++)
+                                                    {
+
+                                                        @if (i == Model.CurrentPage)
+                                                        {
+                                                            <li class="page-item active"><a class="page-link">@i</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="page-item">
+                                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@_u_sort" asp-route-o="@_u_o" asp-route-ipp="@_u_ipp" asp-route-q="@_u_q">@i</a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                    <li class="page-item">
+                                                        <a class="page-link" id="next">Próximo</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                            <!-- Paginação -->
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <br />
+                                        <h3>Nenhum item encontrado :(</h3>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

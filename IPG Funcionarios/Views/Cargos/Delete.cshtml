@@ -1,0 +1,80 @@
+﻿@model IPG_Funcionarios.Models.Cargo
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="main-panel view-html" style="width:100%;">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Views</li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Cargos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Delete</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!--HTML -->
+
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Tem certeza de que deseja excluir?
+                        </p>
+                        <div class="row" role="Delete">
+                            <div class="col-12">
+                                <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="order-listing" class="table dataTable no-footer">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <tbody>
+                                                    <div role="row" class="even">
+                                                        <div class="mb-2">
+                                                            <input asp-for="NomeCargo" placeholder="Nome" class="form-control" disabled />
+                                                            <span asp-validation-for="NomeCargo" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <div class="w-100 d-flex" role="no-form">
+                                                                <form asp-action="Delete"></form>
+                                                                <input type="hidden" asp-for="CargoID" />
+                                                                <input class="c-btn c-btn-primary w-100" type="submit" value="Apagar" />
+                                                                <a class="c-btn c-btn-secundary w-100 m-0 mt-2" asp-action="Index">
+                                                                    Cancelar
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--HTML -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .search-field,
+    button[data-toggle="minimize"],
+    #todo-task {
+        display: none;
+        visibility: hidden;
+    }
+</style>

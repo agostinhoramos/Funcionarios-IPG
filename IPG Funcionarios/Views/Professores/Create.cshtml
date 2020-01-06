@@ -20,10 +20,14 @@
             </div>
             <div class="row">
                 <div class="col">
+                    <!--HTML -->
 
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
+                            <p class="card-description">
+                                Criar novo Professor:
+                            </p>
+                            <div class="row" role="Create" >
                                 <div class="col-12">
                                     <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="row">
@@ -31,32 +35,36 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <table id="order-listing" class="table dataTable no-footer" role="grid" aria-describedby="order-listing_info">
+                                                <table id="order-listing" class="table dataTable no-footer">
                                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                                     <tbody>
-                                                        <tr role="row" class="even">
-                                                            <td>
-                                                                <input asp-for="Nome" placeholder="Nome" class="form-control" />
+                                                        <div class="even" role="no-form">
+                                                            <div class="mb-2">
+                                                                <input asp-for="Nome" placeholder="Nome" class="form-control">
                                                                 <span asp-validation-for="Nome" class="text-danger"></span>
-                                                            </td>
-                                                            <td>
-                                                                <input asp-for="Contacto" placeholder="Contacto" class="form-control" />
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <input asp-for="Contacto" placeholder="Contacto" class="form-control">
                                                                 <span asp-validation-for="Contacto" class="text-danger"></span>
-                                                            </td>
-                                                            <td>
-                                                                <input asp-for="Email" placeholder="Email" class="form-control" />
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <input asp-for="Email" placeholder="Email" class="form-control">
                                                                 <span asp-validation-for="Email" class="text-danger"></span>
-                                                            </td>
-                                                            <td class="t-center">
-                                                                <input asp-for="Gabinete" placeholder="Gabinete" class="form-control" />
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <input asp-for="Gabinete" placeholder="Gabinete" class="form-control">
                                                                 <span asp-validation-for="Gabinete" class="text-danger"></span>
-                                                            </td>
-                                                        </tr>
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <div class="w-100 d-flex" >
+                                                                    <form asp-action="Create"></form>
+                                                                    <input type="hidden" asp-for="ProfessorId" />
+                                                                    <input class="c-btn c-btn-primary w-100 m-0 mt-2" type="submit" value="Criar" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                            <div class="col w-100" style="display: flex;">
-                                                <a class="c-btn c-btn-primary w-100" href="" id="">Criar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -65,6 +73,7 @@
                         </div>
                     </div>
 
+                    <!--HTML -->
                 </div>
             </div>
         </div>
@@ -75,8 +84,9 @@
 }
 
 <style>
-    form.d-flex.align-items-center.h-100,
-    .navbar-menu-wrapper span {
+    .search-field,
+    button[data-toggle="minimize"],
+    #todo-task {
         display: none;
         visibility: hidden;
     }

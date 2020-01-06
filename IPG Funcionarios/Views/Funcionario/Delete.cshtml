@@ -4,68 +4,85 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-<div>
-    <h4>Funcionario</h4>
-    <h3>Deseja apagar Funcionario @Html.DisplayFor(model => model.Nome) ?</h3>
+    <div class="main-panel view-html" style="width:100%;">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title">
+                    <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+                </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Deletar</li>
+                    </ol>
+                </nav>
 
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Telefone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Genero)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Genero)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Morada)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Morada)
-        </dd>
-    </dl>
+            </div>
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="FuncionarioId" />
-        <a href="#Confirmacao" class="trigger-btn" data-toggle="modal">
-            <input type="submit" value="Eliminar" class="btn btn-danger" />
-        </a> |
-        <a asp-action="Index"><input type="button" value="Voltar atrás" class="btn btn-default" /></a>
-    </form>
-    <div id="Confirmacao" class="modal fade">
-        <div class="modal-dialog modal-confirm">
-            <div class="modal-content">
+            <h4>Deseja apagar Funcionario @Html.DisplayFor(model => model.Nome) ?</h4>
 
-                <div class="modal-body">
-                    <p>Tem a certeza que deseja apagar? </p>
-                </div>
-                <div class="modal-footer">
-                    <form asp-action="Delete">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <input type="hidden" asp-for="FuncionarioId" />
-                        <input type="submit" class="btn btn-danger" value="Eliminar" />
-                    </form>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Nome)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Nome)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Telefone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Telefone)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Genero)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Genero)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Morada)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Morada)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.DataNascionento)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DataNascionento)
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="FuncionarioId" />
+                <a href="#Confirmacao" class="trigger-btn" data-toggle="modal">
+                    <input type="submit" value="Eliminar" class="btn btn-danger p-" />
+                </a> 
+               
+            </form>
+            <div id="Confirmacao" class="modal fade">
+                <div class="modal-dialog modal-confirm">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <p>Tem a certeza que deseja apagar? </p>
+                        </div>
+                        <div class="modal-footer">
+                            <form asp-action="Delete">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <input type="hidden" asp-for="FuncionarioId" />
+                                <input type="submit" class="btn btn-danger" value="Eliminar" />
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-</div>
+        </div>

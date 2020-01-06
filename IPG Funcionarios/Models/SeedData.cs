@@ -7,12 +7,93 @@ namespace IPG_Funcionarios.Models {
     public class SeedData {
 
         public static void Populate(IPGFuncionariosDbContext db) {
+
             PopulateProfesor(db);
-            //PopulateFuncionario(db);
+            PopulateFuncionario(db);
             PopulateDepartamento(db);
+
+            PopulateServico(db);
+            PopulateEscola(db);
+            PopulateTarefa(db);
+            PopulateCargo(db);
         }
 
-        private static void PopulateProfesor(IPGFuncionariosDbContext db) {
+        private static void PopulateServico(IPGFuncionariosDbContext db)
+        {
+            if (db.Servico.Any())
+            {
+                return;
+            }
+
+            db.Servico.AddRange(
+                new Servico { Nome = "Correção dos exames" },
+                new Servico { Nome = "Criação de novo horário escolar" },
+                new Servico { Nome = "Marcar as datas das frequências" },
+                new Servico { Nome = "Vigiar alunos no Exame" },
+                new Servico { Nome = "Ajudar nas compras das escolas" },
+                new Servico { Nome = "Fazer Limpeza" },
+                new Servico { Nome = "Manter segurança no recinto escolar" },
+                new Servico { Nome = "Dirigir a viatura da escola" },
+                new Servico { Nome = "Pagar os consumo da escola" }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateEscola(IPGFuncionariosDbContext db)
+        {
+            if (db.Escola.Any())
+            {
+                return;
+            }
+
+            db.Escola.AddRange(
+                new Escola { Nome = "ESECD", Descricao = "Escola Superior de Educação, Comunicação e Desporto", Localizacao = "Guarda" },
+                new Escola { Nome = "ESTG", Descricao = "Escola Superior de Tecnologia e Gestão", Localizacao = "Guarda" },
+                new Escola { Nome = "ESTH", Descricao = "Escola Superior de Turismo e Hotelaria", Localizacao = "Seia" },
+                new Escola { Nome = "ESS", Descricao = "Escola Superior de Saúde", Localizacao = "Guarda" }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateTarefa(IPGFuncionariosDbContext db)
+        {
+            if (db.Tarefa.Any())
+            {
+                return;
+            }
+
+            db.Tarefa.AddRange(
+                new Tarefa { Nome = "Tarefa A", Descricao = "Descrição A", Data = new DateTime(2019, 03, 04) },
+                new Tarefa { Nome = "Tarefa B", Descricao = "Descrição B", Data = new DateTime(2020, 01, 07) },
+                new Tarefa { Nome = "Tarefa C", Descricao = "Descrição C", Data = new DateTime(2016, 02, 20) },
+                new Tarefa { Nome = "Tarefa D", Descricao = "Descrição D", Data = new DateTime(2019, 11, 17) }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateCargo(IPGFuncionariosDbContext db)
+        {
+            if (db.Cargo.Any())
+            {
+                return;
+            }
+
+            db.Cargo.AddRange(
+                new Cargo { NomeCargo = "Presidente" },
+                new Cargo { NomeCargo = "Professor" },
+                new Cargo { NomeCargo = "Segurança" },
+                new Cargo { NomeCargo = "Funcionário de Limpeza" },
+                new Cargo { NomeCargo = "Funcionário de Secretaria" }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateProfesor(IPGFuncionariosDbContext db) 
+        {
             if (db.Professor.Any()) {
                 return;
             }
@@ -55,7 +136,22 @@ namespace IPG_Funcionarios.Models {
                 new Professor { Nome = "Maria João Marques Alves da Costa", Contacto = "245076354", Email = "outro16@email.com", Gabinete = "80" },
                 new Professor { Nome = "Mário José da Silva Meleiro", Contacto = "246432546", Email = "outro17@email.com", Gabinete = "81" },
                 new Professor { Nome = "Rosa Branca Almeida Figueiredo", Contacto = "254076686", Email = "outro18@email.com", Gabinete = "82" },
-                new Professor { Nome = "Rui Manuel Formoso Nobre dos Santos", Contacto = "246543686", Email = "outro19@email.com", Gabinete = "83" }
+                new Professor { Nome = "Rui Manuel Formoso Nobre dos Santos", Contacto = "246543686", Email = "outro19@email.com", Gabinete = "83" },
+
+                /* Apenas Dados */
+                new Professor { Nome = "Bill Gates", Contacto = "985279130", Email = "email100@gmail.com", Gabinete = "E100" },
+                new Professor { Nome = "Will Smith", Contacto = "911998189", Email = "email101@gmail.com", Gabinete = "E101" },
+                new Professor { Nome = "Neil deGrasse Tyson", Contacto = "915734639", Email = "email102@gmail.com", Gabinete = "E102" },
+                new Professor { Nome = "Abel Garcia Abejas", Contacto = "965636170", Email = "email103@gmail.com", Gabinete = "E103" },
+                new Professor { Nome = "Abel João Padrão Gomes", Contacto = "961739593", Email = "email104@gmail.com", Gabinete = "E104" },
+                new Professor { Nome = "Abílio Manuel Pereira da Silva", Contacto = "989647558", Email = "email105@gmail.com", Gabinete = "E105" },
+                new Professor { Nome = "Victor Moreno Pérez", Contacto = "968667809", Email = "email106@gmail.com", Gabinete = "E106" },
+                new Professor { Nome = "Vitor Hugo Borrata dos Santos", Contacto = "959809001", Email = "email107@gmail.com", Gabinete = "E107" },
+                new Professor { Nome = "Vitor Manuel Pinto de Figueiredo", Contacto = "970506834", Email = "email108@gmail.com", Gabinete = "E108" },
+                new Professor { Nome = "Zélia Maria da Silva Serrasqueiro Teixeira", Contacto = "910687324", Email = "email109@gmail.com", Gabinete = "E109" },
+                new Professor { Nome = "Tiago Jorge Alves Fernandes", Contacto = "920786237", Email = "email110@gmail.com", Gabinete = "E110" },
+                new Professor { Nome = "Toufek Metidji", Contacto = "933778242", Email = "email111@gmail.com", Gabinete = "E111" },
+                new Professor { Nome = "Susana Maria Palavra Garrido Azevedo", Contacto = "989597527", Email = "email112@gmail.com", Gabinete = "E112" }
             );
 
             db.SaveChanges();
@@ -66,7 +162,23 @@ namespace IPG_Funcionarios.Models {
             }
 
             db.Funcionario.AddRange(
+                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(07, 03, 1972) },
+                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime( 07, 03, 1972) },
+                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(07, 03,1972) },
 
+
+                new Funcionario { Nome = "Lizana Sousa", Telefone = "234567891", Email = "lizana@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(07, 03, 1972) },
+                new Funcionario { Nome = "Laria Lima", Telefone = "912344568", Email = "laria@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento = new DateTime(07, 03, 1972) },
+                new Funcionario { Nome = "Jose Rita", Telefone = "923456212", Email = "joserita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(07, 03, 1972) },
+
+                new Funcionario { Nome = "Lazaro Sousa", Telefone = "234567892", Email = "lazaro@gmail.com", Genero = "m", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(07, 03, 1972) },
+                new Funcionario { Nome = "Felipe Lima", Telefone = "912344569", Email = "felip@gmail.com", Genero = "M", Morada = "Rua Páiva", DataNascionento = new DateTime(07, 03, 1972) },
+                new Funcionario { Nome = "Paulo Rita", Telefone = "923456213", Email = "pa@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(07, 03, 1972) }
+
+
+                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1972, 07, 03) },
+                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1972, 07, 03)},
+                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) }
             );
 
             db.SaveChanges();
@@ -85,8 +197,8 @@ namespace IPG_Funcionarios.Models {
                 new Departamento { Nome = "Departamento de Energia e Ambiente" },
                 new Departamento { Nome = "Departamento de Farmácia" },
                 new Departamento { Nome = "Departamento de Hotelaria" },
-                new Departamento { Nome = "	Departamento de Desporto" },
-                new Departamento { Nome = "	Departamento de Comunicação Multimédia" }
+                new Departamento { Nome = "Departamento de Desporto" },
+                new Departamento { Nome = "Departamento de Comunicação Multimédia" }
             );
             
             db.SaveChanges();

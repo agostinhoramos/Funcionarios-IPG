@@ -5,53 +5,90 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Funcionario:@Html.DisplayFor(Model=> Model.Nome)</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FuncionarioId" />
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telefone" class="control-label"></label>
-                <input asp-for="Telefone" class="form-control" />
-                <span asp-validation-for="Telefone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Genero" class="control-label"></label>
-                <input asp-for="Genero" class="form-control" />
-                <span asp-validation-for="Genero" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Morada" class="control-label"></label>
-                <input asp-for="Morada" class="form-control" />
-                <span asp-validation-for="Morada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-success" />
-                <a asp-action="Index" class="btn btn-default">Voltar atrás</a>
+    <div class="main-panel view-html" style="width:100%;">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h3 class="page-title">
+                    <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+                </h3>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Editar</li>
+                    </ol>
+                </nav>
 
             </div>
-        </form>
-    </div>
-</div>
+            <div class="row">
+                <div class="col-md-10">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="FuncionarioId" />
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Telefone" class="control-label"></label>
+                            <input asp-for="Telefone" class="form-control" />
+                            <span asp-validation-for="Telefone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Genero" class="control-label"></label>
+                            <input asp-for="Genero" class="form-control" />
+                            <span asp-validation-for="Genero" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Morada" class="control-label"></label>
+                            <input asp-for="Morada" class="form-control" />
+                            <span asp-validation-for="Morada" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DataNascionento" class="control-label"></label>
+                            <input asp-for="DataNascionento" class="form-control" />
+                            <span asp-validation-for="DataNascionento" class="text-danger"></span>
+                        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+                        <div class="form-group">
+                            <input type="submit" value="Guardar" class="btn btn-warning p-" />
+                         
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+                        </div>
+                    </form>
+                    <div id="Confirmacao" class="modal fade">
+                        <div class="modal-dialog modal-confirm">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+                                    <p>Tem a certeza que deseja editar os dados do Funcionário? </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form asp-action="Delete">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <input type="hidden" asp-for="FuncionarioId" />
+                                        <input type="submit" class="btn btn-danger" value="Guardar" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }
