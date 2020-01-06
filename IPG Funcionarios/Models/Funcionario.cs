@@ -40,7 +40,7 @@ namespace IPG_Funcionarios.Models
 
           [Required(ErrorMessage = "Por favor, digite a data de nascimento")]
           [DataType(DataType.Date, ErrorMessage = "Data inválido")]
-          [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]/*
+          [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]/*
         [Display(Name = "Data Nascimento")]
         [Required(ErrorMessage = "Data deve ser preenchida")]
         [RegularExpression(@"^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$", ErrorMessage = "Data invalida")]
