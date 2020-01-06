@@ -23,11 +23,11 @@ namespace IPG_Funcionarios.Controllers
 
             var prof = from p in _context.Professor select p;
             decimal nRows = prof.Count();
-            
+
             if (ipp <= 1) {
                 ipp = (int)Math.Ceiling(nRows);
             }
-            
+
             int PAGES_BEFORE_AND_AFTER = ((int)nRows / ipp);
 
             if (nRows % ipp == 0) {
@@ -66,12 +66,16 @@ namespace IPG_Funcionarios.Controllers
                             prof = prof.Where(p => p.Gabinete.CompareTo(q) == 0);
                             break;
                         case "id":
-                            prof = prof.Where(p => p.ProfessorId.CompareTo(Int32.Parse(q)) == 0);
+                            int Numq = 0;
+                            if (q.IsNumericType()) {
+                                Numq = Int32.Parse(q);
+                            }
+                            prof = prof.Where(p => p.ProfessorId.CompareTo(Numq) == 0);
                             break;
                     }
                 }
                 else { // Avançada
-                    String[] sep = {" "};
+                    String[] sep = { " " };
                     int word_limit = 20;
                     String[] data = q.Split(sep, word_limit, StringSplitOptions.RemoveEmptyEntries);
                     int len = data.Length - 1;
@@ -91,34 +95,34 @@ namespace IPG_Funcionarios.Controllers
             if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o)) {
                 switch (o) {
                     case "id":
-                        vm.Professor = (sort == "1") ? 
+                        vm.Professor = (sort == "1") ?
                             (prof.OrderBy(p => p.ProfessorId).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.ProfessorId).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "nome":
-                        vm.Professor = (sort == "1") ? 
+                        vm.Professor = (sort == "1") ?
                             (prof.OrderBy(p => p.Nome).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Nome).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "contacto":
-                        vm.Professor = (sort == "1") ? 
+                        vm.Professor = (sort == "1") ?
                             (prof.OrderBy(p => p.Contacto).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Contacto).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "email":
-                        vm.Professor = (sort == "1") ? 
+                        vm.Professor = (sort == "1") ?
                             (prof.OrderBy(p => p.Email).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Email).Skip((page - 1) * ipp).Take(ipp));
                         break;
                     case "gabinete":
-                        vm.Professor = (sort == "1") ? 
+                        vm.Professor = (sort == "1") ?
                             (prof.OrderBy(p => p.Gabinete).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Gabinete).Skip((page - 1) * ipp).Take(ipp));
                         break;
                 }
-                        vm.Sort = sort;
+                vm.Sort = sort;
             } else {
-                        vm.Professor = prof.Skip((page - 1) * ipp).Take(ipp);
+                vm.Professor = prof.Skip((page - 1) * ipp).Take(ipp);
             }
 
             vm.LastPage = Math.Min(vm.AllPages, page + PAGES_BEFORE_AND_AFTER);
@@ -167,15 +171,15 @@ namespace IPG_Funcionarios.Controllers
                    isEqual("Gabinete", professor.Gabinete)
                    )
                 {
-                    string  repeated = isEqual("Nome", professor.Nome) ? "Nome " : "";
-                            repeated += isEqual("Contacto", professor.Contacto) ? "Contacto " : "";
-                            repeated += isEqual("Email", professor.Email) ? "Email " : "";
-                            repeated += isEqual("Gabinete", professor.Gabinete) ? "Gabinete " : "";
+                    string repeated = isEqual("Nome", professor.Nome) ? "Nome " : "";
+                    repeated += isEqual("Contacto", professor.Contacto) ? "Contacto " : "";
+                    repeated += isEqual("Email", professor.Email) ? "Email " : "";
+                    repeated += isEqual("Gabinete", professor.Gabinete) ? "Gabinete " : "";
 
                     ViewBag.type = "alert-danger";
                     ViewBag.title = "Erro ao criar o professor";
-                    ViewBag.message = "Não foi possível criar novo Professor porque,"+
-                                      "existem dados repetidos em todos ou um dos "+
+                    ViewBag.message = "Não foi possível criar novo Professor porque," +
+                                      "existem dados repetidos em todos ou um dos " +
                                       "campos <strong>" + repeated + "</strong>";
 
                     ViewBag.redirect = "/Professores/Create"; // Request.Path
@@ -226,7 +230,7 @@ namespace IPG_Funcionarios.Controllers
             if (ModelState.IsValid)
             {
                 if (
-                    !isUnique("Nome", professor.Nome ,id) ||
+                    !isUnique("Nome", professor.Nome, id) ||
                     !isUnique("Email", professor.Email, id) ||
                     !isUnique("Contacto", professor.Contacto, id) ||
                     !isUnique("Gabinete", professor.Gabinete, id)
@@ -263,9 +267,9 @@ namespace IPG_Funcionarios.Controllers
                     ViewBag.redirect = "/Professores/Index"; // Request.Path
                     return View("message");
                 }
-                
+
             }
-            
+
             return View(professor);
         }
 
@@ -348,5 +352,7 @@ namespace IPG_Funcionarios.Controllers
             }
             return !result;
         }
+
     }
+
 }

@@ -36,13 +36,13 @@ namespace IPG_Funcionarios.Controllers
             var tarf = from q in _contextB.Tarefa select q;
             var carg = from q in _contextB.Cargo select q;
 
-            ViewData["AllProfessores"] = ParseDbCount(prof.Count());
-            ViewData["AllFuncionario"] = ParseDbCount(func.Count());
-            ViewData["AllDepartamento"] = ParseDbCount(dept.Count());
-            ViewData["AllServicos"] = ParseDbCount(serv.Count());
-            ViewData["AllEscolas"] = ParseDbCount(escl.Count());
-            ViewData["AllTarefas"] = ParseDbCount(tarf.Count());
-            ViewData["AllCargos"] = ParseDbCount(carg.Count());
+            ViewData["AllProfessores"] = MyFn.ParseDbCount(prof.Count());
+            ViewData["AllFuncionario"] = MyFn.ParseDbCount(func.Count());
+            ViewData["AllDepartamento"] = MyFn.ParseDbCount(dept.Count());
+            ViewData["AllServicos"] = MyFn.ParseDbCount(serv.Count());
+            ViewData["AllEscolas"] = MyFn.ParseDbCount(escl.Count());
+            ViewData["AllTarefas"] = MyFn.ParseDbCount(tarf.Count());
+            ViewData["AllCargos"] = MyFn.ParseDbCount(carg.Count());
 
             if (User.Identity.IsAuthenticated)
             {
@@ -74,8 +74,5 @@ namespace IPG_Funcionarios.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public static int ParseDbCount(decimal data) {
-            return (int)Math.Ceiling(data);
-        }
     }
 }

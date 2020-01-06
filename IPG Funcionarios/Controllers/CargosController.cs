@@ -62,7 +62,12 @@ namespace IPG_Funcionarios.Controllers
                             prof = prof.Where(p => p.NomeCargo.Contains(q));
                             break;
                         case "id":
-                            prof = prof.Where(p => p.CargoID.CompareTo(Int32.Parse(q)) == 0);
+                            int Numq = 0;
+                            if (q.IsNumericType())
+                            {
+                                Numq = Int32.Parse(q);
+                            }
+                            prof = prof.Where(p => p.CargoID.CompareTo(Numq) == 0);
                             break;
                     }
                 }
