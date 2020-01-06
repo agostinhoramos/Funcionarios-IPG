@@ -19,9 +19,118 @@ namespace IPG_Funcionarios.Controllers
         }
 
         // GET: Tarefas
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10)
         {
-            return View(await _context.Tarefa.ToListAsync());
+
+            var prof = from p in _context.Tarefa select p;
+            decimal nRows = prof.Count();
+
+            if (ipp <= 1)
+            {
+                ipp = (int)Math.Ceiling(nRows);
+            }
+
+            int PAGES_BEFORE_AND_AFTER = ((int)nRows / ipp);
+
+            if (nRows % ipp == 0)
+            {
+                PAGES_BEFORE_AND_AFTER -= 1;
+            }
+
+            TarefaViewModel vm = new TarefaViewModel
+            {
+                CurrentPage = page,
+                AllPages = (int)Math.Ceiling(nRows / ipp),
+                FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),
+
+                EntriesPerPage = ipp,
+                EntriesStart = ipp * (page - 1) > 0 ? ipp * (page - 1) + 1 : ((int)Math.Ceiling(nRows) < 1 ? 0 : 1),
+                EntriesEnd = ipp * page < (int)Math.Ceiling(nRows) ?
+                ipp * page : (int)Math.Ceiling(nRows),
+                EntriesAll = (int)Math.Ceiling(nRows)
+            };
+
+            // Algoritmo de pesquisa
+            if (!String.IsNullOrEmpty(q))
+            {
+                vm.CurrentSearch = q;
+                if (!String.IsNullOrEmpty(o))
+                {
+                    switch (o)
+                    {
+                        case "nome":
+                            prof = prof.Where(p => p.Nome.Contains(q));
+                            break;
+                        case "desc":
+                            prof = prof.Where(p => p.Descricao.Contains(q));
+                            break;
+                        case "id":
+                            int Numq = 0;
+                            if (q.IsNumericType())
+                            {
+                                Numq = Int32.Parse(q);
+                            }
+                            prof = prof.Where(p => p.TarefaID.CompareTo(Numq) == 0);
+                            break;
+                    }
+                }
+                else
+                { // Avançada
+                    String[] sep = { " " };
+                    int word_limit = 20;
+                    String[] data = q.Split(sep, word_limit, StringSplitOptions.RemoveEmptyEntries);
+                    int len = data.Length - 1;
+                    if (len > 0)
+                    {
+                        for (int i = 0; i < len; i++)
+                        {
+                            prof = prof.Where(p => p.Nome.Contains(data[i]));
+                        }
+                    }
+                    else
+                    {
+                        prof = prof.Where(p => p.Nome.Contains(data[0]));
+                    }
+                }
+            }
+
+            // Algoritmo de ordenação de caracteres
+            if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o))
+            {
+                switch (o)
+                {
+                    case "id":
+                        vm.Tarefas = (sort == "1") ?
+                            (prof.OrderBy(p => p.TarefaID).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.TarefaID).Skip((page - 1) * ipp).Take(ipp));
+                        break;
+                    case "desc":
+                        vm.Tarefas = (sort == "1") ?
+                            (prof.OrderBy(p => p.Descricao).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.Descricao).Skip((page - 1) * ipp).Take(ipp));
+                        break;
+                    case "data":
+                        vm.Tarefas = (sort == "1") ?
+                            (prof.OrderBy(p => p.Data).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.Data).Skip((page - 1) * ipp).Take(ipp));
+                        break;
+                    case "nome":
+                        vm.Tarefas = (sort == "1") ?
+                            (prof.OrderBy(p => p.Nome).Skip((page - 1) * ipp).Take(ipp)) :
+                            (prof.OrderByDescending(p => p.Nome).Skip((page - 1) * ipp).Take(ipp));
+                        break;
+                }
+                vm.Sort = sort;
+            }
+            else
+            {
+                vm.Tarefas = prof.Skip((page - 1) * ipp).Take(ipp);
+            }
+
+            vm.LastPage = Math.Min(vm.AllPages, page + PAGES_BEFORE_AND_AFTER);
+            vm.CurrentOption = o;
+
+            return View(vm);
         }
 
         // GET: Tarefas/Details/5
