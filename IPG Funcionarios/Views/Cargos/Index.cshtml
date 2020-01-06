@@ -25,6 +25,101 @@
     try { _u_ipp = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_ipp = ""; }
 
 }
+
+@section Scripts {
+    <script>
+        var baseURL = location.protocol + '//' + '@Context.Request.Host/@mainUrl';
+        var cpage = parseInt('@Model.CurrentPage');
+        var csort = '@Model.Sort';
+        var cstrg = encodeURIComponent('@Model.CurrentSearch').trim().toLowerCase();
+        var cstgq = '@Context.Request.QueryString';
+        var tpage = parseInt('@Model.AllPages');
+        var phold = 'Procurar @Model.CurrentOption';
+
+        $(document).ready(function () {
+
+            _auto_item_per_page("@Model.EntriesPerPage");
+
+            if (true) {
+                    $("li a#prev").click(function () {
+                        if (cpage > 1) {
+                            var url = baseURL + '?page='
+                                + (cpage - 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
+                                + '&o=@_u_o&ipp=@_u_ipp';
+                            url ? window.location.assign(url) : null;
+                        }
+                    });
+                    $("li a#next").click(function () {
+                        if (cpage < tpage) {
+                            var url = baseURL + '?page='
+                                + (cpage + 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
+                                + '&o=@_u_o&ipp=@_u_ipp';
+                            url ? window.location.assign(url) : null;
+                        }
+                    });
+                    if (cpage != 1) {$("a#prev").parent().removeClass("disabled");}else{$("a#prev").parent().addClass("disabled");}
+                    if (cpage != tpage) {$("a#next").parent().removeClass("disabled");}else{$("a#next").parent().addClass("disabled");}
+            }
+            let id_wait = null;
+
+            if (cstrg) { $('html, body').animate({ scrollTop : 90 }, 'slow'); }
+
+            try {
+                cstrg = decodeURIComponent(cstgq.split("q=")[1].split("&")[0]);
+            } catch (e) { cstrg = ""; }
+
+            $("#search").keyup(function () {
+                var query = $(this).val();
+                clearTimeout(id_wait);
+                if (!query || query.length < 1) {
+                    baseURL = baseURL + '?page=1&sort=@_u_sort&q=&o=@_u_o&ipp=@_u_ipp';
+                    baseURL ? window.location.assign(baseURL) : null;
+                } else {
+                    id_wait = setTimeout(function () {
+                        baseURL = baseURL + '?page=1&sort=@_u_sort&q='+query+'&o=@_u_o&ipp=@_u_ipp';
+                        baseURL ? window.location.assign(baseURL) : null;
+                    },2000);
+                }
+            }).val(cstrg).attr("autocomplete","off")
+              .focus().attr("placeholder", phold);
+
+            $("#entries_per_page").change(function () {
+                let ipp = $(this).val();
+                baseURL = baseURL + '?page=' + ('@_u_page' ? '@_u_page' : '1')
+                    + ('@_u_sort' ? '&sort=' + '@_u_sort' : '')
+                    + ('@_u_q' ? '&q=' + '@_u_q' : '')
+                    + ('@_u_o' ? '&o=' + '@_u_o' : '')
+                    + (ipp ? '&ipp=' + ipp : '');
+
+                baseURL ? window.location.assign(baseURL) : null;
+            });
+
+            $("tr.sort th").click(function () {
+                let s, o, url='', type = $(this).text().trim().toLowerCase();
+                try { s = location.href.split("sort=")[1].split("&")[0];
+                } catch (e) { s = ""; }
+                try { o = location.href.split("o=")[1].split("&")[0];
+                } catch (e) { o = ""; }
+
+                if (s!=='0') {
+                    url = '&sort=' + ((s == '0') ? '1'
+                    : (o !== type ? '1' : '0')) + '&o=' + type;
+                }
+
+                url = baseURL + "?page=" + ('@_u_page' ? '@_u_page' : '1')
+                    + ('@_u_ipp' ? "&ipp=@_u_ipp" : "") + url
+                    + (cstrg ? "&q=" + cstrg : "");
+                url ? window.location.assign(url) : null;
+            });
+        });
+    </script>
+    <style>
+        button[data-toggle="minimize"], #todo-task {
+            display: none;
+            visibility: hidden;
+        }
+    </style>
+}
 <div class="main-panel view-html" style="width:100%;">
     <div class="content-wrapper">
         <div class="page-header">
@@ -150,93 +245,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        var baseURL = location.protocol + '//' + '@Context.Request.Host/@mainUrl';
-        var cpage = parseInt('@Model.CurrentPage');
-        var csort = '@Model.Sort';
-        var cstrg = encodeURIComponent('@Model.CurrentSearch').trim().toLowerCase();
-        var cstgq = '@Context.Request.QueryString';
-        var tpage = parseInt('@Model.AllPages');
-        var phold = 'Procurar @Model.CurrentOption';
-
-    $(document).ready(function () {
-
-            _auto_item_per_page("@Model.EntriesPerPage");
-
-            if ( true ) {
-                    $("li a#prev").click(function () {
-                        if (cpage > 1) {
-                            var url = baseURL + '?page='
-                                + (cpage - 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
-                                + '&o=@_u_o&ipp=@_u_ipp';
-                            url ? window.location.assign(url) : null;
-                        }
-                    });
-                    $("li a#next").click(function () {
-                        if (cpage < tpage) {
-                            var url = baseURL + '?page='
-                                + (cpage + 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
-                                + '&o=@_u_o&ipp=@_u_ipp';
-                            url ? window.location.assign(url) : null;
-                        }
-                    });
-                    if (cpage != 1) {$("a#prev").parent().removeClass("disabled");}else{$("a#prev").parent().addClass("disabled");}
-                    if (cpage != tpage) {$("a#next").parent().removeClass("disabled");}else{$("a#next").parent().addClass("disabled");}
-            }
-            let id_wait = null;
-
-            if (cstrg) { $('html, body').animate({ scrollTop : 90 }, 'slow'); }
-
-            try {
-                cstrg = decodeURIComponent(cstgq.split("q=")[1].split("&")[0]);
-            } catch (e) { cstrg = ""; }
-
-            $("#search").keyup(function () {
-                var query = $(this).val();
-                clearTimeout(id_wait);
-                if (!query || query.length < 1) {
-                    baseURL = baseURL + '?page=1&sort=@_u_sort&q=&o=@_u_o&ipp=@_u_ipp';
-                    baseURL ? window.location.assign(baseURL) : null;
-                } else {
-                    id_wait = setTimeout(function () {
-                        baseURL = baseURL + '?page=1&sort=@_u_sort&q='+query+'&o=@_u_o&ipp=@_u_ipp';
-                        baseURL ? window.location.assign(baseURL) : null;
-                    },2000);
-                }
-            }).val(cstrg).attr("autocomplete","off")
-              .focus().attr("placeholder", phold);
-
-            $("#entries_per_page").change(function () {
-                baseURL = baseURL + '?page=@_u_o&sort=@_u_sort&q=@_u_q&o=@_u_o' + '&ipp=' + $(this).val();
-                baseURL ? window.location.assign(baseURL) : null;
-            });
-
-            $("tr.sort th").click(function () {
-                let type = $(this).text().trim().toLowerCase();
-                var s, o;
-                try {
-                    s = location.href.split("sort=")[1].split("&")[0];
-                } catch (e) { s = ""; }
-                try {
-                    o = location.href.split("o=")[1].split("&")[0];
-                } catch (e) { o = ""; }
-
-                var url = baseURL + '?page=@_u_page&sort=' + (((s == '0') ? '1'
-                    : (o !== type ? '1' : '0')) + (cstrg ? "&q=" + cstrg : ""))
-                    + '&o=' + type + '&ipp=@_u_ipp';
-
-                url ? window.location.assign(url) : null;
-            });
-        });
-    </script>
-}
-
-<style>
-    button[data-toggle="minimize"],
-    #todo-task {
-        display: none;
-        visibility: hidden;
-    }
-</style>
