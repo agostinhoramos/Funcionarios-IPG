@@ -39,7 +39,7 @@ namespace IPG_Funcionarios.Models
             return new PaginacaoViewModel<T>(items, count, pageIndex, pageSize);
         }
 
-
+    
      
     }
 

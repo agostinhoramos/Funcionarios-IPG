@@ -172,9 +172,23 @@ namespace IPG_Funcionarios.Models {
             }
 
             db.Funcionario.AddRange(
-                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1972, 07, 03) },
-                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1972, 07, 03)},
-                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) }
+                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1973, 07, 03) },
+               new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1970, 07, 03) },
+                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) },
+
+
+                new Funcionario { Nome = "Lizana Sousa", Telefone = "234567891", Email = "lizana@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1972, 07, 03) },
+                new Funcionario { Nome = "Laria Lima", Telefone = "912344568", Email = "laria@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento = new DateTime(1972, 07, 04) },
+                new Funcionario { Nome = "Jose Rita", Telefone = "923456212", Email = "joserita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) },
+
+                new Funcionario { Nome = "Lazaro Sousa", Telefone = "234567892", Email = "lazaro@gmail.com", Genero = "m", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1998, 07, 03) },
+                new Funcionario { Nome = "Felipe Lima", Telefone = "912344569", Email = "felip@gmail.com", Genero = "M", Morada = "Rua Páiva", DataNascionento = new DateTime(1989, 07, 03) },
+                new Funcionario { Nome = "Paulo Rita", Telefone = "923456213", Email = "pa@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) },
+
+
+                new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1979, 07, 03) },
+                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1956, 07, 03)},
+                new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1998, 07, 03) }
             );
 
             db.SaveChanges();

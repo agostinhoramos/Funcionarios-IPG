@@ -4,45 +4,66 @@
     ViewData["Title"] = "Edit";
 }
 
-    <div class="main-panel" style="width:100%;">
-        <div class="content-wrapper" style="background-color:white;">
-            <div class="page-header">
-                
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Departamento</li>
-                        <li class="breadcrumb-item">Views</li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <!-- COLUNA 1 -->
-                    <!-- TODO CONTEÚDO AQUI! -->
-                    <form asp-action="Edit">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" asp-for="DepartamentoId" />
-                        <div class="form-group">
-                            <label asp-for="Nome" class="control-label"></label>
-                            <input asp-for="Nome" class="form-control" />
-                            <span asp-validation-for="Nome" class="text-danger"></span>
+<div class="main-panel" style="width:100%;">
+    <div class="content-wrapper" style="background-color:white;">
+        <div class="page-header">
+            <h3 class="page-title">
+                <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Departamento</li>
+                    <li class="breadcrumb-item">Views</li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <form asp-action="Edit">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <input type="hidden" asp-for="DepartamentoId" />
+                                                <div class="form-group">
+                                                    <label asp-for="Nome" class="control-label"></label>
+                                                    <input asp-for="Nome" class="form-control" />
+                                                    <span asp-validation-for="Nome" class="text-danger"></span>
+                                                </div>
+
+                                            </form>
+                                            <div class="form-group">
+                                                <input type="submit" value="Save" class="btn btn-primary" />
+                                                <a asp-action="Index" class="btn btn-primary btn-back">Back to List</a>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                    </form>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                        <a asp-action="Index" class="btn btn-primary btn-back">Back to List</a>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
+</div>
+                          
+
+
+
 <style>
     .form-group2 {
-        display:inline-block;
+        display: inline-block;
     }
 </style>
 
@@ -80,11 +101,12 @@
 }
 
 <style>
-.page-header {
-    width: 100%;
-    position: relative;
-}
-.page-header nav {
-    margin: 0 0 0 auto;
-}
+    .page-header {
+        width: 100%;
+        position: relative;
+    }
+
+        .page-header nav {
+            margin: 0 0 0 auto;
+        }
 </style>

@@ -17,7 +17,7 @@ namespace IPG_Funcionarios.Migrations
                     Telefone = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Genero = table.Column<string>(nullable: false),
-                    Morada = table.Column<string>(maxLength: 50, nullable: false),
+                    Morada = table.Column<string>(maxLength: 100, nullable: false),
                     DataNascionento = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

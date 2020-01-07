@@ -79,7 +79,7 @@ namespace IPG_Funcionarios.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
+                .SingleOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -99,13 +99,36 @@ namespace IPG_Funcionarios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada,DataNascionento")] Funcionario funcionario)
         {
-            if (ModelState.IsValid)
+            var email = funcionario.Email;
+            var telefone = funcionario.Telefone;
+
+            if (emailInvalido(email) == true) {
+                //Mensagem de erro se o email for inválido
+                ModelState.AddModelError("ERRO!","Este email já existe");
+            }
+            if (telefoneInvalido(telefone)) 
             {
-                _context.Add(funcionario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //Mensagem de erro se o nº de t já existe
+                ModelState.AddModelError("ERRO!","Este email já existe");
+            }
+
+            /************/
+            if (ModelState.IsValid)
+
+            {
+                if (!telefoneInvalido(telefone) || !emailInvalido(email))
+                {
+                    _context.Add(funcionario);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.Title = " Adicionado!";
+                    ViewBag.Message = "Novo funcionario criado Sucesso.";
+
+                    // return RedirectToAction(nameof(Index));
+                    return View("Sucesso");
+                }
             }
             return View(funcionario);
         }
@@ -131,17 +154,34 @@ namespace IPG_Funcionarios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada,DataNascionento")] Funcionario funcionario)
         {
+            var email = funcionario.Email;
+            var telefone = funcionario.Telefone;
+            var idf = funcionario.FuncionarioId;
+
             if (id != funcionario.FuncionarioId)
             {
                 return NotFound();
+            }
+            if (emailInvalidoEdit(email,idf)) {
+                //Mensagem de erro se o email já existir
+
+                ModelState.AddModelError("Email", "Email já existente");
+             }
+
+            //Validar telefone
+            if (telefoneInvalidoEdit(telefone, idf))
+            {
+                //Mensagem de erro se o t já existir
+                ModelState.AddModelError("Telefone", "Telefone já existente");
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (!telefoneInvalidoEdit(telefone,idf)||!emailInvalidoEdit(email,idf)) 
                     _context.Update(funcionario);
                     await _context.SaveChangesAsync();
                 }
@@ -156,7 +196,11 @@ namespace IPG_Funcionarios.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //  return RedirectToAction(nameof(Index));
+                ViewBag.Title = "Editado!";
+                ViewBag.Message = "O funcionario foi editado com Sucesso.";
+
+                return View("Sucesso");
             }
             return View(funcionario);
         }
@@ -170,7 +214,7 @@ namespace IPG_Funcionarios.Controllers
             }
 
             var funcionario = await _context.Funcionario
-                .FirstOrDefaultAsync(m => m.FuncionarioId == id);
+                .SingleOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -185,14 +229,95 @@ namespace IPG_Funcionarios.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var funcionario = await _context.Funcionario.FindAsync(id);
-            _context.Funcionario.Remove(funcionario);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            if (funcionario==null) {
+                return NotFound();
+             }
+            try
+            {
+
+
+                _context.Funcionario.Remove(funcionario);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                //  return RedirectToAction(nameof(Index));
+                return View("ErrorDeleting");
+            }
+
+            ViewBag.Title = " Deletado!";
+            ViewBag.Message = "Funcionario Deletado com  Sucesso.";
+            return View("Sucesso");
+
+            }
 
         private bool FuncionarioExists(int id)
         {
             return _context.Funcionario.Any(e => e.FuncionarioId == id);
+        }
+
+        private bool emailInvalido(string email)
+        {
+            bool invalido = false;
+
+            //Procura na BD se existem  com o mesmo email
+            var funcionario = from e in _context.Funcionario
+                              where e.Email.Contains(email)
+                              select e;
+
+            if (!funcionario.Count().Equals(0))
+            {
+                invalido = true;
+            }
+
+            return invalido;
+        }
+
+        private bool telefoneInvalido(string telefone)
+        {
+            bool invalido = false;
+
+
+            var funcionario = from e in _context.Funcionario
+                              where e.Telefone.Contains(telefone)
+                              select e;
+
+            if (!funcionario.Count().Equals(0))
+            {
+                invalido = true;
+            }
+
+            return invalido;
+        }
+        private bool emailInvalidoEdit(string email, int idf)
+        {
+            bool invalido = false;
+
+            var funcionario = from e in _context.Funcionario
+                              where e.Email.Contains(email) && e.FuncionarioId != idf
+                              select e;
+
+            if (!funcionario.Count().Equals(0))
+            {
+                invalido = true;
+            }
+
+            return invalido;
+        }
+        private bool telefoneInvalidoEdit(string telefone, int idf)
+        {
+            bool invalido = false;
+
+            var funcionario = from e in _context.Funcionario
+                              where e.Telefone.Contains(telefone) && e.FuncionarioId != idf
+                              select e;
+
+            if (!funcionario.Count().Equals(0))
+            {
+                invalido = true;
+            }
+
+            return invalido;
         }
     }
 }
