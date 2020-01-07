@@ -26,15 +26,16 @@ namespace IPG_Funcionarios.Models {
             }
 
             db.Servico.AddRange(
-                new Servico { Nome = "Correção dos exames" },
-                new Servico { Nome = "Criação de novo horário escolar" },
-                new Servico { Nome = "Marcar as datas das frequências" },
-                new Servico { Nome = "Vigiar alunos no Exame" },
-                new Servico { Nome = "Ajudar nas compras das escolas" },
-                new Servico { Nome = "Fazer Limpeza" },
-                new Servico { Nome = "Manter segurança no recinto escolar" },
-                new Servico { Nome = "Dirigir a viatura da escola" },
-                new Servico { Nome = "Pagar os consumo da escola" }
+                new Servico { Nome = "Gabinete de Apoio à Presidência", ProfessorId = 1 },
+                new Servico { Nome = "Divisão Financeira", ProfessorId = 2 },
+                new Servico { Nome = "Divisão de Recursos Humanos", ProfessorId = 3 },
+                new Servico { Nome = "Direcção dos Serviços Académicos", ProfessorId = 4 },
+                new Servico { Nome = "Gabinete Jurídico", ProfessorId = 5 },
+                new Servico { Nome = "Gabinete de Instalações, Manutenção e Equipamentos", ProfessorId = 6 },
+                new Servico { Nome = "Centro de Informática", ProfessorId = 7 },
+                new Servico { Nome = "Gabinete de Informação e Comunicação", ProfessorId = 8 },
+                new Servico { Nome = "Gabinete de Formação, Cultura e Desporto", ProfessorId = 9 },
+                new Servico { Nome = "Gabinete de Mobilidade e Cooperação", ProfessorId = 10 }
             );
 
             db.SaveChanges();
@@ -83,11 +84,20 @@ namespace IPG_Funcionarios.Models {
 
             db.Cargo.AddRange(
                 new Cargo { NomeCargo = "Presidente" },
-                new Cargo { NomeCargo = "Professor" },
-                new Cargo { NomeCargo = "Segurança" },
-                new Cargo { NomeCargo = "Funcionário de Limpeza" },
-                new Cargo { NomeCargo = "Funcionário de Secretaria" }
-            );
+                new Cargo { NomeCargo = "Vice-presidente" },
+                new Cargo { NomeCargo = "Administrador" },
+                new Cargo { NomeCargo = "Diretor de Serviços" },
+                new Cargo { NomeCargo = "Chefe de Divisão" },
+                new Cargo { NomeCargo = "Técnico superior área jurídica" },
+                new Cargo { NomeCargo = "Técnico superior área de BAD " },
+                new Cargo { NomeCargo = "Técnico superior" },
+                new Cargo { NomeCargo = "Especialista de informática " },
+                new Cargo { NomeCargo = "Técnico de informática " },
+                new Cargo { NomeCargo = "Coordenador técnico " },
+                new Cargo { NomeCargo = "Assistente Técnico " },
+                new Cargo { NomeCargo = "Encarregado de pessoal auxiliar " },
+                new Cargo { NomeCargo = "Assistente operacional " }
+            );//REF: http://www.ipg.pt/website/files/PLANO%20ATIVIDADES%20IPG%202017_final.pdf
 
             db.SaveChanges();
         }

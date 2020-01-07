@@ -15,5 +15,7 @@ namespace IPG_Funcionarios.Models
         [StringLength(250)]
         [Display(Name = "Nome")]
         public string NomeCargo { get; set; }
+
+        public int CargoChefeId { get; set; }
     }
 }
