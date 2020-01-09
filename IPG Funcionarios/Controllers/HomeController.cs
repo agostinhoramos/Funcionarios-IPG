@@ -35,6 +35,7 @@ namespace IPG_Funcionarios.Controllers
             var escl = from q in _contextB.Escola select q;
             var tarf = from q in _contextB.Tarefa select q;
             var carg = from q in _contextB.Cargo select q;
+            //var fers = from q in _contextB.Feria select q;
 
             ViewData["AllProfessores"] = MyFn.ParseDbCount(prof.Count());
             ViewData["AllFuncionario"] = MyFn.ParseDbCount(func.Count());
@@ -43,6 +44,7 @@ namespace IPG_Funcionarios.Controllers
             ViewData["AllEscolas"] = MyFn.ParseDbCount(escl.Count());
             ViewData["AllTarefas"] = MyFn.ParseDbCount(tarf.Count());
             ViewData["AllCargos"] = MyFn.ParseDbCount(carg.Count());
+            ViewData["AllFerias"] = 0;//MyFn.ParseDbCount(fers.Count());
 
             if (User.Identity.IsAuthenticated)
             {

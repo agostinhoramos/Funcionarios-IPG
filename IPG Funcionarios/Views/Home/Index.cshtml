@@ -9,7 +9,7 @@
 }
 
 @{
-    ViewData["Title"] = "My Page";
+    ViewData["Title"] = "Meu Painel";
 }
 
 
@@ -49,7 +49,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile">
-            <a href="#" class="nav-link">
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">
                 <div class="nav-profile-image">
                     <img src="/assets/image/user-48.png" alt="profile">
                     <span class="login-status online"></span>
@@ -112,6 +112,7 @@
                    aria-expanded="false" aria-controls="@Html.Raw("pgrup_"+item)">
                     <span class="menu-title">@item &nbsp;</span>
                     <i class="menu-arrow"></i>
+                    <i class="mdi mdi-clipboard-text menu-icon" ></i>
                 </a>
                 <div class="collapse" id="@Html.Raw("pgrup_"+item)" style="">
                     <ul class="nav flex-column sub-menu">
@@ -174,7 +175,7 @@
                 <div class="col mb-5">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title"><i class="mdi mdi-settings"></i>&nbsp;Módulos</h4>
+                            <h4 class="card-title"><i class="mdi mdi-clipboard-text"></i>&nbsp;Módulos</h4>
                             <div class="table-responsive">
                                 <div class="text-center force-link">
                                     @foreach (string item in ListModels)
