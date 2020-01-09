@@ -14,7 +14,8 @@ namespace IPG_Funcionarios.Data
             "Servicos",
             "Escolas",
             "Tarefas",
-            "Cargos"
+            "Cargos",
+            "Ferias"
         };
     }
 }
