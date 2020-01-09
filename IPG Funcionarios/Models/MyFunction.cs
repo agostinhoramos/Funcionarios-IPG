@@ -7,25 +7,15 @@ namespace IPG_Funcionarios.Models
 {
     public static class MyFn
     {
-        public static bool IsNumericType(this object o)
+        public static bool IsNumericType(this string o)
         {
-            switch (Type.GetTypeCode(o.GetType()))
+            foreach (char c in o)
             {
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Single:
-                    return true;
-                default:
+                if (c < '0' || c > '9')
                     return false;
             }
+
+            return true;
         }
 
         public static int ParseDbCount(decimal data)

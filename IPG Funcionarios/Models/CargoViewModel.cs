@@ -17,5 +17,7 @@ namespace IPG_Funcionarios.Models {
         public int EntriesStart { get; set; }
         public int EntriesEnd { get; set; }
         public int EntriesPerPage { get; set; }
+        public string[] column;
+        public string mainURL;
     }
 }

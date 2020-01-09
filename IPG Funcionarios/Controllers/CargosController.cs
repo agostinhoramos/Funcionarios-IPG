@@ -39,6 +39,8 @@ namespace IPG_Funcionarios.Controllers
 
             CargoViewModel vm = new CargoViewModel
             {
+                mainURL = "Cargos/Index",
+                column = new string[] { "id", "cargo" },
                 CurrentPage = page,
                 AllPages = (int)Math.Ceiling(nRows / ipp),
                 FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),
@@ -58,7 +60,7 @@ namespace IPG_Funcionarios.Controllers
                 {
                     switch (o)
                     {
-                        case "nome":
+                        case "cargo":
                             prof = prof.Where(p => p.NomeCargo.Contains(q));
                             break;
                         case "id":

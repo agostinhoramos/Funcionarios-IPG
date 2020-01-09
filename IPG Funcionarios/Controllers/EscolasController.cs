@@ -39,6 +39,8 @@ namespace IPG_Funcionarios.Controllers
 
             EscolaViewModel vm = new EscolaViewModel
             {
+                mainURL = "Escolas/Index",
+                column = new string[] { "id", "nome", "localizacao", "descricao" },
                 CurrentPage = page,
                 AllPages = (int)Math.Ceiling(nRows / ipp),
                 FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),
@@ -61,10 +63,10 @@ namespace IPG_Funcionarios.Controllers
                         case "nome":
                             prof = prof.Where(p => p.Nome.Contains(q));
                             break;
-                        case "locl":
+                        case "localizacao":
                             prof = prof.Where(p => p.Localizacao.Contains(q));
                             break;
-                        case "desc":
+                        case "descricao":
                             prof = prof.Where(p => p.Descricao.Contains(q));
                             break;
                         case "id":
@@ -97,7 +99,7 @@ namespace IPG_Funcionarios.Controllers
                 }
             }
 
-            // Algoritmo de ordenação de caracteres
+            // Algoritmo de ordenacao de caracteres
             if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o))
             {
                 switch (o)
@@ -112,12 +114,12 @@ namespace IPG_Funcionarios.Controllers
                             (prof.OrderBy(p => p.Nome).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Nome).Skip((page - 1) * ipp).Take(ipp));
                         break;
-                    case "locl":
+                    case "localizacao":
                         vm.Escolas = (sort == "1") ?
                             (prof.OrderBy(p => p.Localizacao).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Localizacao).Skip((page - 1) * ipp).Take(ipp));
                         break;
-                    case "desc":
+                    case "descricao":
                         vm.Escolas = (sort == "1") ?
                             (prof.OrderBy(p => p.Descricao).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Descricao).Skip((page - 1) * ipp).Take(ipp));

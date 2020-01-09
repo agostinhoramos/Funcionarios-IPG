@@ -15,6 +15,5 @@ namespace IPG_Funcionarios.Models
         [StringLength(200)]
         [Display(Name = "Nome")]
         public string Nome { get; set; }
-        public int ProfessorId { get; set; }
     }
 }

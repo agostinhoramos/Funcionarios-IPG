@@ -39,6 +39,8 @@ namespace IPG_Funcionarios.Controllers
 
             TarefaViewModel vm = new TarefaViewModel
             {
+                mainURL = "Tarefas/Index",
+                column = new string[] { "id", "nome", "descricao", "data"},
                 CurrentPage = page,
                 AllPages = (int)Math.Ceiling(nRows / ipp),
                 FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),
@@ -61,7 +63,7 @@ namespace IPG_Funcionarios.Controllers
                         case "nome":
                             prof = prof.Where(p => p.Nome.Contains(q));
                             break;
-                        case "desc":
+                        case "descricao":
                             prof = prof.Where(p => p.Descricao.Contains(q));
                             break;
                         case "id":
@@ -104,7 +106,7 @@ namespace IPG_Funcionarios.Controllers
                             (prof.OrderBy(p => p.TarefaID).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.TarefaID).Skip((page - 1) * ipp).Take(ipp));
                         break;
-                    case "desc":
+                    case "descricao":
                         vm.Tarefas = (sort == "1") ?
                             (prof.OrderBy(p => p.Descricao).Skip((page - 1) * ipp).Take(ipp)) :
                             (prof.OrderByDescending(p => p.Descricao).Skip((page - 1) * ipp).Take(ipp));

@@ -39,6 +39,8 @@ namespace IPG_Funcionarios.Controllers
 
             ServicoViewModel vm = new ServicoViewModel
             {
+                mainURL = "Servicos/Index",
+                column = new string[] { "id", "nome" },
                 CurrentPage = page,
                 AllPages = (int)Math.Ceiling(nRows / ipp),
                 FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),

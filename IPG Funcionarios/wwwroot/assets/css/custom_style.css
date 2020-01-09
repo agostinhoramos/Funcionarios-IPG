@@ -1,4 +1,8 @@
-﻿    .view-html nav.pages {
+﻿    .view-html{
+        width:100%;
+    }
+
+    .view-html nav.pages {
         margin-top: 30px;
     }
 
@@ -7,9 +11,9 @@
         }
 
     .view-html .dataTables_info {
-        color: #808080;
-        margin-top: 10px;
-        margin-left: 15px;
+        color: #b5b5b5;
+        margin-top: 20px;
+        margin-left: -15px;
     }
 
     .view-html .dataTables_wrapper .dataTables_info {
@@ -144,4 +148,16 @@
 .modal-header {
     background-color: #fff;
     color: #de7a89;
+}
+
+.mdi-img-loading::before {
+    content: url(/assets/image/loader-min.gif);
+}
+
+.view-html .sort[role="row"] .sort{
+	text-transform: capitalize;
+}
+.view-html .sort[role="row"] 
+.sort:nth-child(1){
+	text-transform: uppercase;
 }

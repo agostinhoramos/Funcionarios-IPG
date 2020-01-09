@@ -26,16 +26,16 @@ namespace IPG_Funcionarios.Models {
             }
 
             db.Servico.AddRange(
-                new Servico { Nome = "Gabinete de Apoio à Presidência", ProfessorId = 1 },
-                new Servico { Nome = "Divisão Financeira", ProfessorId = 2 },
-                new Servico { Nome = "Divisão de Recursos Humanos", ProfessorId = 3 },
-                new Servico { Nome = "Direcção dos Serviços Académicos", ProfessorId = 4 },
-                new Servico { Nome = "Gabinete Jurídico", ProfessorId = 5 },
-                new Servico { Nome = "Gabinete de Instalações, Manutenção e Equipamentos", ProfessorId = 6 },
-                new Servico { Nome = "Centro de Informática", ProfessorId = 7 },
-                new Servico { Nome = "Gabinete de Informação e Comunicação", ProfessorId = 8 },
-                new Servico { Nome = "Gabinete de Formação, Cultura e Desporto", ProfessorId = 9 },
-                new Servico { Nome = "Gabinete de Mobilidade e Cooperação", ProfessorId = 10 }
+                new Servico { Nome = "Gabinete de Apoio à Presidência" },
+                new Servico { Nome = "Divisão Financeira" },
+                new Servico { Nome = "Divisão de Recursos Humanos" },
+                new Servico { Nome = "Direcção dos Serviços Académicos" },
+                new Servico { Nome = "Gabinete Jurídico" },
+                new Servico { Nome = "Gabinete de Instalações, Manutenção e Equipamentos" },
+                new Servico { Nome = "Centro de Informática" },
+                new Servico { Nome = "Gabinete de Informação e Comunicação" },
+                new Servico { Nome = "Gabinete de Formação, Cultura e Desporto" },
+                new Servico { Nome = "Gabinete de Mobilidade e Cooperação" }
             );
 
             db.SaveChanges();

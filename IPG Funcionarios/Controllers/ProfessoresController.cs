@@ -19,7 +19,7 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10) {
+        public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "name", int ipp = 10) {
 
             var prof = from p in _context.Professor select p;
             decimal nRows = prof.Count();
@@ -35,10 +35,11 @@ namespace IPG_Funcionarios.Controllers
             }
 
             ProfessorViewModel vm = new ProfessorViewModel {
+                mainURL = "Professores/Index",
+                column = new string[] { "id", "nome", "contacto", "email", "gabinete" },
                 CurrentPage = page,
                 AllPages = (int)Math.Ceiling(nRows / ipp),
                 FirstPage = Math.Max(1, page - PAGES_BEFORE_AND_AFTER),
-
                 EntriesPerPage = ipp,
                 EntriesStart = ipp * (page - 1) > 0 ? ipp * (page - 1) + 1 : ((int)Math.Ceiling(nRows) < 1 ? 0 : 1),
                 EntriesEnd = ipp * page < (int)Math.Ceiling(nRows) ?
@@ -53,6 +54,11 @@ namespace IPG_Funcionarios.Controllers
                 {
                     switch (o)
                     {
+                        case "id":
+                            int Numq = 0;
+                            if (q.IsNumericType()) { Numq = Int32.Parse(q); }
+                            prof = prof.Where(p => p.ProfessorId.CompareTo(Numq) == 0);
+                            break;
                         case "nome":
                             prof = prof.Where(p => p.Nome.Contains(q));
                             break;
@@ -64,13 +70,6 @@ namespace IPG_Funcionarios.Controllers
                             break;
                         case "gabinete":
                             prof = prof.Where(p => p.Gabinete.CompareTo(q) == 0);
-                            break;
-                        case "id":
-                            int Numq = 0;
-                            if (q.IsNumericType()) {
-                                Numq = Int32.Parse(q);
-                            }
-                            prof = prof.Where(p => p.ProfessorId.CompareTo(Numq) == 0);
                             break;
                     }
                 }

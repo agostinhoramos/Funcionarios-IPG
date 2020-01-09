@@ -1,130 +1,32 @@
 ﻿@model ProfessorViewModel
 
 @{
-  ViewData["Title"] = "Index";
+  ViewData["Title"] = "Professores";
 }
 
 @{
-    /* Main */
-    string mainUrl = "Professores/Index";
-    int Entries_per_page_min = 5;
-    int Entries_per_page_max = 100;
-
-    string sort_id = Model.CurrentOption == "id" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
-           sort_nome = Model.CurrentOption == "nome" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
-           sort_contacto = Model.CurrentOption == "contacto" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
-           sort_email = Model.CurrentOption == "email" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "",
-           sort_gabinete = Model.CurrentOption == "gabinete" ? (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "";
-
-    string Entries_ = (Model.EntriesStart.ToString() != Model.EntriesEnd.ToString()) ?
-           "de " + Model.EntriesStart.ToString() + " até " + Model.EntriesEnd.ToString() : Model.EntriesEnd.ToString();
-
-    string crq = Context.Request.QueryString.ToString();
-    string _u_page, _u_sort, _u_q, _u_o, _u_ipp;
-
-    try { _u_page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_page = ""; }
-    try { _u_sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_sort = ""; }
-    try { _u_q = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_q = ""; }
-    try { _u_o = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_o = ""; }
-    try { _u_ipp = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { _u_ipp = ""; }
-}
-
-@section Scripts {
-    <script>
-        var baseURL = location.protocol + '//' + '@Context.Request.Host/@mainUrl';
-        var cpage = parseInt('@Model.CurrentPage');
-        var csort = '@Model.Sort';
-        var cstrg = encodeURIComponent('@Model.CurrentSearch').trim().toLowerCase();
-        var cstgq = '@Context.Request.QueryString';
-        var tpage = parseInt('@Model.AllPages');
-        var phold = 'Procurar @Model.CurrentOption';
-
-        $(document).ready(function () {
-
-            _auto_item_per_page("@Model.EntriesPerPage");
-
-            if (true) {
-                    $("li a#prev").click(function () {
-                        if (cpage > 1) {
-                            var url = baseURL + '?page='
-                                + (cpage - 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
-                                + '&o=@_u_o&ipp=@_u_ipp';
-                            url ? window.location.assign(url) : null;
-                        }
-                    });
-                    $("li a#next").click(function () {
-                        if (cpage < tpage) {
-                            var url = baseURL + '?page='
-                                + (cpage + 1) + (csort ? '&sort=' + csort : '') + (cstrg ? '&q=' + cstrg : '')
-                                + '&o=@_u_o&ipp=@_u_ipp';
-                            url ? window.location.assign(url) : null;
-                        }
-                    });
-                    if (cpage != 1) {$("a#prev").parent().removeClass("disabled");}else{$("a#prev").parent().addClass("disabled");}
-                    if (cpage != tpage) {$("a#next").parent().removeClass("disabled");}else{$("a#next").parent().addClass("disabled");}
-            }
-            let id_wait = null;
-
-            if (cstrg) { $('html, body').animate({ scrollTop : 90 }, 'slow'); }
-
-            try {
-                cstrg = decodeURIComponent(cstgq.split("q=")[1].split("&")[0]);
-            } catch (e) { cstrg = ""; }
-
-            $("#search").keyup(function () {
-                var query = $(this).val();
-                clearTimeout(id_wait);
-                if (!query || query.length < 1) {
-                    baseURL = baseURL + '?page=1&sort=@_u_sort&q=&o=@_u_o&ipp=@_u_ipp';
-                    baseURL ? window.location.assign(baseURL) : null;
-                } else {
-                    id_wait = setTimeout(function () {
-                        baseURL = baseURL + '?page=1&sort=@_u_sort&q='+query+'&o=@_u_o&ipp=@_u_ipp';
-                        baseURL ? window.location.assign(baseURL) : null;
-                    },2000);
-                }
-            }).val(cstrg).attr("autocomplete","off")
-              .focus().attr("placeholder", phold);
-
-            $("#entries_per_page").change(function () {
-                let ipp = $(this).val();
-                baseURL = baseURL + '?page=' + ('@_u_page' ? '@_u_page' : '1')
-                    + ('@_u_sort' ? '&sort=' + '@_u_sort' : '')
-                    + ('@_u_q' ? '&q=' + '@_u_q' : '')
-                    + ('@_u_o' ? '&o=' + '@_u_o' : '')
-                    + (ipp ? '&ipp=' + ipp : '');
-
-                baseURL ? window.location.assign(baseURL) : null;
-            });
-
-            $("tr.sort th").click(function () {
-                let s, o, url='', type = $(this).text().trim().toLowerCase();
-                try { s = location.href.split("sort=")[1].split("&")[0];
-                } catch (e) { s = ""; }
-                try { o = location.href.split("o=")[1].split("&")[0];
-                } catch (e) { o = ""; }
-
-                if (s!=='0') {
-                    url = '&sort=' + ((s == '0') ? '1'
-                    : (o !== type ? '1' : '0')) + '&o=' + type;
-                }
-
-                url = baseURL + "?page=" + ('@_u_page' ? '@_u_page' : '1')
-                    + ('@_u_ipp' ? "&ipp=@_u_ipp" : "") + url
-                    + (cstrg ? "&q=" + cstrg : "");
-                url ? window.location.assign(url) : null;
-            });
-        });
-    </script>
-    <style>
-        button[data-toggle="minimize"], #todo-task {
-            display: none;
-            visibility: hidden;
+    /* DO NOT CHANGE THIS CODE */
+        string[] _Sort = new String[Model.column.Length];
+        for(int i=0; i<Model.column.Length; i++){
+            _Sort[i] = Model.CurrentOption == Model.column[i] ? 
+            (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "";
         }
-    </style>
+        /* Quantity of Results */
+        string Entries_ = (Model.EntriesStart.ToString() != Model.EntriesEnd.ToString()) ?
+            "de " + Model.EntriesStart.ToString() + " até " + Model.EntriesEnd.ToString() : Model.EntriesEnd.ToString();
+        int Entries_per_page_min = 5,
+            Entries_per_page_max = 100;
+        string crq = Context.Request.QueryString.ToString();
+        string Page, Sort, Query, Order, IPPage;
+        try { Page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Page = ""; }
+        try { Sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Sort = ""; }
+        try { Query = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Query = ""; }
+        try { Order = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Order = ""; }
+        try { IPPage = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { IPPage = ""; }
+    /* DO NOT CHANGE THIS CODE */
 }
 
-<div class="main-panel view-html" style="width:100%;">
+<div class="main-panel view-html" >
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -169,21 +71,12 @@
                                             <table id="order-listing" class="table table-striped" role="grid" aria-describedby="order-listing_info">
                                                 <thead>
                                                     <tr role="row" class="sort">
-                                                        <th class="sort" tabindex="0" sort="@sort_id" rowspan="1" colspan="1">
-                                                            &nbsp;ID&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_nome" rowspan="1" colspan="1">
-                                                            &nbsp;Nome&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_contacto" rowspan="1" colspan="1">
-                                                            &nbsp;Contacto&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_email" rowspan="1" colspan="1">
-                                                            &nbsp;Email&nbsp;
-                                                        </th>
-                                                        <th class="sort" tabindex="0" sort="@sort_gabinete" rowspan="1" colspan="1">
-                                                            &nbsp;Gabinete&nbsp;
-                                                        </th>
+                                                        @for(int i=0; i<Model.column.Length; i++){
+                                                            <th class="sort" tabindex="0" sort="@_Sort[i]" rowspan="1" colspan="1">
+                                                                &nbsp;@Model.column[i]&nbsp;
+                                                            </th>
+                                                        }
+                                                    </tr>
                                                 </thead>
                                                 <tbody>
 
@@ -240,7 +133,7 @@
                                                         else
                                                         {
                                             <li class="page-item">
-                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@_u_sort" asp-route-o="@_u_o" asp-route-ipp="@_u_ipp" asp-route-q="@_u_q">@i</a>
+                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@Sort" asp-route-o="@Order" asp-route-ipp="@IPPage" asp-route-q="@Query">@i</a>
                                             </li>
                                                         }
                                             }
@@ -267,3 +160,31 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        /* FROM ASP.NET */
+        window.aspNet = window.aspNet || {};
+        window._asp = window._asp || {};
+        window.aspNet.URL = location.protocol + '//' + '@Context.Request.Host/@Model.mainURL';
+        window.aspNet.Page = parseInt('@Model.CurrentPage');
+        window.aspNet.Sort = '@Model.Sort';
+        window.aspNet.Query = encodeURIComponent('@Model.CurrentSearch').trim().toLowerCase();
+        window.aspNet.nPage = parseInt('@Model.AllPages');
+        window.aspNet.pHoldTxt = 'Procurar por '+ capitalize('@Model.CurrentOption');
+        window.aspNet.EPerPage = '@Model.EntriesPerPage';
+        
+        /* FROM URL */
+        window._asp.page = "@Page";
+        window._asp.sort = "@Sort";
+        window._asp.qery = "@Query";
+        window._asp.ordr = "@Order";
+        window._asp.ippg = "@IPPage";
+    </script>
+    <style>
+        button[data-toggle="minimize"], #todo-task 
+        {
+            display: none; visibility: hidden;
+        }
+    </style>
+}

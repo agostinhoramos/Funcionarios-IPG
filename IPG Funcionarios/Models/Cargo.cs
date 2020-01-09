@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IPG_Funcionarios.Models
 {
@@ -16,6 +17,6 @@ namespace IPG_Funcionarios.Models
         [Display(Name = "Nome")]
         public string NomeCargo { get; set; }
 
-        public int CargoChefeId { get; set; }
+        //public MyCargo CargoIDForeignKey { get; set; } /* Cargo Chefe */
     }
 }
