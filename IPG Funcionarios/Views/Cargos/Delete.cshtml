@@ -1,7 +1,7 @@
 ﻿@model IPG_Funcionarios.Models.Cargo
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Apagar Cargo";
 }
 
 <div class="main-panel view-html" style="width:100%;">
@@ -27,7 +27,7 @@
                         <p class="card-description">
                             Tem certeza de que deseja excluir?
                         </p>
-                        <div class="row" role="Delete">
+                        <div class="row" role="Delete" >
                             <div class="col-12">
                                 <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
@@ -40,16 +40,16 @@
                                                 <tbody>
                                                     <div role="row" class="even">
                                                         <div class="mb-2">
-                                                            <input asp-for="NomeCargo" placeholder="Nome" class="form-control" disabled />
+                                                            <input asp-for="NomeCargo" class="form-control" disabled/>
                                                             <span asp-validation-for="NomeCargo" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
-                                                            <div class="w-100 d-flex" role="no-form">
-                                                                <form asp-action="Delete"></form>
+                                                            <div class="w-100 d-flex" role="no-form" >
+                                                                <form asp-action="Delete" ></form>
                                                                 <input type="hidden" asp-for="CargoID" />
                                                                 <input class="c-btn c-btn-primary w-100" type="submit" value="Apagar" />
                                                                 <a class="c-btn c-btn-secundary w-100 m-0 mt-2" asp-action="Index">
-                                                                    Cancelar
+                                                                   Cancelar
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -74,7 +74,6 @@
     .search-field,
     button[data-toggle="minimize"],
     #todo-task {
-        display: none;
-        visibility: hidden;
+        display: none;visibility: hidden;
     }
 </style>

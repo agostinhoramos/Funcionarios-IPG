@@ -1,7 +1,7 @@
 ﻿@model IPG_Funcionarios.Models.Cargo
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Cargo";
 }
 
 <div class="main-panel view-html" style="width:100%;">
@@ -27,7 +27,7 @@
                         <p class="card-description">
                             Editar Cargo:
                         </p>
-                        <div class="row" role="Edit">
+                        <div class="row" role="Edit" >
                             <div class="col-12">
                                 <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
@@ -40,11 +40,11 @@
                                                 <tbody>
                                                     <div class="even" role="no-form">
                                                         <div class="mb-2">
-                                                            <input asp-for="NomeCargo" placeholder="Nome" class="form-control">
+                                                            <input asp-for="NomeCargo" class="form-control" >
                                                             <span asp-validation-for="NomeCargo" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
-                                                            <div class="w-100 d-flex">
+                                                            <div class="w-100 d-flex" >
                                                                 <form asp-action="Edit"></form>
                                                                 <input type="hidden" asp-for="CargoID" />
                                                                 <input class="c-btn c-btn-primary w-100 m-0 mt-2" type="submit" value="Salvar" />
@@ -69,13 +69,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
-<style>
+    <style>
     .search-field,
     button[data-toggle="minimize"],
     #todo-task {
-        display: none;
-        visibility: hidden;
+        display: none;visibility: hidden;
     }
-</style>
+    </style>
+}

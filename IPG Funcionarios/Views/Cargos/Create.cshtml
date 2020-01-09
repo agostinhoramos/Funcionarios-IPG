@@ -1,7 +1,7 @@
 ﻿@model IPG_Funcionarios.Models.Cargo
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar Cargo";
 }
 
 <div class="main-panel view-html" style="width:100%;">
@@ -40,7 +40,7 @@
                                                 <tbody>
                                                     <div class="even" role="no-form">
                                                         <div class="mb-2">
-                                                            <input asp-for="NomeCargo" placeholder="Nome" class="form-control">
+                                                            <input asp-for="NomeCargo" class="form-control">
                                                             <span asp-validation-for="NomeCargo" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
@@ -69,13 +69,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
-<style>
+    <style>
     .search-field,
     button[data-toggle="minimize"],
     #todo-task {
-        display: none;
-        visibility: hidden;
+        display: none;visibility: hidden;
     }
-</style>
+    </style>
+}

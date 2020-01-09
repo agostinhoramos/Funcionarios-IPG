@@ -1,43 +1,87 @@
 ﻿@model IPG_Funcionarios.Models.Tarefa
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar Tarefa";
 }
 
-<h1>Create</h1>
+<div class="main-panel view-html" style="width:100%;">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">
+                <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+            </h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">Views</li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Tarefas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Create</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!--HTML -->
 
-<h4>Tarefa</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description">
+                            Criar nova Tarefa:
+                        </p>
+                        <div class="row" role="Create">
+                            <div class="col-12">
+                                <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="order-listing" class="table dataTable no-footer">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <tbody>
+                                                    <div class="even" role="no-form">
+                                                        <div class="mb-2">
+                                                            <input asp-for="Nome" class="form-control">
+                                                            <span asp-validation-for="Nome" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <input asp-for="Descricao" class="form-control">
+                                                            <span asp-validation-for="Descricao" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <input asp-for="Data" class="form-control">
+                                                            <span asp-validation-for="Data" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <div class="w-100 d-flex">
+                                                                <form asp-action="Create"></form>
+                                                                <input type="hidden" asp-for="TarefaID" />
+                                                                <input class="c-btn c-btn-primary w-100 m-0 mt-2" type="submit" value="Criar" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--HTML -->
             </div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" />
-                <span asp-validation-for="Data" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <style>
+    .search-field,
+    button[data-toggle="minimize"],
+    #todo-task {
+        display: none;visibility: hidden;
+    }
+    </style>
 }

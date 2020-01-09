@@ -1,7 +1,7 @@
 ﻿@model IPG_Funcionarios.Models.Cargo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhe do Cargo";
 }
 
 <div class="main-panel view-html" style="width:100%;">
@@ -27,7 +27,7 @@
                         <p class="card-description">
                             Detalhes do Cargo:
                         </p>
-                        <div class="row" role="Details">
+                        <div class="row" role="Details" >
                             <div class="col-12">
                                 <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                     <div class="row">
@@ -40,7 +40,7 @@
                                                 <tbody>
                                                     <div role="row" class="even">
                                                         <div class="mb-2">
-                                                            <input asp-for="NomeCargo" placeholder="Nome" class="form-control" disabled>
+                                                            <input asp-for="NomeCargo" class="form-control" disabled>
                                                             <span asp-validation-for="NomeCargo" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
@@ -70,13 +70,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
-<style>
+    <style>
     .search-field,
     button[data-toggle="minimize"],
     #todo-task {
-        display: none;
-        visibility: hidden;
+        display: none;visibility: hidden;
     }
-</style>
+    </style>
+}

@@ -1,7 +1,7 @@
 ﻿@model IPG_Funcionarios.Models.Professor
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhe do Professor";
 }
 
 <div class="main-panel view-html" style="width:100%;">
@@ -40,19 +40,19 @@
                                                 <tbody>
                                                     <div role="row" class="even">
                                                         <div class="mb-2">
-                                                            <input asp-for="Nome" placeholder="Nome" class="form-control" disabled>
+                                                            <input asp-for="Nome" class="form-control" disabled>
                                                             <span asp-validation-for="Nome" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
-                                                            <input asp-for="Contacto" placeholder="Contacto" class="form-control" disabled>
+                                                            <input asp-for="Contacto" class="form-control" disabled>
                                                             <span asp-validation-for="Contacto" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
-                                                            <input asp-for="Email" placeholder="Email" class="form-control" disabled>
+                                                            <input asp-for="Email" class="form-control" disabled>
                                                             <span asp-validation-for="Email" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
-                                                            <input asp-for="Gabinete" placeholder="Gabinete" class="form-control" disabled>
+                                                            <input asp-for="Gabinete" class="form-control" disabled>
                                                             <span asp-validation-for="Gabinete" class="text-danger"></span>
                                                         </div>
                                                         <div class="mb-2">
@@ -82,13 +82,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-
-<style>
+    <style>
     .search-field,
     button[data-toggle="minimize"],
     #todo-task {
-        display: none;
-        visibility: hidden;
+        display: none;visibility: hidden;
     }
-</style>
+    </style>
+}
