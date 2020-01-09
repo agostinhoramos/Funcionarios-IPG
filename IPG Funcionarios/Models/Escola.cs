@@ -11,16 +11,18 @@ namespace IPG_Funcionarios.Models
         [Key]
         public int EscolaID { get; set; }
 
-        [Required]
-        [StringLength(248)]
-        [Display(Name = "Nome")]
+        [Required(ErrorMessage = "Por favor, insira um nome da Escola!")]
+        [StringLength(maximumLength: 180, MinimumLength = 2)]
+        [Display(Name = "Nome", Prompt = "Inserir um nome de Escola")]
         public String Nome { get; set; }
 
-        [Required]
-        [Display(Name = "Localização")]
+        [Required(ErrorMessage = "Por favor, insira a Localização!")]
+        [StringLength(maximumLength: 200, MinimumLength = 2)]
+        [Display(Name = "Localização", Prompt = "Inserir nome de Localização")]
         public String Localizacao { get; set; }
 
-        [Display(Name = "Descrição")]
+        [StringLength(maximumLength: 250)]
+        [Display(Name = "Descrição", Prompt = "Inserir uma Descrição ( Opcional )")]
         public String Descricao { get; set; }
     }
 }

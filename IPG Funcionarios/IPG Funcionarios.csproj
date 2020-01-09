@@ -39,6 +39,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="NEST" Version="7.5.1" />
+    <PackageReference Include="Serenity.Core" Version="3.12.0" />
   </ItemGroup>
 
 </Project>

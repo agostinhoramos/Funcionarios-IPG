@@ -11,15 +11,15 @@ namespace IPG_Funcionarios.Models
         [Key]
         public int TarefaID { get; set; }
 
+        [Required(ErrorMessage = "Por favor, inserir um nome.")]
+        [StringLength(maximumLength: 150, MinimumLength = 4)]
+        [Display(Name = "Nome", Prompt = "Inserir um Cargo")]
+        public string Nome { get; set; }
+
         [Required(ErrorMessage = "Por favor, inserir uma descrição.")]
         [StringLength(500)]
-        [Display(Name = "Descrição")]
+        [Display(Name = "Descrição", Prompt = "Inserir uma Descrição ( Opcional )")]
         public string Descricao { get; set; }
-
-        [Required(ErrorMessage = "Por favor, inserir um nome.")]
-        [StringLength(500)]
-        [Display(Name = "Nome")]
-        public string Nome { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Data { get; set; }

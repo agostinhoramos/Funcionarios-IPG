@@ -11,9 +11,9 @@ namespace IPG_Funcionarios.Models
         [Key]
         public int ServicoId { get; set; }
 
-        [Required(ErrorMessage = "Por favor, insira o nome do serviço.")]
-        [StringLength(200)]
-        [Display(Name = "Nome")]
+        [Required(ErrorMessage = "Por favor, insira um nome do Serviço.")]
+        [StringLength(maximumLength: 150, MinimumLength = 4)]
+        [Display(Name = "Nome", Prompt = "Inserir um nome de Serviço")]
         public string Nome { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace IPG_Funcionarios.Models
         [Key]
         public int CargoID { get; set; }
 
-        [Required(ErrorMessage = "Por favor, insira um nome de cargo")]
-        [StringLength(250)]
-        [Display(Name = "Nome")]
+        [Required(ErrorMessage = "Por favor, insira um nome do Cargo")]
+        [StringLength(maximumLength: 220, MinimumLength = 3)]
+        [Display(Name = "Nome", Prompt = "Inserir um nome de Cargo")]
         public string NomeCargo { get; set; }
 
         //public MyCargo CargoIDForeignKey { get; set; } /* Cargo Chefe */
