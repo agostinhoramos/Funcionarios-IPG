@@ -18,7 +18,7 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
-        // GET: Tarefas
+        // GET: Tarefas  ########## MODIFICADO! ###########
         public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10)
         {
 
@@ -159,7 +159,7 @@ namespace IPG_Funcionarios.Controllers
             return View();
         }
 
-        // POST: Tarefas/Create
+        // POST: Tarefas/Create  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -168,10 +168,31 @@ namespace IPG_Funcionarios.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tarefa);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (
+                   isEqual("Nome", tarefa.Nome)
+                   )
+                {
+                    ViewBag.type = "alert-danger";
+                    ViewBag.title = "Erro ao criar a tarfefa";
+                    ViewBag.message = "Não foi possível criar nova tarefa porque," +
+                                      "existem dados repetidos no <strong>Nome</strong>.";
+
+                    ViewBag.redirect = "/Tarefas/Create"; // Request.Path
+                    return View("message");
+                }
+                else
+                {
+                    _context.Add(tarefa);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.type = "alert-success";
+                    ViewBag.title = "Criação do professor";
+                    ViewBag.message = "A tarefa <strong>" + tarefa.Nome + "</strong> foi <strong>criada</strong> com sucesso!";
+                    ViewBag.redirect = "/Tarefas/Index"; // Request.Path
+                    return View("message");
+                }
             }
+
             return View(tarefa);
         }
 
@@ -191,37 +212,56 @@ namespace IPG_Funcionarios.Controllers
             return View(tarefa);
         }
 
-        // POST: Tarefas/Edit/5
+        // POST: Tarefas/Edit/5  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TarefaID,Descricao,Nome,Data")] Tarefa tarefa)
         {
-            if (id != tarefa.TarefaID)
+            if (id > 0 && TarefaExists(id))
             {
-                return NotFound();
+                tarefa.TarefaID = id;
             }
 
             if (ModelState.IsValid)
             {
-                try
+                if (
+                    !isUnique("Nome", tarefa.Nome, id)
+                   )
                 {
-                    _context.Update(tarefa);
-                    await _context.SaveChangesAsync();
+                    ViewBag.title = "Ocorreu um erro!";
+                    ViewBag.type = "alert-danger";
+                    ViewBag.message = "Já existe <strong>uma tarefa com o mesmo nome</strong>, por favor tente um nome diferente!";
+                    ViewBag.redirect = Request.Path;
+                    return View("message");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!TarefaExists(tarefa.TarefaID))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(tarefa);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!TarefaExists(tarefa.TarefaID))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+
+                    ViewBag.title = "Atualização da tarefa";
+                    ViewBag.type = "alert-success";
+                    ViewBag.message = "Os dados da tarefa <strong>" + tarefa.Nome + "</strong> foram <strong>atualizados</strong> com sucesso!";
+                    ViewBag.redirect = "/Tarefas/Index"; // Request.Path
+                    return View("message");
                 }
-                return RedirectToAction(nameof(Index));
+
             }
             return View(tarefa);
         }
@@ -244,7 +284,7 @@ namespace IPG_Funcionarios.Controllers
             return View(tarefa);
         }
 
-        // POST: Tarefas/Delete/5
+        // POST: Tarefas/Delete/5  ########## MODIFICADO! ###########
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -252,12 +292,44 @@ namespace IPG_Funcionarios.Controllers
             var tarefa = await _context.Tarefa.FindAsync(id);
             _context.Tarefa.Remove(tarefa);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            ViewBag.title = "Apagar tarefa";
+            ViewBag.type = "alert-success";
+            ViewBag.message = "Os dados da tarefa <strong>" + tarefa.Nome + "</strong> foram <strong>apagados</strong> com sucesso!";
+            ViewBag.redirect = "/Tarefas/Index"; // Request.Path
+
+            return View("message");
         }
 
         private bool TarefaExists(int id)
         {
             return _context.Tarefa.Any(e => e.TarefaID == id);
+        }
+
+        // 2 tarefas não podem ter o mesmo nome
+        private bool isEqual(string type, string value)
+        {
+            bool result = false;
+            switch (type)
+            {
+                case "Nome":
+                    result = _context.Tarefa.Any(e => e.Nome == value);
+                    break;
+            }
+            return result;
+        }
+
+        // É a única tarefa
+        private bool isUnique(string type, string value, int id)
+        {
+            bool result = false;
+            switch (type)
+            {
+                case "Nome":
+                    result = _context.Tarefa.Any(e => e.Nome == value && e.TarefaID != id);
+                    break;
+            }
+            return !result;
         }
     }
 }

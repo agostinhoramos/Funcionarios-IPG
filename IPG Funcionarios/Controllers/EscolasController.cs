@@ -18,7 +18,7 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
-        // GET: Escolas
+        // GET: Escolas  ########## MODIFICADO! ###########
         public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10)
         {
 
@@ -162,7 +162,7 @@ namespace IPG_Funcionarios.Controllers
             return View();
         }
 
-        // POST: Escolas/Create
+        // POST: Escolas/Create  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -171,10 +171,31 @@ namespace IPG_Funcionarios.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(escola);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (
+                   isEqual("Nome", escola.Nome)
+                   )
+                {
+                    ViewBag.type = "alert-danger";
+                    ViewBag.title = "Erro ao criar a escola";
+                    ViewBag.message = "Não foi possível criar nova escola porque," +
+                                      "existem dados repetidos no <strong>Nome</strong>.";
+
+                    ViewBag.redirect = "/Escolas/Create"; // Request.Path
+                    return View("message");
+                }
+                else
+                {
+                    _context.Add(escola);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.type = "alert-success";
+                    ViewBag.title = "Criação da escola";
+                    ViewBag.message = "A escola <strong>" + escola.Nome + "</strong> foi <strong>criada</strong> com sucesso!";
+                    ViewBag.redirect = "/Escolas/Index"; // Request.Path
+                    return View("message");
+                }
             }
+
             return View(escola);
         }
 
@@ -194,37 +215,56 @@ namespace IPG_Funcionarios.Controllers
             return View(escola);
         }
 
-        // POST: Escolas/Edit/5
+        // POST: Escolas/Edit/5  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("EscolaID,Nome,Localizacao,Descricao")] Escola escola)
         {
-            if (id != escola.EscolaID)
+            if (id > 0 && EscolaExists(id))
             {
-                return NotFound();
+                escola.EscolaID = id;
             }
 
             if (ModelState.IsValid)
             {
-                try
+                if (
+                    !isUnique("Nome", escola.Nome, id)
+                   )
                 {
-                    _context.Update(escola);
-                    await _context.SaveChangesAsync();
+                    ViewBag.title = "Ocorreu um erro!";
+                    ViewBag.type = "alert-danger";
+                    ViewBag.message = "Já existe <strong>uma escola com o mesmo nome</strong>, por favor tente um nome diferente!";
+                    ViewBag.redirect = Request.Path;
+                    return View("message");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!EscolaExists(escola.EscolaID))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(escola);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!EscolaExists(escola.EscolaID))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+
+                    ViewBag.title = "Atualização da escola";
+                    ViewBag.type = "alert-success";
+                    ViewBag.message = "Os dados da escola <strong>" + escola.Nome + "</strong> foram <strong>atualizados</strong> com sucesso!";
+                    ViewBag.redirect = "/Escolas/Index"; // Request.Path
+                    return View("message");
                 }
-                return RedirectToAction(nameof(Index));
+
             }
             return View(escola);
         }
@@ -247,7 +287,7 @@ namespace IPG_Funcionarios.Controllers
             return View(escola);
         }
 
-        // POST: Escolas/Delete/5
+        // POST: Escolas/Delete/5  ########## MODIFICADO! ###########
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -255,12 +295,43 @@ namespace IPG_Funcionarios.Controllers
             var escola = await _context.Escola.FindAsync(id);
             _context.Escola.Remove(escola);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            ViewBag.title = "Apagar tarefa";
+            ViewBag.type = "alert-success";
+            ViewBag.message = "Os dados da escola <strong>" + escola.Nome + "</strong> foram <strong>apagados</strong> com sucesso!";
+            ViewBag.redirect = "/Escolas/Index"; // Request.Path
+
+            return View("message");
         }
 
         private bool EscolaExists(int id)
         {
             return _context.Escola.Any(e => e.EscolaID == id);
+        }
+
+        private bool isEqual(string type, string value)
+        {
+            bool result = false;
+            switch (type)
+            {
+                case "Nome":
+                    result = _context.Escola.Any(e => e.Nome == value);
+                    break;
+            }
+            return result;
+        }
+
+        // É o único professor com [type], com exceção de [id]
+        private bool isUnique(string type, string value, int id)
+        {
+            bool result = false;
+            switch (type)
+            {
+                case "Nome":
+                    result = _context.Escola.Any(e => e.Nome == value && e.EscolaID != id);
+                    break;
+            }
+            return !result;
         }
     }
 }

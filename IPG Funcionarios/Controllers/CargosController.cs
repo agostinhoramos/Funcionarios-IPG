@@ -18,7 +18,7 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
-        // GET: Cargos
+        // GET: Cargos  ########## MODIFICADO! ###########
         public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10)
         {
 
@@ -146,7 +146,7 @@ namespace IPG_Funcionarios.Controllers
             return View();
         }
 
-        // POST: Cargos/Create
+        // POST: Cargos/Create  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -202,7 +202,7 @@ namespace IPG_Funcionarios.Controllers
             return View(cargo);
         }
 
-        // POST: Cargos/Edit/5
+        // POST: Cargos/Edit/5  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -275,7 +275,7 @@ namespace IPG_Funcionarios.Controllers
             return View(cargo);
         }
 
-        // POST: Cargos/Delete/5
+        // POST: Cargos/Delete/5  ########## MODIFICADO! ###########
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
