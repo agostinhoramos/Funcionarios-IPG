@@ -19,7 +19,7 @@ namespace IPG_Funcionarios.Controllers
         }
 
         // GET: Departamento
-        public IActionResult Index (int page = 1, string sort = null, string q= null, string elemento = "nome", int ipp = 10) { 
+        public IActionResult Index (int page = 1, string sort = null, string q= null, string o = "nome", int ipp = 10) { 
              
          var departamento = from p in _context.Departamento
           select p;
@@ -57,10 +57,10 @@ namespace IPG_Funcionarios.Controllers
             if (!String.IsNullOrEmpty(q))
             {
                 vm.StringProcura = q;
-                if (!String.IsNullOrEmpty(elemento))
+                if (!String.IsNullOrEmpty(o))
 
                 {
-                    switch (elemento)
+                    switch (o)
                     {
                         case "id":
                             int Numeroquery = 0;
@@ -79,11 +79,11 @@ namespace IPG_Funcionarios.Controllers
 
                 //Ordenação do Caracteres
 
-                if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(elemento))
+                if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o))
                 {
 
 
-                    switch (elemento)
+                    switch (o)
                     {
                         case "id":
                             vm.Departamentos = (sort == "1") ?
@@ -105,7 +105,7 @@ namespace IPG_Funcionarios.Controllers
                     vm.Departamentos = departamento.Skip((page - 1) * ipp).Take(ipp);
                 }
                 vm.MostrarUltimaPagina = Math.Min(vm.PaginaTotal, page + Pagina_antes_e_depois);
-                vm.OpcaoCorrente = elemento;
+                vm.OpcaoCorrente = o;
 
                     return View(vm);
             }
