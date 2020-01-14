@@ -29,6 +29,8 @@ namespace IPG_Funcionarios.Models
                 .WithMany(b => b.CargoIDForeignKey)
                 .WithOne();*/
         }
+
+        public DbSet<IPG_Funcionarios.Models.Ferias> Ferias { get; set; }
         
 
     }
