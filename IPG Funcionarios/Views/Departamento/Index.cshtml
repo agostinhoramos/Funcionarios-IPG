@@ -1,22 +1,33 @@
-﻿
-@model DepartamentoViewsModels
+﻿@model DepartamentoViewsModels
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Departamento";
 }
-<!--
-    <form asp-action="Index" method="get">
-        <div class="form-actions no-color">
-            <p>
-                Find by name: <input type="text" name="SearchString" value="@ViewData["PaginaCorrenter"]" />
-                <input type="submit" value="Search" class="btn btn-default" /> |
-                <a asp-action="Index">Voltar a Lista</a>
-            </p>
-        </div>
-    </form>
- -->
 
-    <div class="main-panel view-html" style="width:100%;">
+@{
+    string[] _Sort = new String[Model.column.Length];
+    for (int i = 0; i < Model.column.Length; i++) { 
+        _Sort[i] = Model.OpcaoCorrente == Model.column[i] ?
+        (!String.IsNullOrEmpty(Model.Sort) ? Model.Sort : "") : "";
+                                                   }
+    <!--    Quantidade dos Resultados-->
+
+    string Entries_ = (Model.IntensInicial.ToString() != Model.IntensFinal.ToString()) ?
+    "de " + Model.IntensInicial.ToString() + " até " + Model.IntensFinal.ToString() : Model.IntensFinal.ToString();
+
+    int intens_maximo_por_pagina = 5,
+        intens_minimo_por_pagina = 100;
+    string crq = Context.Request.QueryString.ToString();
+    string Page, Sort, Query, Order, IPPage;
+    try { Page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Page = ""; }
+    try { Sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Sort = ""; }
+    try { Query = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Query = ""; }
+    try { Order = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Order = ""; }
+    try { IPPage = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { IPPage = ""; }
+
+}
+
+    <div class="main-panel view-html">
         <div class="content-wrapper">
             <div class="page-header">
                 <h3 class="page-title">
@@ -25,41 +36,63 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">Views</li>
-                        <li class="breadcrumb-item">Departamento</li>
+                        <li class="breadcrumb-item"><a asp-action="Index">Unidade Técnica Cientifica</a></li>
                         <li class="breadcrumb-item active" aria-current="page"></li>
                     </ol>
                 </nav>
             </div>
+
             <div class="row">
+
                 <div class="col">
+
+
                     <div class="card">
                         <div class="card-body">
-
-                            <div class="row">
+                            
+                           <div class="row">
                                 <div class="col-12">
                                     <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-
                                         <div class="row">
                                             <div class="col-sm-12 ctrl-a">
                                                 <a asp-action="Create" class="c-btn c-btn-primary">Adicionar</a>
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered table-danger">
-                                                        <thead>
-                                                            <tr>
-                                                                <th colspan="2" style="text-align:center">
-                                                                    @Html.DisplayNameFor(model => model.Departamentos)
-                                                                </th>
+                                                <select id="entries_per_page" name="order-listing_length"
+                                                        aria-controls="order-listing" class="custom-select custom-select-sm form-control">
 
-                                                            </tr>
+                                                    <option value="0">Todas</option>
+                                                    @for (int i = intens_minimo_por_pagina; i <= intens_maximo_por_pagina; i += intens_minimo_por_pagina)
+                                                    {
+                                                        <option value="@i">@i</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
+                                        </div>
+                                        @if (Model.TodosIntens > 0)
+                                        {
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table id="order-listing" class="table table-striped" role="grid" aria-describedby="order-listing_info">
+                                                        <thead>
+                                                             <tr role="row" class="sort">
+                                                             
+                                                                 <th class="sort" tabindex="0"  rowspan="1" colspan="1">
+                                                                     Nome
+                                                                     
+                                                                 </th>
+                                                             
+                                                              </tr>
+                                                            
                                                         </thead>
                                                         <tbody>
+
                                                             @foreach (var item in Model.Departamentos)
                                                             {
-                                                                <tr>
-                                                                    <td>
+                                                                <tr role="row" class="even">
+                                                                    <td class="sorting_1">
                                                                         @Html.DisplayFor(modelItem => item.Nome)
                                                                     </td>
-                                                                    <td style="text-align:center;">
+                                                                    <td class="t-center">
                                                                         <a asp-action="Edit" asp-route-id="@item.DepartamentoId" class="badge badge-pill badge-warning">Edit</a>
                                                                         <a asp-action="Details" asp-route-id="@item.DepartamentoId" class="badge badge-pill badge-info">Details</a>
                                                                         <a asp-action="Delete" asp-route-id="@item.DepartamentoId" class="badge badge-pill badge-danger">Delete</a>
@@ -67,45 +100,70 @@
                                                                 </tr>
                                                             }
                                                         </tbody>
+
                                                     </table>
-
-                                                    <nav aria-label="Page navigation example">
-
-                                                        <ul class="pagination justify-content-center">
-                                                            <li class="page-item"><a class="page-link">Previous</a></li>
-
-                                                            @for (int i = 1; i <= Model.PaginaTotal; i++)
-                                                            {
-                                                                @if (i == Model.PaginaCorrente)
-                                                                {
-                                                                    <li class="page-item active"><a class="page-link">@i</a></li>
-
-                                                                }
-                                                                else
-                                                                {
-                                                                    <li class="page-item"><a asp-action="Index" asp-route-page="@i" asp-route-PaginaCorrente="@i" class="page-link" asp-route-StringProcura="@Model.StringProcura " asp-route-StringSort="@Model.Sort">@i</a></li>
-                                                                }
-
-
-                                                            }
-                                                            <li class="page-item"><a class="page-link">Next</a></li>
-                                                        </ul>
-                                                    </nav>
-
-
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
+                                        @if (Model.PaginaTotal > 1 && String.IsNullOrEmpty(Model.StringProcura))
+                                        {
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-5">
+                                                    <div class="dataTables_info" id="order-listing_info" role="status" aria-live="polite">Mostrando @Entries_ de @Model.TodosIntens registos</div>
+                                                </div>
+                                            </div>
 
+                                            <!--Paginação-->
+
+
+                                            <nav aria-label="Page navigation" class="pages">
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item">
+                                                        <a class="page-link" id="prev">Anterior</a>
+                                                    </li>
+
+                                                    @for (int i = Model.MostrarPrimeiraPagina; i <= Model.PaginaTotal; i++)
+                                                    {
+                                                        @if (i == Model.PaginaCorrente)
+                                                        {
+                                                            <li class="page-item active"><a class="page-link">@i</a></li>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="page-item">
+                                                                <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@Sort" 
+                                                                   asp-route-o="@Order" asp-route-ipp="@IPPage" asp-route-q="@Query">@i</a>
+                                                            </li>
+
+                                                        }
+                                                    }
+
+                                                    <li class="page-item">
+                                                        <a class="page-link" id="next">Próximo</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                            <!-- Paginação -->
+
+
+                                        }
+
+                                                     <!--
+                                                        }
+                                                        else{
+                                                        <br />
+                                                        <h3>Nenhum item encontrado </h3>
+                                                        }
+
+                                                      -->
 
 
 
                                     </div>
 
-
-
                                 </div>
-                            </div>
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -113,29 +171,45 @@
         </div>
     </div>
 
-                                    <!--<script>
-                            $(document).ready(function () {
-                                $("#search").keyup(function (event) {
-                                var url = 'https://' + window.location.host + '/Departamento?page=1&sort=true&searchString=' + $(this).val();
-                                url ? window.location.assign(url) : null;
-                            }).val('@Model.StringProcura').focus();
-                        });
 
+
+
+
+
+
+
+
+                <!--
+                                    <script>
+                    $(document).ready(function () {
+                        $("#search").keyup(function (event) {
+                        var url = 'https://' + window.location.host + '/Departamento?page=1&sort=true&searchString=' + $(this).val();
+                        url ? window.location.assign(url) : null;
+                    }).val('@Model.StringProcura').focus();
+                });
+
+                                    </script
+                -->
+                @section Scripts{
+                    <script>
+                            window.aspNet = window.aspNet || {};
+                            window._asp = window._asp || {};
+                            window.aspNet.URL = location.protocol + '//' + '@Context.Request.Host/@Model.mainURL';
+                            window.aspNet.Page = parseInt('@Model.PaginaCorrente');
+                            window.aspNet.Sort = '@Model.Sort';
+                            window.aspNet.Query = encodeURIComponent('@Model.StringProcura').trim().toLowerCase();
+                            window.aspNet.nPage = parseInt('@Model.PaginaTotal');
+                            window.aspNet.pHoldTxt = 'Procurar por '+ capitalize('@Model.OpcaoCorrente');
+                            window.aspNet.EPerPage = '@Model.IntensPorPagina';
+
+                            window._asp.page = "@Page";
+                            window._asp.sort = "@Sort";
+                            window._asp.qery = "@Query";
+                            window._asp.ordr = "@Order";
+                            window._asp.ippg = "@IPPage";
                     </script>
-                    -->
-                                    <style>
-                                        .pagination,
-                                        .jsgrid .jsgrid-pager {
-                                            overflow-x: hidden;
-                                            margin-top: 40px;
-                                        }
-
-                                        .row {
-                                            width: 100%;
-                                        }
+                    <style>
+                    </style>
+                }
 
 
-                                        .btn {
-                                            margin-top: 40px;
-                                        }
-                                    </style>
