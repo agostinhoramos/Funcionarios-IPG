@@ -16,6 +16,7 @@ namespace IPG_Funcionarios.Models {
             PopulateEscola(db);
             PopulateTarefa(db);
             PopulateCargo(db);
+            PopulateFerias(db);
         }
 
         private static void PopulateServico(IPGFuncionariosDbContext db)
@@ -102,7 +103,7 @@ namespace IPG_Funcionarios.Models {
             db.SaveChanges();
         }
 
-        private static void PopulateProfesor(IPGFuncionariosDbContext db) 
+        private static void PopulateProfesor(IPGFuncionariosDbContext db)
         {
             if (db.Professor.Any()) {
                 return;
@@ -173,7 +174,7 @@ namespace IPG_Funcionarios.Models {
 
             db.Funcionario.AddRange(
                 new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1973, 07, 03) },
-               new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1970, 07, 03) },
+               new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento = new DateTime(1970, 07, 03) },
                 new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1972, 07, 03) },
 
 
@@ -187,7 +188,7 @@ namespace IPG_Funcionarios.Models {
 
 
                 new Funcionario { Nome = "Lina Sousa", Telefone = "234567890", Email = "lina@gmail.com", Genero = "F", Morada = "Rua Xanana Gusmão ", DataNascionento = new DateTime(1979, 07, 03) },
-                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento  = new DateTime(1956, 07, 03)},
+                new Funcionario { Nome = "Lara Lima", Telefone = "912344567", Email = "lima@gmail.com", Genero = "F", Morada = "Rua Páiva", DataNascionento = new DateTime(1956, 07, 03) },
                 new Funcionario { Nome = "João Rita", Telefone = "923456211", Email = "joaorita@gmail.com", Genero = "m", Morada = "Rua da Alegria nº2, guarda ", DataNascionento = new DateTime(1998, 07, 03) }
             );
 
@@ -197,7 +198,7 @@ namespace IPG_Funcionarios.Models {
             if (db.Departamento.Any()) {
                 return;
             }
-            
+
             // Dados do departamento
             db.Departamento.AddRange(
                 new Departamento { Nome = "Departamento de Engenharia Civil" },
@@ -210,8 +211,23 @@ namespace IPG_Funcionarios.Models {
                 new Departamento { Nome = "Departamento de Desporto" },
                 new Departamento { Nome = "Departamento de Comunicação Multimédia" }
             );
-            
+
             db.SaveChanges();
+        }
+        public static void PopulateFerias(IPGFuncionariosDbContext db){
+            if (db.Ferias.Any()) {
+                return;
+            }
+            db.Ferias.AddRange(
+                new Ferias { TipoFerias ="Remunerada", DataInicio="17/11/2019", DataFim="21/12/2018"},
+                new Ferias { TipoFerias="Não Renumerada",DataInicio ="12/01/2020", DataFim="22/01/2020"}
+                
+                
+                
+                );
+
+
+
         }
     }
 }

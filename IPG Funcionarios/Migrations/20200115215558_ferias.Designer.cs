@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPG_Funcionarios.Migrations
 {
     [DbContext(typeof(IPGFuncionariosDbContext))]
-    [Migration("20200114165318_ferias")]
+    [Migration("20200115215558_ferias")]
     partial class ferias
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,6 +78,33 @@ namespace IPG_Funcionarios.Migrations
                     b.HasKey("EscolaID");
 
                     b.ToTable("Escola");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Ferias", b =>
+                {
+                    b.Property<int>("FeriasID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DataFim")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DataInicio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuemID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TipoFerias")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FeriasID");
+
+                    b.ToTable("Ferias");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
