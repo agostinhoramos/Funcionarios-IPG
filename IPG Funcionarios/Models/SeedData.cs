@@ -224,17 +224,8 @@ namespace IPG_Funcionarios.Models {
                   new Ferias { TipoFerias="Feria de Carnaval",DataInicio = new DateTime(2020,02,24), DataFim= new DateTime(2020,02,26)},
                  new Ferias { TipoFerias="Feria da Pascoa",DataInicio = new DateTime(2020,03,30), DataFim= new DateTime(2020,04,13)},
                  new Ferias { TipoFerias="Feria do final do Ano Lectivo",DataInicio = new DateTime(2020,06,19), DataFim= new DateTime(2020,09,06)}
-                
-
-
-
-
-                 );
-
-
+             );
 
          }
-         
-
     }
 }
