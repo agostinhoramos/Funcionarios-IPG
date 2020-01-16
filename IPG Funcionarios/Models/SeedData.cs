@@ -11,7 +11,6 @@ namespace IPG_Funcionarios.Models {
             PopulateProfesor(db);
             PopulateFuncionario(db);
             PopulateDepartamento(db);
-
             PopulateServico(db);
             PopulateEscola(db);
             PopulateTarefa(db);
