@@ -51,6 +51,10 @@ namespace IPG_Funcionarios.Models
             base.OnModelCreating(modelBuilder);
         }
 
+      
+
+    
+        
 
     }
 }
