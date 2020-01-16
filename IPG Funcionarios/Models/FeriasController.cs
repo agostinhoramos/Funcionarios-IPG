@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using IPG_Funcionarios.Models;
 
-namespace IPG_Funcionarios.Controllers
+namespace IPG_Funcionarios.Models
 {
     public class FeriasController : Controller
     {

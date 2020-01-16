@@ -31,6 +31,8 @@ namespace IPG_Funcionarios.Models
         }
 
         public DbSet<IPG_Funcionarios.Models.Ferias> Ferias { get; set; }
+
+      //  public DbSet<IPG_Funcionarios.Models.Ferias> Ferias { get; set; }
         
 
     }
