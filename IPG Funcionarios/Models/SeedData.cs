@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace IPG_Funcionarios.Models {
-    public class SeedData {
+    public static class SeedData {
 
         public static void Populate(IPGFuncionariosDbContext db) {
 
@@ -221,13 +221,7 @@ namespace IPG_Funcionarios.Models {
             db.Ferias.AddRange(
                 new Ferias { TipoFerias ="Remunerada", DataInicio="17/11/2019", DataFim="21/12/2018"},
                 new Ferias { TipoFerias="Não Renumerada",DataInicio ="12/01/2020", DataFim="22/01/2020"}
-                
-                
-                
-                );
-
-
-
+            );
         }
     }
 }

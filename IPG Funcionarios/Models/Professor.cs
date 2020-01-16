@@ -26,5 +26,8 @@ namespace IPG_Funcionarios.Models {
         [Required(ErrorMessage = "Por favor, insira um Gabinete!")]
         [Display(Name = "Gabinete", Prompt = "Inserir um Gabinete")]
         public string Gabinete { get; set; }
+
+        public Departamento Departamento { get; set; }
+        public int DepartamentoId { get; set; }
     }
 }

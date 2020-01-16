@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IPG_Funcionarios.Models
 {
@@ -8,6 +9,8 @@ namespace IPG_Funcionarios.Models
 
         [Required]
         public string Nome { get; set; }
-      
+
+        public ICollection<Professor> Professores { get; set; }
+
     }
 }
