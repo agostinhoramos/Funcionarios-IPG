@@ -151,6 +151,9 @@ namespace IPG_Funcionarios.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DepartamentoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -165,6 +168,8 @@ namespace IPG_Funcionarios.Migrations
                         .HasMaxLength(150);
 
                     b.HasKey("ProfessorId");
+
+                    b.HasIndex("DepartamentoId");
 
                     b.ToTable("Professor");
                 });
@@ -209,6 +214,15 @@ namespace IPG_Funcionarios.Migrations
                     b.HasKey("TarefaID");
 
                     b.ToTable("Tarefa");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Professor", b =>
+                {
+                    b.HasOne("IPG_Funcionarios.Models.Departamento", "Departamento")
+                        .WithMany("Professores")
+                        .HasForeignKey("DepartamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
