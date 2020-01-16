@@ -23,5 +23,9 @@ namespace IPG_Funcionarios.Models
 
         [DataType(DataType.Date)]
         public DateTime Data { get; set; }
+
+        /* Fluent API in Entity Framework */
+        public Professor Professores { get; set; }
+        public int ProfessorForeignKey { get; set; }
     }
 }

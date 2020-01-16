@@ -26,11 +26,19 @@ namespace IPG_Funcionarios.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Relação 1 -> N ( 1 Departamento com vários Professores )
+            //Relação 1 -> N ( Cada Departamento com vários Professores )
             modelBuilder.Entity<Professor>()
-                .HasOne(mm => mm.Departamento)
+                .HasOne(mm => mm.Departamentos)
                 .WithMany(m => m.Professores)
-                .HasForeignKey(mm => mm.DepartamentoId)
+                .HasForeignKey(mm => mm.DepartamentoForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Professor com várias Tarefas )
+            modelBuilder.Entity<Tarefa>()
+                .HasOne(mm => mm.Professores)
+                .WithMany(m => m.Tarefas)
+                .HasForeignKey(mm => mm.ProfessorForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
         }
