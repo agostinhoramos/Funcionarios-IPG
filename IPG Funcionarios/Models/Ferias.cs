@@ -16,13 +16,13 @@ namespace IPG_Funcionarios.Models
         [Required(ErrorMessage = "Por favor, digite a data do início")]
         [DataType(DataType.Date, ErrorMessage = "Data inválido")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public string DataInicio { get; set; }
+        public DateTime DataInicio { get; set; }
 
 
         [Required(ErrorMessage = "Por favor, digite a data do Fim")]
         [DataType(DataType.Date, ErrorMessage = "Data inválido")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public string DataFim { get; set; }
+        public DateTime DataFim { get; set; }
 
         public int QuemID { get; set; }
    
