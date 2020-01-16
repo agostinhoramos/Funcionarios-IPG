@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace IPG_Funcionarios.Models {
-    public class SeedData {
+    public static class SeedData {
 
         public static void Populate(IPGFuncionariosDbContext db) {
 
@@ -215,24 +215,13 @@ namespace IPG_Funcionarios.Models {
             db.SaveChanges();
         }
         public static void PopulateFerias(IPGFuncionariosDbContext db){
-             if (db.Ferias.Any()) {
-                 return;
-             }
-             db.Ferias.AddRange(
-                  new Ferias { TipoFerias = "Ferias de Natal", DataInicio = new DateTime(2019,12 ,18), DataFim = new DateTime(2020,01,03) },
-                  new Ferias { TipoFerias="Feria de Carnaval",DataInicio = new DateTime(2020,02,24), DataFim= new DateTime(2020,02,26)},
-                 new Ferias { TipoFerias="Feria da Pascoa",DataInicio = new DateTime(2020,03,30), DataFim= new DateTime(2020,04,13)},
-                 new Ferias { TipoFerias="Feria do final do Ano Lectivo",DataInicio = new DateTime(2020,06,19), DataFim= new DateTime(2020,09,06)}
-                
-
-
-
-
-                 );
-
-
-
-         }
-         
+            if (db.Ferias.Any()) {
+                return;
+            }
+            db.Ferias.AddRange(
+                new Ferias { TipoFerias ="Remunerada", DataInicio="17/11/2019", DataFim="21/12/2018"},
+                new Ferias { TipoFerias="Não Renumerada",DataInicio ="12/01/2020", DataFim="22/01/2020"}
+            );
+        }
     }
 }

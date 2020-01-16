@@ -26,5 +26,12 @@ namespace IPG_Funcionarios.Models {
         [Required(ErrorMessage = "Por favor, insira um Gabinete!")]
         [Display(Name = "Gabinete", Prompt = "Inserir um Gabinete")]
         public string Gabinete { get; set; }
+
+        /* Fluent API in Entity Framework */
+        public Departamento Departamentos { get; set; }
+        public int DepartamentoForeignKey { get; set; }
+
+
+        public ICollection<Tarefa> Tarefas { get; set; }
     }
 }
