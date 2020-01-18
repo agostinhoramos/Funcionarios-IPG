@@ -1,7 +1,5 @@
 ﻿@{
-    @using Microsoft.AspNetCore.Identity
-    @inject SignInManager<IdentityUser> SignInManager
-    @inject UserManager<IdentityUser> UserManager
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +15,7 @@
     <link rel="shortcut icon" href="~/assets/image/favicon.ico" />
     <script src="~/assets/js/jquery.js"></script>
 </head>
-<body>
+<body class="sidebar-toggle-display sidebar-hidden" >
     <div class="container-scroller">
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
@@ -25,37 +23,8 @@
                 <a class="navbar-brand brand-logo-mini" asp-area="" asp-controller="Home" asp-action=""><img src="/assets/image/favicon.ico" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
-                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-                    <span class="mdi mdi-menu"></span>
-                </button>
-                <div class="search-field d-none d-md-block">
-                    <form class="d-flex align-items-center h-100" style="width:400px;" action="#">
-                        <div class="input-group">
-                            <div class="input-group-prepend bg-transparent">
-                                <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                            </div>
-                            <input id="search" type="text" class="form-control bg-transparent border-0" placeholder="" />
-                        </div>
-                    </form>
-                </div>
                 <ul class="navbar-nav navbar-nav-right">
 
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item nav-profile dropdown">
-                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" >
-                                <div class="nav-profile-img" title="Eu: @User.Identity.Name" >
-                                    <img src="~/assets/image/user-48.png" alt="image" >
-                                </div>
-                            </a>
-                        </li>
-                    }
-
-                    <li class="nav-item d-none d-lg-block full-screen-link" id="full-screen">
-                        <a class="nav-link">
-                            <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                        </a>
-                    </li>
                     <li class="nav-item dropdown" id="notification">
                         <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                             <i class="mdi mdi-bell-outline"></i>
@@ -82,11 +51,6 @@
 
                     <partial name="_LoginPartial" />
 
-                    <li class="nav-item nav-settings d-none d-lg-block" id="todo-task">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-format-line-spacing"></i>
-                        </a>
-                    </li>
                 </ul>
 
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
@@ -127,7 +91,7 @@
         <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="http://www.ipg.pt/website/" target="_blank">IPG</a> Todos os direitos reservados</span>
-                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a> - Made with &nbsp;<i class="mdi mdi-heart text-danger"></i>by Group 05</span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a></span>
             </div>
         </footer>
     </div>
