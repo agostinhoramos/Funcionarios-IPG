@@ -17,6 +17,6 @@ namespace IPG_Funcionarios.Models
         [Display(Name = "Nome", Prompt = "Inserir um nome de Cargo")]
         public string NomeCargo { get; set; }
 
-        //public MyCargo CargoIDForeignKey { get; set; } /* Cargo Chefe */
+
     }
 }

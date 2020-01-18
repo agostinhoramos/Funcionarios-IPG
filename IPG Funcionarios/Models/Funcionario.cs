@@ -50,6 +50,5 @@ namespace IPG_Funcionarios.Models
 
 
         /* Fluent API in Entity Framework */
-        public ICollection<Tarefa> Tarefas { get; set; }
     }
 }
