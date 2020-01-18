@@ -5,14 +5,9 @@ using System.Threading.Tasks;
 
 namespace IPG_Funcionarios.Models
 {
-    public class ProfessorTarefaCargo
+    public class VariosCargos
     {
-        public int ProfessorForeignKey { get; set; }
-        public int TarefaForeignKey { get; set; }
         public int CargoForeignKey { get; set; }
-
-        public Professor Professor { get; set; }
-        public Tarefa Tarefa { get; set; }
         public Cargo Cargo { get; set; }
     }
 }

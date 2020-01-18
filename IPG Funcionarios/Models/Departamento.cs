@@ -10,7 +10,12 @@ namespace IPG_Funcionarios.Models
         [Required]
         public string Nome { get; set; }
 
+
+        /* Fluent API in Entity Framework */
+        public int EscolaForeignKey { get; set; }
+        public Escola Escola { get; set; }
         public ICollection<Professor> Professores { get; set; }
+        public ICollection<Escola> Escolas { get; set; }
 
     }
 }

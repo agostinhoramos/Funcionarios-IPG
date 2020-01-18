@@ -17,6 +17,8 @@ namespace IPG_Funcionarios.Models
         [Display(Name = "Nome", Prompt = "Inserir um nome de Cargo")]
         public string NomeCargo { get; set; }
 
-
+        public ICollection<FuncionarioTarefaCargo> FuncionarioTarefaCargos { get; set; }
+        public ICollection<ProfessorTarefaCargo> ProfessorTarefaCargos { get; set; }
+        public ICollection<VariosCargos> VariosCargos { get; set; }
     }
 }

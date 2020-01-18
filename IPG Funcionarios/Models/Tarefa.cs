@@ -30,5 +30,8 @@ namespace IPG_Funcionarios.Models
 
         public Funcionario Funcionarios { get; set; }
         public int FuncionarioForeignKey { get; set; }
+
+        public ICollection<FuncionarioTarefaCargo> FuncionarioTarefaCargos { get; set; }
+        public ICollection<ProfessorTarefaCargo> ProfessorTarefaCargos { get; set; }
     }
 }

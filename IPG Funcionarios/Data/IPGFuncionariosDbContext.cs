@@ -28,13 +28,107 @@ namespace IPG_Funcionarios.Models
         {
             //Relação 1 -> N ( Cada Departamento com vários Professores )
             modelBuilder.Entity<Professor>()
-                .HasOne(mm => mm.Departamentos)
+                .HasOne(mm => mm.Departamento)
                 .WithMany(m => m.Professores)
                 .HasForeignKey(mm => mm.DepartamentoForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
+            //Relação 1 -> N ( Cada Escola com vários Departamentos )
+            modelBuilder.Entity<Departamento>()
+                .HasOne(mm => mm.Escola)
+                .WithMany(m => m.Departamentos)
+                .HasForeignKey(mm => mm.EscolaForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
 
+            //Relação 1 -> N ( Cada Escola com vários Serviços )
+            modelBuilder.Entity<Servico>()
+                .HasOne(mm => mm.Escola)
+                .WithMany(m => m.Servicos)
+                .HasForeignKey(mm => mm.EscolaForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Funcionário com vários Serviços )
+            modelBuilder.Entity<Servico>()
+                .HasOne(mm => mm.Funcionario)
+                .WithMany(m => m.Servicos)
+                .HasForeignKey(mm => mm.FuncionarioForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Funcionário com várias Férias )
+            modelBuilder.Entity<Ferias>()
+                .HasOne(mm => mm.Funcionario)
+                .WithMany(m => m.Ferias)
+                .HasForeignKey(mm => mm.FuncionarioForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Professor com vários Férias )
+            modelBuilder.Entity<Ferias>()
+                .HasOne(mm => mm.Professor)
+                .WithMany(m => m.Ferias)
+                .HasForeignKey(mm => mm.ProfessorForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Funcionário com vários FuncionarioTarefaCargo )
+            modelBuilder.Entity<FuncionarioTarefaCargo>()
+                .HasOne(mm => mm.Funcionario)
+                .WithMany(m => m.FuncionarioTarefaCargos)
+                .HasForeignKey(mm => mm.FuncionarioForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Tarefa com vários FuncionarioTarefaCargo )
+            modelBuilder.Entity<FuncionarioTarefaCargo>()
+                .HasOne(mm => mm.Tarefa)
+                .WithMany(m => m.FuncionarioTarefaCargos)
+                .HasForeignKey(mm => mm.TarefaForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Cargo com vários FuncionarioTarefaCargo )
+            modelBuilder.Entity<FuncionarioTarefaCargo>()
+                .HasOne(mm => mm.Cargo)
+                .WithMany(m => m.FuncionarioTarefaCargos)
+                .HasForeignKey(mm => mm.CargoForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Professor com vários ProfessorTarefaCargo )
+            modelBuilder.Entity<ProfessorTarefaCargo>()
+                .HasOne(mm => mm.Professor)
+                .WithMany(m => m.ProfessorTarefaCargos)
+                .HasForeignKey(mm => mm.ProfessorForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Tarefa com vários ProfessorTarefaCargo )
+            modelBuilder.Entity<ProfessorTarefaCargo>()
+                .HasOne(mm => mm.Tarefa)
+                .WithMany(m => m.ProfessorTarefaCargos)
+                .HasForeignKey(mm => mm.TarefaForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Cargo com vários ProfessorTarefaCargo )
+            modelBuilder.Entity<ProfessorTarefaCargo>()
+                .HasOne(mm => mm.Cargo)
+                .WithMany(m => m.ProfessorTarefaCargos)
+                .HasForeignKey(mm => mm.CargoForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Cargo com vários Cargos )
+            modelBuilder.Entity<VariosCargos>()
+                .HasOne(mm => mm.Cargo)
+                .WithMany(m => m.VariosCargos)
+                .HasForeignKey(mm => mm.CargoForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
         }
 
     }

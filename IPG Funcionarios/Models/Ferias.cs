@@ -25,7 +25,15 @@ namespace IPG_Funcionarios.Models
         public DateTime DataFim { get; set; }
 
         public int QuemID { get; set; }
-   
-}
+
+
+        /* Fluent API in Entity Framework */
+        public int FuncionarioForeignKey { get; set; }
+        public Funcionario Funcionario { get; set; }
+
+        public int ProfessorForeignKey { get; set; }
+        public Professor Professor { get; set; }
+
+    }
   
 }
