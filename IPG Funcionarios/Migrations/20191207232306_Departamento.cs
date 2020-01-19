@@ -12,8 +12,7 @@ namespace IPG_Funcionarios.Migrations
                 {
                     DepartamentoId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(nullable: false),
-                    Contacto = table.Column<string>(nullable: true)
+                    Nome = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -50,10 +50,8 @@ namespace IPG_Funcionarios.Models
 
 
         /* Fluent API in Entity Framework */
-
         public ICollection<Ferias> Ferias { get; set; }
         public ICollection<Servico> Servicos { get; set; }
-
         public ICollection<FuncionarioTarefaCargo> FuncionarioTarefaCargos { get; set; }
     }
 }

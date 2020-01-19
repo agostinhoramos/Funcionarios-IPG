@@ -19,7 +19,6 @@ namespace IPG_Funcionarios.Models
         /* Fluent API in Entity Framework */
         public int EscolaForeignKey { get; set; }
         public Escola Escola { get; set; }
-
         public int FuncionarioForeignKey { get; set; }
         public Funcionario Funcionario { get; set; }
     }

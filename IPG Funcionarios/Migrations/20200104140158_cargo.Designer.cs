@@ -27,10 +27,13 @@ namespace IPG_Funcionarios.Migrations
                     .HasColumnType("int")
                     .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                b.Property<int>("CargoChefe")
+                    .HasColumnType("int");
+
                 b.Property<string>("NomeCargo")
                     .IsRequired()
-                    .HasColumnType("nvarchar(250)")
-                    .HasMaxLength(250);
+                    .HasColumnType("nvarchar(220)")
+                    .HasMaxLength(220);
 
                 b.HasKey("CargoID");
 

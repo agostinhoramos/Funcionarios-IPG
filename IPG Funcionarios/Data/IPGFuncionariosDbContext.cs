@@ -24,6 +24,7 @@ namespace IPG_Funcionarios.Models
         public DbSet<IPG_Funcionarios.Models.Tarefa> Tarefa { get; set; }
         public DbSet<IPG_Funcionarios.Models.Ferias> Ferias { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Relação 1 -> N ( Cada Departamento com vários Professores )
@@ -66,12 +67,19 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Professor com vários Férias )
+            //Relação 1 -> N ( Cada Professor com várias Férias )
             modelBuilder.Entity<Ferias>()
                 .HasOne(mm => mm.Professor)
                 .WithMany(m => m.Ferias)
                 .HasForeignKey(mm => mm.ProfessorForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Cargo com várias Cargos )
+            modelBuilder.Entity<Cargo>()
+                .HasOne(mm => mm.Chefe)
+                .WithMany()
+                .HasForeignKey(m => m.CargoChefe);
             base.OnModelCreating(modelBuilder);
 
             //Relação 1 -> N ( Cada Funcionário com vários FuncionarioTarefaCargo )
@@ -121,15 +129,6 @@ namespace IPG_Funcionarios.Models
                 .HasForeignKey(mm => mm.CargoForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
-
-            //Relação 1 -> N ( Cada Cargo com vários Cargos )
-            modelBuilder.Entity<VariosCargos>()
-                .HasOne(mm => mm.Cargo)
-                .WithMany(m => m.VariosCargos)
-                .HasForeignKey(mm => mm.CargoForeignKey)
-                .OnDelete(DeleteBehavior.Cascade);
-            base.OnModelCreating(modelBuilder);
         }
-
     }
 }
