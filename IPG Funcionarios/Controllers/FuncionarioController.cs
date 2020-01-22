@@ -46,7 +46,7 @@ namespace IPG_Funcionarios.Controllers
             switch (ordem)
             {
                 case "nome_desc":
-                    funcionario = funcionario.OrderByDescending(est => est.Nome);
+                    funcionario = funcionario.OrderBy(est => est.Nome);
                     break;
                 case "Data":
                     funcionario = funcionario.OrderBy(est => est.DataNascionento);
@@ -82,7 +82,9 @@ namespace IPG_Funcionarios.Controllers
                 .SingleOrDefaultAsync(m => m.FuncionarioId == id);
             if (funcionario == null)
             {
-                return NotFound();
+                
+               return NotFound();
+               // return RedirectToAction(nameof(Error));
             }
 
             return View(funcionario);
@@ -99,7 +101,7 @@ namespace IPG_Funcionarios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada,DataNascionento")] Funcionario funcionario)
+        public async Task<IActionResult> Create([Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada,DataNascionento,DataAdmissao")] Funcionario funcionario)
         {
             var email = funcionario.Email;
             var telefone = funcionario.Telefone;
@@ -154,7 +156,7 @@ namespace IPG_Funcionarios.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada,DataNascionento")] Funcionario funcionario)
+        public async Task<IActionResult> Edit(int id, [Bind("FuncionarioId,Nome,Telefone,Email,Genero,Morada,DataNascionento,DataAdmissao")] Funcionario funcionario)
         {
             var email = funcionario.Email;
             var telefone = funcionario.Telefone;

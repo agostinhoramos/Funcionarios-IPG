@@ -25,9 +25,14 @@ namespace IPG_Funcionarios.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+          //  modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+
             /*modelBuilder.Entity<Cargo>()
                 .WithMany(b => b.CargoIDForeignKey)
                 .WithOne();*/
+            
         }
         
 

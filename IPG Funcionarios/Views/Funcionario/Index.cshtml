@@ -54,6 +54,7 @@
 
                                                 <thead>
                                                     <tr>
+                                                        <th> ID </th>
                                                         <th>
                                                             <a asp-action="Index" asp-route-ordem="@ViewData["NomeParm"]" asp-route-filtroAtual="@ViewData["filtroAtual"]">Nome</a>
 
@@ -61,42 +62,48 @@
                                                         <th> Telefone </th>
                                                         <th> Email </th>
                                                         <th> Genero </th>
-                                                        
                                                         <th>
                                                             <a asp-action="Index" asp-route-ordem="@ViewData["DataParm"]" asp-route-filtroAtual="@ViewData["filtroAtual"]">Data de Nascimento</a>
 
                                                         </th>
+                                                        <th> Data de Admissao </th>
                                                         <th> &nbsp; </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach (var item in Model)
                                                     {
-                                                        <tr>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Nome)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Telefone)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Email)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.Genero)
-                                                            </td>
-                                                        
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.DataNascionento)
-                                                            </td>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.FuncionarioId)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Nome)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Telefone)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Email)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Genero)
+                                                        </td>
 
-                                                            <td>
-                                                                <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-warning">Edit</a>
-                                                                <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-info">Details</a>
-                                                                <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-danger">Delete</a>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.DataNascionento)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.DataAdmissao)
+                                                        </td>
+
+                                                        <td>
+                                                            <a asp-action="Edit" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-warning">Edit</a>
+                                                            <a asp-action="Details" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-info">Details</a>
+                                                            <a asp-action="Delete" asp-route-id="@item.FuncionarioId" class="badge badge-pill badge-danger">Delete</a>
 
 
-                                                        </tr>
+                                                    </tr>
 
                                                     }
 
