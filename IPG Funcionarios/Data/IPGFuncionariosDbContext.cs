@@ -32,6 +32,7 @@ namespace IPG_Funcionarios.Models
             /*modelBuilder.Entity<Cargo>()
                 .WithMany(b => b.CargoIDForeignKey)
                 .WithOne();*/
+
             
         }
         
