@@ -19,6 +19,7 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
+        // GET: Professores  ########## MODIFICADO! ###########
         public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "name", int ipp = 10) {
 
             var prof = from p in _context.Professor select p;
@@ -154,7 +155,7 @@ namespace IPG_Funcionarios.Controllers
             return View();
         }
 
-        // POST: Professores/Create
+        // POST: Professores/Create ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -215,7 +216,7 @@ namespace IPG_Funcionarios.Controllers
             return View(professor);
         }
 
-        // POST: Professores/Edit/5
+        // POST: Professores/Edit/5 ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -272,7 +273,7 @@ namespace IPG_Funcionarios.Controllers
             return View(professor);
         }
 
-        // GET: Professores/Delete/5
+        // GET: Professores/Delete/5 
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -290,7 +291,7 @@ namespace IPG_Funcionarios.Controllers
             return View(professor);
         }
 
-        // POST: Professores/Delete/5
+        // POST: Professores/Delete/5 ########## MODIFICADO! ###########
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

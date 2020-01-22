@@ -1,0 +1,59 @@
+﻿@{
+    String  sclass1 = "disabled", 
+            sclass2 = "disabled", 
+            sclass3 = "disabled", 
+            sclass4 = "disabled", 
+            sclass5 = "disabled", 
+            sclass6 = "disabled";
+
+    if (ViewData["pagetype"].ToString().Contains("1")) {
+        sclass1 = "first current";
+    }
+    if (ViewData["pagetype"].ToString().Contains("2")) {
+        sclass2 = "first current";
+    }
+    if (ViewData["pagetype"].ToString().Contains("3")) {
+        sclass3 = "first current";
+    }
+    if (ViewData["pagetype"].ToString().Contains("4")) {
+        sclass4 = "first current";
+    }
+    if (ViewData["pagetype"].ToString().Contains("5")) {
+        sclass5 = "first current";
+    }
+    if (ViewData["pagetype"].ToString().Contains("6")) {
+        sclass6 = "first current";
+    }
+}
+
+<li role="tab" class="@sclass1" aria-disabled="true">
+    <a id="steps-uid-1-t-1" asp-area="Identity" asp-page="/Account/Manage/Profile" aria-controls="steps-uid-1-p-1">
+        <span class="number">1.</span> Perfil
+    </a>
+</li>
+<li role="tab" class="@sclass2" aria-disabled="false" aria-selected="true">
+    <a id="steps-uid-1-t-0" asp-area="Identity" asp-page="/Account/Manage/Index" aria-controls="steps-uid-1-p-0">
+        <span class="current-info audible">current step: </span>
+        <span class="number">2.</span> Infomações pessoais
+    </a>
+</li>
+<li role="tab" class="@sclass3" aria-disabled="true">
+    <a id="steps-uid-1-t-1" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" aria-controls="steps-uid-1-p-1">
+        <span class="number">3.</span> Mudar Senha
+    </a>
+</li>
+<li role="tab" class="@sclass4" aria-disabled="true">
+    <a id="steps-uid-1-t-1" asp-area="Identity" asp-page="/Account/Manage/Email" aria-controls="steps-uid-1-p-1">
+        <span class="number">4.</span> Mudar Email
+    </a>
+</li>
+<li role="tab" class="@sclass5" aria-disabled="true">
+    <a id="steps-uid-1-t-2" asp-area="Identity" asp-page="/Account/Manage/EnableAuthenticator" aria-controls="steps-uid-1-p-2">
+        <span class="number">5.</span> Autenticação
+    </a>
+</li>
+<li role="tab" class="@sclass6" aria-disabled="true">
+    <a id="steps-uid-1-t-2" asp-area="Identity" asp-page="/Account/Manage/DeletePersonalData" aria-controls="steps-uid-1-p-2">
+        <span class="number">6.</span> Apagar minha Conta
+    </a>
+</li>

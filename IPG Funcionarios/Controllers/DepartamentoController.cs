@@ -12,8 +12,6 @@ namespace IPG_Funcionarios.Controllers
     public class DepartamentoController : Controller
     {
         private readonly IPGFuncionariosDbContext _context;
-        public int PAGE_SIZE = 10;
-       
 
         public DepartamentoController(IPGFuncionariosDbContext context)
         {
@@ -21,56 +19,101 @@ namespace IPG_Funcionarios.Controllers
         }
 
         // GET: Departamento
-        public async Task<IActionResult> Index(int page = 1, string searchString = "", string sort = "true")
-        {
-            var departamento = from p in _context.Departamento
-                               select p;
-            if (!String.IsNullOrEmpty(searchString)) {
-                departamento = departamento.Where(p => p.Nome.Contains(searchString)); }
+        public IActionResult Index (int page = 1, string sort = null, string q= null, string o = "nome", int ipp = 10) { 
+             
+         var departamento = from p in _context.Departamento
+          select p;
+          decimal nLinhas = departamento.Count();
+        
 
-            decimal nDepartamento = departamento.Count();
-            int PAGES_BEFORE_AFTER = ((int)nDepartamento / PAGE_SIZE);
-
-            if (nDepartamento % PAGE_SIZE == 0)
-            {
-                PAGES_BEFORE_AFTER -= 1;
+          if (ipp <= 1) {
+                ipp = (int)Math.Ceiling(nLinhas);
             }
+
+            int Pagina_antes_e_depois = ((int)nLinhas / ipp);
+
+            if (nLinhas % ipp == 0)
+            {
+                Pagina_antes_e_depois -= 1;
+            }
+
             DepartamentoViewsModels vm = new DepartamentoViewsModels
             {
-                Sort = sort,
+                mainURL = "Departamento/Index",
+                column = new string[] { "nome" },
                 PaginaCorrente = page,
-                MostrarPrimeiraPagina = Math.Max(1, page - PAGES_BEFORE_AFTER),
-                PaginaTotal = (int)Math.Ceiling(nDepartamento / PAGE_SIZE)
+                PaginaTotal = (int)Math.Ceiling(nLinhas / ipp),
+                MostrarPrimeiraPagina = Math.Max(1, page - Pagina_antes_e_depois),
+
+                IntensPorPagina = ipp,
+                IntensInicial = ipp * (page - 1) > 0 ? ipp * (page - 1) + 1 : ((int)Math.Ceiling(nLinhas) < 1 ? 0 : 1),
+                IntensFinal = ipp * page < (int)Math.Ceiling(nLinhas) ?
+                ipp * page : (int)Math.Ceiling(nLinhas),
+                TodosIntens = (int)Math.Ceiling(nLinhas)
             };
-            if (sort.Equals("true"))
+
+            //Pesquisa
+
+            if (!String.IsNullOrEmpty(q))
             {
-                vm.Departamentos = departamento.OrderBy(p => p.Nome).Skip((page - 1) * PAGE_SIZE).Take(PAGE_SIZE);
+                vm.StringProcura = q;
+                if (!String.IsNullOrEmpty(o))
+
+                {
+                    switch (o)
+                    {
+                        case "id":
+                            int Numeroquery = 0;
+                            departamento= departamento.Where(p => p.DepartamentoId.CompareTo(Numeroquery) == 0);
+                            break;
+                        case "nome":
+                            departamento = departamento.Where(p => p.Nome.Contains(q));
+                            break;
+
+
+                    }
+
+                }
             }
-            vm.MostrarUltimaPagina = Math.Min(vm.PaginaTotal, page + PAGES_BEFORE_AFTER);
 
-            vm.StringProcura = searchString;
-            return View(vm);
-        }
 
-                /*
-                //Paginacao
-                //Ordenar
-                .OrderBy(p => p.Nome)
-                .Skip((page - 1)* PAGE_SIZE)
-                .Take(PAGE_SIZE),
-               PaginaCorrente = page,
-                //TotalPages
-               PaginaTotal = 1000,
-               MostrarPrimeiraPagina = Math.Max(1, page - PAGES_BEFORE_AFTER),
-            };
-            P.MostrarUltimaPagina = Math.Min(P.PaginaTotal, page + PAGES_BEFORE_AFTER);
-            //return View(await _context.Departamento.ToListAsync());
-            return View(P);
-        }
-        */
+                //Ordenação do Caracteres
 
-            // GET: Departamento/Details/5
-            public async Task<IActionResult> Details(int? id)
+                if (!String.IsNullOrEmpty(sort) && !String.IsNullOrEmpty(o))
+                {
+
+
+                    switch (o)
+                    {
+                        case "id":
+                            vm.Departamentos = (sort == "1") ?
+                               (departamento.OrderBy(p => p.DepartamentoId).Skip((page - 1) * ipp).Take(ipp)) :
+                               (departamento.OrderByDescending(p => p.DepartamentoId).Skip((page - 1) * ipp).Take(ipp));
+                            break;
+                        case "nome":
+                            vm.Departamentos = (sort == "1") ?
+                            (departamento.OrderBy(p => p.Nome).Skip((page - 1) * ipp).Take(ipp)) :
+                            (departamento.OrderByDescending(p => p.Nome).Skip((page - 1) * ipp).Take(ipp));
+                            break;
+
+                    }
+                    vm.Sort = sort;
+
+                }
+                else
+                {
+                    vm.Departamentos = departamento.Skip((page - 1) * ipp).Take(ipp);
+                }
+                vm.MostrarUltimaPagina = Math.Min(vm.PaginaTotal, page + Pagina_antes_e_depois);
+                vm.OpcaoCorrente = o;
+
+                    return View(vm);
+            }
+        
+  
+
+        // GET: Departamento/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {

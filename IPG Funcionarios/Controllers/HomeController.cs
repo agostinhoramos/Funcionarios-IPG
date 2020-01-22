@@ -28,23 +28,24 @@ namespace IPG_Funcionarios.Controllers
 
         public IActionResult Default() {
 
-            var prof = from q in _contextB.Professor select q;
-            var func = from q in _contextB.Funcionario select q;
-            var dept = from q in _contextB.Departamento select q;
-            var serv = from q in _contextB.Servico select q;
-            var escl = from q in _contextB.Escola select q;
-            var tarf = from q in _contextB.Tarefa select q;
-            var carg = from q in _contextB.Cargo select q;
-            //var fers = from q in _contextB.Feria select q;
+            var prof = (from q in _contextB.Professor select q).Count();
+            var func = (from q in _contextB.Funcionario select q).Count();
+            var dept = (from q in _contextB.Departamento select q).Count();
+            var serv = (from q in _contextB.Servico select q).Count();
+            var escl = (from q in _contextB.Escola select q).Count();
+            var tarf = (from q in _contextB.Tarefa select q).Count();
+            var carg = (from q in _contextB.Cargo select q).Count();
+            var fers = (from q in _contextB.Ferias select q).Count();
 
-            ViewData["AllProfessores"] = MyFn.ParseDbCount(prof.Count());
-            ViewData["AllFuncionario"] = MyFn.ParseDbCount(func.Count());
-            ViewData["AllDepartamento"] = MyFn.ParseDbCount(dept.Count());
-            ViewData["AllServicos"] = MyFn.ParseDbCount(serv.Count());
-            ViewData["AllEscolas"] = MyFn.ParseDbCount(escl.Count());
-            ViewData["AllTarefas"] = MyFn.ParseDbCount(tarf.Count());
-            ViewData["AllCargos"] = MyFn.ParseDbCount(carg.Count());
-            ViewData["AllFerias"] = 0;//MyFn.ParseDbCount(fers.Count());
+
+            ViewData["AllProfessores"] = MyFn.ParseDbCount(prof);
+            ViewData["AllFuncionario"] = MyFn.ParseDbCount(func);
+            ViewData["AllDepartamento"] = MyFn.ParseDbCount(dept);
+            ViewData["AllServicos"] = MyFn.ParseDbCount(serv);
+            ViewData["AllEscolas"] = MyFn.ParseDbCount(escl);
+            ViewData["AllTarefas"] = MyFn.ParseDbCount(tarf);
+            ViewData["AllCargos"] = MyFn.ParseDbCount(carg);
+            ViewData["AllFerias"] = MyFn.ParseDbCount(fers);
 
             if (User.Identity.IsAuthenticated)
             {

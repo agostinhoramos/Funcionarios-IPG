@@ -18,7 +18,7 @@ namespace IPG_Funcionarios.Controllers
             _context = context;
         }
 
-        // GET: Servicos
+        // GET: Servicos ########## MODIFICADO! ###########
         public IActionResult Index(int page = 1, string sort = null, string q = null, string o = "nome", int ipp = 10)
         {
 
@@ -146,7 +146,7 @@ namespace IPG_Funcionarios.Controllers
             return View();
         }
 
-        // POST: Servicos/Create
+        // POST: Servicos/Create  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -155,10 +155,31 @@ namespace IPG_Funcionarios.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(servico);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (
+                   isEqual("Nome", servico.Nome)
+                   )
+                {
+                    ViewBag.type = "alert-danger";
+                    ViewBag.title = "Erro ao criar o serviço";
+                    ViewBag.message = "Não foi possível criar novo serviço porque," +
+                                      "existem dados repetidos no <strong>Nome</strong>.";
+
+                    ViewBag.redirect = "/Servicos/Create"; // Request.Path
+                    return View("message");
+                }
+                else
+                {
+                    _context.Add(servico);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.type = "alert-success";
+                    ViewBag.title = "Criação do professor";
+                    ViewBag.message = "A tarefa <strong>" + servico.Nome + "</strong> foi <strong>criada</strong> com sucesso!";
+                    ViewBag.redirect = "/Servicos/Index"; // Request.Path
+                    return View("message");
+                }
             }
+
             return View(servico);
         }
 
@@ -178,37 +199,56 @@ namespace IPG_Funcionarios.Controllers
             return View(servico);
         }
 
-        // POST: Servicos/Edit/5
+        // POST: Servicos/Edit/5  ########## MODIFICADO! ###########
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ServicoId,Nome")] Servico servico)
         {
-            if (id != servico.ServicoId)
+            if (id > 0 && ServicoExists(id))
             {
-                return NotFound();
+                servico.ServicoId = id;
             }
 
             if (ModelState.IsValid)
             {
-                try
+                if (
+                    !isUnique("Nome", servico.Nome, id)
+                   )
                 {
-                    _context.Update(servico);
-                    await _context.SaveChangesAsync();
+                    ViewBag.title = "Ocorreu um erro!";
+                    ViewBag.type = "alert-danger";
+                    ViewBag.message = "Já existe <strong>um serviço com o mesmo nome</strong>, por favor tente um nome diferente!";
+                    ViewBag.redirect = Request.Path;
+                    return View("message");
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!ServicoExists(servico.ServicoId))
+                    try
                     {
-                        return NotFound();
+                        _context.Update(servico);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!ServicoExists(servico.ServicoId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+
+                    ViewBag.title = "Atualização do serviço";
+                    ViewBag.type = "alert-success";
+                    ViewBag.message = "Os dados do serviço <strong>" + servico.Nome + "</strong> foram <strong>atualizados</strong> com sucesso!";
+                    ViewBag.redirect = "/Servicos/Index"; // Request.Path
+                    return View("message");
                 }
-                return RedirectToAction(nameof(Index));
+
             }
             return View(servico);
         }
@@ -231,7 +271,7 @@ namespace IPG_Funcionarios.Controllers
             return View(servico);
         }
 
-        // POST: Servicos/Delete/5
+        // POST: Servicos/Delete/5  ########## MODIFICADO! ###########
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -239,12 +279,43 @@ namespace IPG_Funcionarios.Controllers
             var servico = await _context.Servico.FindAsync(id);
             _context.Servico.Remove(servico);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            ViewBag.title = "Apagar tarefa";
+            ViewBag.type = "alert-success";
+            ViewBag.message = "Os dados do serviço <strong>" + servico.Nome + "</strong> foram <strong>apagados</strong> com sucesso!";
+            ViewBag.redirect = "/Servicos/Index"; // Request.Path
+
+            return View("message");
         }
 
         private bool ServicoExists(int id)
         {
             return _context.Servico.Any(e => e.ServicoId == id);
+        }
+
+        private bool isEqual(string type, string value)
+        {
+            bool result = false;
+            switch (type)
+            {
+                case "Nome":
+                    result = _context.Servico.Any(e => e.Nome == value);
+                    break;
+            }
+            return result;
+        }
+
+        // É o único professor com [type], com exceção de [id]
+        private bool isUnique(string type, string value, int id)
+        {
+            bool result = false;
+            switch (type)
+            {
+                case "Nome":
+                    result = _context.Servico.Any(e => e.Nome == value && e.ServicoId != id);
+                    break;
+            }
+            return !result;
         }
     }
 }

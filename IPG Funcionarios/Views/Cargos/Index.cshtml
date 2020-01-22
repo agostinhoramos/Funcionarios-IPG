@@ -18,11 +18,11 @@
             Entries_per_page_max = 100;
         string crq = Context.Request.QueryString.ToString();
         string Page, Sort, Query, Order, IPPage;
-        try { Page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Page = ""; }
-        try { Sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Sort = ""; }
-        try { Query = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Query = ""; }
-        try { Order = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { Order = ""; }
-        try { IPPage = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException e) { IPPage = ""; }
+        try { Page = crq.Split("page=")[1].Split("&")[0]; } catch (IndexOutOfRangeException) { Page = ""; }
+        try { Sort = crq.Split("sort=")[1].Split("&")[0]; } catch (IndexOutOfRangeException) { Sort = ""; }
+        try { Query = crq.Split("q=")[1].Split("&")[0]; } catch (IndexOutOfRangeException) { Query = ""; }
+        try { Order = crq.Split("o=")[1].Split("&")[0]; } catch (IndexOutOfRangeException) { Order = ""; }
+        try { IPPage = crq.Split("ipp=")[1].Split("&")[0]; } catch (IndexOutOfRangeException) { IPPage = ""; }
     /* DO NOT CHANGE THIS CODE */
 }
 

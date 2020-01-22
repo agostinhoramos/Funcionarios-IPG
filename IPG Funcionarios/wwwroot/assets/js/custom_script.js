@@ -40,9 +40,9 @@ function LoadSearchIcon(boo){
 }
 
 const capitalize = (s) => {
-    if (typeof s !== 'string') return ''
-    return s.charAt(0).toUpperCase() + s.slice(1)
-}
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+};
 
 /* ----------------------------------------------------- */
 $(document).ready(function () {
@@ -83,26 +83,26 @@ $(document).ready(function () {
 
     _auto_item_per_page(aspNet.EPerPage);
 
-    if (true) {
-            $("li a#prev").click(function () {
-                if (aspNet.Page > 1) {
-                    var url = aspNet.URL + '?page='
-                        + (aspNet.Page - 1) + (aspNet.Sort ? '&sort=' + aspNet.Sort : '') + (aspNet.Query ? '&q=' + aspNet.Query : '')
-                        + '&o='+_asp.ordr+'&ipp='+_asp.ippg;
-                    url ? window.location.assign(url) : null;
-                }
-            });
-            $("li a#next").click(function () {
-                if (aspNet.Page < aspNet.nPage) {
-                    var url = aspNet.URL + '?page='
-                        + (aspNet.Page + 1) + (aspNet.Sort ? '&sort=' + aspNet.Sort : '') + (aspNet.Query ? '&q=' + aspNet.Query : '')
-                        + '&o='+_asp.ordr+'&ipp='+_asp.ippg;
-                    url ? window.location.assign(url) : null;
-                }
-            });
-            if (aspNet.Page != 1) {$("a#prev").parent().removeClass("disabled");}else{$("a#prev").parent().addClass("disabled");}
-            if (aspNet.Page != aspNet.nPage) {$("a#next").parent().removeClass("disabled");}else{$("a#next").parent().addClass("disabled");}
-    }
+    $("li a#prev").click(function () {
+        if (aspNet.Page > 1) {
+            var url = aspNet.URL + '?page='
+                + (aspNet.Page - 1) + (aspNet.Sort ? '&sort=' + aspNet.Sort : '') + (aspNet.Query ? '&q=' + aspNet.Query : '')
+                + '&o=' + _asp.ordr + '&ipp=' + _asp.ippg;
+            url ? window.location.assign(url) : null;
+        }
+    });
+    $("li a#next").click(function () {
+        if (aspNet.Page < aspNet.nPage) {
+            var url = aspNet.URL + '?page='
+                + (aspNet.Page + 1) + (aspNet.Sort ? '&sort=' + aspNet.Sort : '') + (aspNet.Query ? '&q=' + aspNet.Query : '')
+                + '&o=' + _asp.ordr + '&ipp=' + _asp.ippg;
+            url ? window.location.assign(url) : null;
+        }
+    });
+
+    if (aspNet.Page !== 1) { $("a#prev").parent().removeClass("disabled"); } else { $("a#prev").parent().addClass("disabled"); }
+    if (aspNet.Page !== aspNet.nPage) { $("a#next").parent().removeClass("disabled"); } else { $("a#next").parent().addClass("disabled"); }
+
     let id_wait = null;
 
     if (aspNet.Query) { $('html, body').animate({ scrollTop : 90 }, 'slow'); }
@@ -124,7 +124,7 @@ $(document).ready(function () {
                 aspNet.URL = aspNet.URL + '?page=1&sort='+_asp.sort+'&q='+query+'&o='+_asp.ordr+'&ipp='+_asp.ippg;
                 aspNet.URL ? window.location.assign(aspNet.URL) : null;
                 LoadSearchIcon(!1);
-            },1800);
+            },1100);
         }
     }).val(aspNet.Query).attr("autocomplete","off")
       .focus().attr("placeholder", aspNet.pHoldTxt);
@@ -148,8 +148,8 @@ $(document).ready(function () {
         } catch (e) { o = ""; }
 
         if (s!=='0') {
-            url = '&sort=' + ((s == '0') ? '1'
-            : (o !== type ? '1' : '0')) + '&o=' + type;
+            url = '&sort=' + (s === '0' ? '1'
+            : o !== type ? '1' : '0') + '&o=' + type;
         }
 
         url = aspNet.URL + "?page=" + (_asp.page ? _asp.page : '1')
