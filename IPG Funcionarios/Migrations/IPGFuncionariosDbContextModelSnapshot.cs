@@ -83,7 +83,7 @@ namespace IPG_Funcionarios.Migrations
                     b.ToTable("Escola");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feriaaaa", b =>
                 {
                     b.Property<int>("FeriaID")
                         .ValueGeneratedOnAdd()
@@ -118,7 +118,7 @@ namespace IPG_Funcionarios.Migrations
 
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Feria");
+                    b.ToTable("Feriaaaa");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
@@ -298,7 +298,7 @@ namespace IPG_Funcionarios.Migrations
                         .HasForeignKey("FuncionarioId");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feriaaaa", b =>
                 {
                     b.HasOne("IPG_Funcionarios.Models.Funcionario", "Funcionario")
                         .WithMany()
