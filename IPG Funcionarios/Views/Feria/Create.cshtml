@@ -1,4 +1,4 @@
-﻿@model IPG_Funcionarios.Models.Ferias
+﻿@model IPG_Funcionarios.Models.Feria
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>Ferias</h4>
+<h4>Feria</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,6 +26,11 @@
                 <label asp-for="DataFim" class="control-label"></label>
                 <input asp-for="DataFim" class="form-control" />
                 <span asp-validation-for="DataFim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuemNome" class="control-label"></label>
+                <input asp-for="QuemNome" class="form-control" />
+                <span asp-validation-for="QuemNome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="QuemID" class="control-label"></label>

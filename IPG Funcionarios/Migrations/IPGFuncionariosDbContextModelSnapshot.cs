@@ -83,6 +83,39 @@ namespace IPG_Funcionarios.Migrations
                     b.ToTable("Escola");
                 });
 
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+                {
+                    b.Property<int>("FeriasID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataFim")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FeriasID1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuemID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QuemNome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoFerias")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FeriasID");
+
+                    b.HasIndex("FeriasID1");
+
+                    b.ToTable("Feria");
+                });
+
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
                 {
                     b.Property<int>("FuncionarioId")
@@ -114,11 +147,16 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<int?>("Tarefas_ProfessorID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FuncionarioId");
+
+                    b.HasIndex("Tarefas_ProfessorID");
 
                     b.ToTable("Funcionario");
                 });
@@ -134,6 +172,12 @@ namespace IPG_Funcionarios.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DepartamentoForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DepartamentosDepartamentoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -147,7 +191,14 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
+                    b.Property<int?>("Tarefas_ProfessorID")
+                        .HasColumnType("int");
+
                     b.HasKey("ProfessorId");
+
+                    b.HasIndex("DepartamentosDepartamentoId");
+
+                    b.HasIndex("Tarefas_ProfessorID");
 
                     b.ToTable("Professor");
                 });
@@ -189,14 +240,50 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
 
+                    b.Property<int>("FuncionarioForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FuncionariosFuncionarioId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
+                    b.Property<int>("ProfessorForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProfessoresProfessorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Tarefas_ProfessorID")
+                        .HasColumnType("int");
+
                     b.HasKey("TarefaID");
 
+                    b.HasIndex("FuncionariosFuncionarioId");
+
+                    b.HasIndex("ProfessoresProfessorId");
+
+                    b.HasIndex("Tarefas_ProfessorID");
+
                     b.ToTable("Tarefa");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Tarefas_Professor", b =>
+                {
+                    b.Property<int>("Tarefas_ProfessorID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Tarefas_ProfessorID");
+
+                    b.ToTable("Tarefas_Professor");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Escola", b =>
@@ -206,11 +293,51 @@ namespace IPG_Funcionarios.Migrations
                         .HasForeignKey("FuncionarioId");
                 });
 
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+                {
+                    b.HasOne("IPG_Funcionarios.Models.Feria", "feria")
+                        .WithMany()
+                        .HasForeignKey("FeriasID1");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
+                {
+                    b.HasOne("IPG_Funcionarios.Models.Tarefas_Professor", "Tarefas")
+                        .WithMany()
+                        .HasForeignKey("Tarefas_ProfessorID");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Professor", b =>
+                {
+                    b.HasOne("IPG_Funcionarios.Models.Departamento", "Departamentos")
+                        .WithMany("Professores")
+                        .HasForeignKey("DepartamentosDepartamentoId");
+
+                    b.HasOne("IPG_Funcionarios.Models.Tarefas_Professor", null)
+                        .WithMany("Professors")
+                        .HasForeignKey("Tarefas_ProfessorID");
+                });
+
             modelBuilder.Entity("IPG_Funcionarios.Models.Servico", b =>
                 {
                     b.HasOne("IPG_Funcionarios.Models.Funcionario", null)
                         .WithMany("Servicos")
                         .HasForeignKey("FuncionarioId");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Tarefa", b =>
+                {
+                    b.HasOne("IPG_Funcionarios.Models.Funcionario", "Funcionarios")
+                        .WithMany()
+                        .HasForeignKey("FuncionariosFuncionarioId");
+
+                    b.HasOne("IPG_Funcionarios.Models.Professor", "Professores")
+                        .WithMany("Tarefas")
+                        .HasForeignKey("ProfessoresProfessorId");
+
+                    b.HasOne("IPG_Funcionarios.Models.Tarefas_Professor", null)
+                        .WithMany("Tarefas")
+                        .HasForeignKey("Tarefas_ProfessorID");
                 });
 #pragma warning restore 612, 618
         }
