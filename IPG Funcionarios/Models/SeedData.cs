@@ -16,7 +16,7 @@ namespace IPG_Funcionarios.Models {
             PopulateEscola(db);
             PopulateTarefa(db);
             PopulateCargo(db);
-            PopulateFeria(db);
+           // PopulateFeria(db);
         
         }
 
@@ -216,7 +216,7 @@ namespace IPG_Funcionarios.Models {
             db.SaveChanges();
         }
 
-        private static void PopulateFeria(IPGFuncionariosDbContext db)
+       /* private static void PopulateFeria(IPGFuncionariosDbContext db)
         {
             if (db.Feria.Any())
             {
@@ -234,7 +234,7 @@ namespace IPG_Funcionarios.Models {
 
             db.SaveChanges();
         }
-
+        */
     
     }
 }
