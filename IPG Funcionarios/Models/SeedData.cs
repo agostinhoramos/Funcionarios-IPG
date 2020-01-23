@@ -15,7 +15,7 @@ namespace IPG_Funcionarios.Models {
             PopulateEscola(db);
             PopulateTarefa(db);
             PopulateCargo(db);
-            PopulateFerias(db);
+           //* PopulateFerias(db);
         }
 
         private static void PopulateServico(IPGFuncionariosDbContext db)
@@ -205,7 +205,7 @@ namespace IPG_Funcionarios.Models {
                 new Departamento { Nome = "Departamento de Física", },
                 new Departamento { Nome = "Departamento de Engenharia Topográfica" },
                 new Departamento { Nome = "Departamento de Energia e Ambiente" },
-                new Departamento { Nome = "Departamento de Farmácia" },
+                new Departamento { Nome = "Departamento de Farmácia" }
                 new Departamento { Nome = "Departamento de Hotelaria" },
                 new Departamento { Nome = "Departamento de Desporto" },
                 new Departamento { Nome = "Departamento de Comunicação Multimédia" }
@@ -226,6 +226,6 @@ namespace IPG_Funcionarios.Models {
                  new Ferias { TipoFerias="Feria do final do Ano Lectivo",DataInicio = new DateTime(2020,06,19), DataFim= new DateTime(2020,09,06)}
              );
 
-         }*
+         }*/
     }
 }
