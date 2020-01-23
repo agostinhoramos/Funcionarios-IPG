@@ -205,7 +205,7 @@ namespace IPG_Funcionarios.Models {
                 new Departamento { Nome = "Departamento de Física", },
                 new Departamento { Nome = "Departamento de Engenharia Topográfica" },
                 new Departamento { Nome = "Departamento de Energia e Ambiente" },
-                new Departamento { Nome = "Departamento de Farmácia" }
+                new Departamento { Nome = "Departamento de Farmácia" },
                 new Departamento { Nome = "Departamento de Hotelaria" },
                 new Departamento { Nome = "Departamento de Desporto" },
                 new Departamento { Nome = "Departamento de Comunicação Multimédia" }
