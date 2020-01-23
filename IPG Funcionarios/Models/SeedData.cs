@@ -227,10 +227,10 @@ namespace IPG_Funcionarios.Models {
 
             // Dados do Feria
             db.Feria.AddRange(
-                 new Feria { TipoFerias = "Ferias de Natal", DataInicio = new DateTime(2019, 12, 18), DataFim = new DateTime(2020, 01, 03), QuemID = 8, QuemNome = "P" },
-                 new Feria { TipoFerias = "Feria de Carnaval", DataInicio = new DateTime(2020, 02, 24), DataFim = new DateTime(2020, 02, 26), QuemID = 4, QuemNome = "P" },
-                 new Feria { TipoFerias = "Feria da Pascoa", DataInicio = new DateTime(2020, 03, 30), DataFim = new DateTime(2020, 04, 13), QuemID = 3, QuemNome = "F" },
-                 new Feria { TipoFerias = "Feria do final do Ano Lectivo", DataInicio = new DateTime(2020, 06, 19), DataFim = new DateTime(2020, 09, 06),QuemID= 1, QuemNome="P"  }
+                 new Feria { TipoFeria = "Ferias de Natal", DataInicio = new DateTime(2019, 12, 18), DataFim = new DateTime(2020, 01, 03), QuemID = 8, QuemNome = "P" },
+                 new Feria { TipoFeria = "Feria de Carnaval", DataInicio = new DateTime(2020, 02, 24), DataFim = new DateTime(2020, 02, 26), QuemID = 4, QuemNome = "P" },
+                 new Feria { TipoFeria = "Feria da Pascoa", DataInicio = new DateTime(2020, 03, 30), DataFim = new DateTime(2020, 04, 13), QuemID = 3, QuemNome = "F" },
+                 new Feria { TipoFeria = "Feria do final do Ano Lectivo", DataInicio = new DateTime(2020, 06, 19), DataFim = new DateTime(2020, 09, 06),QuemID= 1, QuemNome="P"  }
              
               );
 

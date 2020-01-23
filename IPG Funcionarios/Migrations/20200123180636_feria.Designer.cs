@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPG_Funcionarios.Migrations
 {
     [DbContext(typeof(IPGFuncionariosDbContext))]
-    [Migration("20200104140158_ferias")]
+    [Migration("20200104140158_feria")]
     partial class ferias
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,9 +22,9 @@ namespace IPG_Funcionarios.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Ferias", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
             {
-                b.Property<int>("FeriasID")
+                b.Property<int>("FeriaID")
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int")
                     .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -38,13 +38,13 @@ namespace IPG_Funcionarios.Migrations
                 b.Property<int>("QuemID")
                     .HasColumnType("int");
 
-                b.Property<string>("TipoFerias")
+                b.Property<string>("TipoFeria")
                     .IsRequired()
                     .HasColumnType("nvarchar(max)");
 
-                b.HasKey("FeriasID");
+                b.HasKey("FeriaID");
 
-                b.ToTable("Ferias");
+                b.ToTable("Feria");
             });
 
 #pragma warning restore 612, 618

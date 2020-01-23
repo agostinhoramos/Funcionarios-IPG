@@ -85,7 +85,7 @@ namespace IPG_Funcionarios.Migrations
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
                 {
-                    b.Property<int>("FeriasID")
+                    b.Property<int>("FeriaID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -96,7 +96,7 @@ namespace IPG_Funcionarios.Migrations
                     b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FeriasID1")
+                    b.Property<int?>("FeriaID1")
                         .HasColumnType("int");
 
                     b.Property<int>("QuemID")
@@ -105,13 +105,13 @@ namespace IPG_Funcionarios.Migrations
                     b.Property<string>("QuemNome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TipoFerias")
+                    b.Property<string>("TipoFeria")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FeriasID");
+                    b.HasKey("FeriaID");
 
-                    b.HasIndex("FeriasID1");
+                    b.HasIndex("FeriaID1");
 
                     b.ToTable("Feria");
                 });
@@ -297,7 +297,7 @@ namespace IPG_Funcionarios.Migrations
                 {
                     b.HasOne("IPG_Funcionarios.Models.Feria", "feria")
                         .WithMany()
-                        .HasForeignKey("FeriasID1");
+                        .HasForeignKey("FeriaID1");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
