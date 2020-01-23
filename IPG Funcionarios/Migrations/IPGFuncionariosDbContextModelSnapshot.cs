@@ -96,14 +96,22 @@ namespace IPG_Funcionarios.Migrations
                     b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FeriasID1")
+                        .HasColumnType("int");
+
                     b.Property<int>("QuemID")
                         .HasColumnType("int");
+
+                    b.Property<string>("QuemNome")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TipoFerias")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FeriasID");
+
+                    b.HasIndex("FeriasID1");
 
                     b.ToTable("Feria");
                 });
@@ -283,6 +291,13 @@ namespace IPG_Funcionarios.Migrations
                     b.HasOne("IPG_Funcionarios.Models.Funcionario", null)
                         .WithMany("Escolas")
                         .HasForeignKey("FuncionarioId");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+                {
+                    b.HasOne("IPG_Funcionarios.Models.Feria", "feria")
+                        .WithMany()
+                        .HasForeignKey("FeriasID1");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>

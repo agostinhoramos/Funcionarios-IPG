@@ -9,22 +9,22 @@ using IPG_Funcionarios.Models;
 
 namespace IPG_Funcionarios.Controllers
 {
-    public class FeriasController : Controller
+    public class FeriaController : Controller
     {
         private readonly IPGFuncionariosDbContext _context;
 
-        public FeriasController(IPGFuncionariosDbContext context)
+        public FeriaController(IPGFuncionariosDbContext context)
         {
             _context = context;
         }
 
-        // GET: Ferias
+        // GET: Feria
         public async Task<IActionResult> Index()
         {
             return View(await _context.Feria.ToListAsync());
         }
 
-        // GET: Ferias/Details/5
+        // GET: Feria/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,18 +42,18 @@ namespace IPG_Funcionarios.Controllers
             return View(feria);
         }
 
-        // GET: Ferias/Create
+        // GET: Feria/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Ferias/Create
+        // POST: Feria/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemID")] Feria feria)
+        public async Task<IActionResult> Create([Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemNome,QuemID")] Feria feria)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace IPG_Funcionarios.Controllers
             return View(feria);
         }
 
-        // GET: Ferias/Edit/5
+        // GET: Feria/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,12 +80,12 @@ namespace IPG_Funcionarios.Controllers
             return View(feria);
         }
 
-        // POST: Ferias/Edit/5
+        // POST: Feria/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemID")] Feria feria)
+        public async Task<IActionResult> Edit(int id, [Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemNome,QuemID")] Feria feria)
         {
             if (id != feria.FeriasID)
             {
@@ -115,7 +115,7 @@ namespace IPG_Funcionarios.Controllers
             return View(feria);
         }
 
-        // GET: Ferias/Delete/5
+        // GET: Feria/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,7 +133,7 @@ namespace IPG_Funcionarios.Controllers
             return View(feria);
         }
 
-        // POST: Ferias/Delete/5
+        // POST: Feria/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
