@@ -15,7 +15,7 @@ namespace IPG_Funcionarios.Models {
             PopulateEscola(db);
             PopulateTarefa(db);
             PopulateCargo(db);
-            PopulateFerias(db);
+         
         }
 
         private static void PopulateServico(IPGFuncionariosDbContext db)
@@ -213,18 +213,6 @@ namespace IPG_Funcionarios.Models {
 
             db.SaveChanges();
         }
-        public static void PopulateFerias(IPGFuncionariosDbContext db){
-
-             if (db.Ferias.Any()) {
-                 return;
-             }
-             db.Ferias.AddRange(
-                  new Ferias { TipoFerias = "Ferias de Natal", DataInicio = new DateTime(2019,12 ,18), DataFim = new DateTime(2020,01,03) },
-                  new Ferias { TipoFerias="Feria de Carnaval",DataInicio = new DateTime(2020,02,24), DataFim= new DateTime(2020,02,26)},
-                 new Ferias { TipoFerias="Feria da Pascoa",DataInicio = new DateTime(2020,03,30), DataFim= new DateTime(2020,04,13)},
-                 new Ferias { TipoFerias="Feria do final do Ano Lectivo",DataInicio = new DateTime(2020,06,19), DataFim= new DateTime(2020,09,06)}
-             );
-
-         }
+        
     }
 }

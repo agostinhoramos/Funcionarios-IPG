@@ -55,7 +55,7 @@ namespace IPG_Funcionarios.Models
         public ICollection<Escola> Escolas { get; set; }
         public ICollection<Servico> Servicos { get; set; }
        // public  Ferias ferias { get; set; }
-        public Tarefa Tarefa { get; set; }
+       // public Tarefa Tarefa { get; set; }
         public Tarefas_Professor Tarefas { get; set; }
         
     }

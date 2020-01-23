@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using IPG_Funcionarios.Models;
 
-namespace IPG_Funcionarios.Models
+namespace IPG_Funcionarios.Controllers
 {
     public class FeriasController : Controller
     {
@@ -20,7 +21,7 @@ namespace IPG_Funcionarios.Models
         // GET: Ferias
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Ferias.ToListAsync());
+            return View(await _context.Feria.ToListAsync());
         }
 
         // GET: Ferias/Details/5
@@ -31,14 +32,14 @@ namespace IPG_Funcionarios.Models
                 return NotFound();
             }
 
-            var ferias = await _context.Ferias
+            var feria = await _context.Feria
                 .FirstOrDefaultAsync(m => m.FeriasID == id);
-            if (ferias == null)
+            if (feria == null)
             {
                 return NotFound();
             }
 
-            return View(ferias);
+            return View(feria);
         }
 
         // GET: Ferias/Create
@@ -52,15 +53,15 @@ namespace IPG_Funcionarios.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemID")] Ferias ferias)
+        public async Task<IActionResult> Create([Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemID")] Feria feria)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(ferias);
+                _context.Add(feria);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(ferias);
+            return View(feria);
         }
 
         // GET: Ferias/Edit/5
@@ -71,12 +72,12 @@ namespace IPG_Funcionarios.Models
                 return NotFound();
             }
 
-            var ferias = await _context.Ferias.FindAsync(id);
-            if (ferias == null)
+            var feria = await _context.Feria.FindAsync(id);
+            if (feria == null)
             {
                 return NotFound();
             }
-            return View(ferias);
+            return View(feria);
         }
 
         // POST: Ferias/Edit/5
@@ -84,9 +85,9 @@ namespace IPG_Funcionarios.Models
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemID")] Ferias ferias)
+        public async Task<IActionResult> Edit(int id, [Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemID")] Feria feria)
         {
-            if (id != ferias.FeriasID)
+            if (id != feria.FeriasID)
             {
                 return NotFound();
             }
@@ -95,12 +96,12 @@ namespace IPG_Funcionarios.Models
             {
                 try
                 {
-                    _context.Update(ferias);
+                    _context.Update(feria);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FeriasExists(ferias.FeriasID))
+                    if (!FeriaExists(feria.FeriasID))
                     {
                         return NotFound();
                     }
@@ -111,7 +112,7 @@ namespace IPG_Funcionarios.Models
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(ferias);
+            return View(feria);
         }
 
         // GET: Ferias/Delete/5
@@ -122,14 +123,14 @@ namespace IPG_Funcionarios.Models
                 return NotFound();
             }
 
-            var ferias = await _context.Ferias
+            var feria = await _context.Feria
                 .FirstOrDefaultAsync(m => m.FeriasID == id);
-            if (ferias == null)
+            if (feria == null)
             {
                 return NotFound();
             }
 
-            return View(ferias);
+            return View(feria);
         }
 
         // POST: Ferias/Delete/5
@@ -137,15 +138,15 @@ namespace IPG_Funcionarios.Models
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var ferias = await _context.Ferias.FindAsync(id);
-            _context.Ferias.Remove(ferias);
+            var feria = await _context.Feria.FindAsync(id);
+            _context.Feria.Remove(feria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FeriasExists(int id)
+        private bool FeriaExists(int id)
         {
-            return _context.Ferias.Any(e => e.FeriasID == id);
+            return _context.Feria.Any(e => e.FeriasID == id);
         }
     }
 }
