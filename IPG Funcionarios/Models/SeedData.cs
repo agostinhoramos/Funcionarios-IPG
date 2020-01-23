@@ -213,6 +213,7 @@ namespace IPG_Funcionarios.Models {
 
             db.SaveChanges();
         }
+        /*
         public static void PopulateFerias(IPGFuncionariosDbContext db){
 
              if (db.Ferias.Any()) {
@@ -225,6 +226,6 @@ namespace IPG_Funcionarios.Models {
                  new Ferias { TipoFerias="Feria do final do Ano Lectivo",DataInicio = new DateTime(2020,06,19), DataFim= new DateTime(2020,09,06)}
              );
 
-         }
+         }*
     }
 }
