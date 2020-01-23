@@ -24,5 +24,9 @@ namespace IPG_Funcionarios.Models
         [StringLength(maximumLength: 250)]
         [Display(Name = "Descrição", Prompt = "Inserir uma Descrição ( Opcional )")]
         public String Descricao { get; set; }
+
+        /* Fluent API in Entity Framework */
+        public ICollection<Departamento> Departamentos { get; set; }
+        public ICollection<Servico> Servicos { get; set; }
     }
 }
