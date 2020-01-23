@@ -83,7 +83,7 @@ namespace IPG_Funcionarios.Migrations
                     b.ToTable("Escola");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feriaaaa", b =>
                 {
                     b.Property<int>("FeriaID")
                         .ValueGeneratedOnAdd()
@@ -96,14 +96,17 @@ namespace IPG_Funcionarios.Migrations
                     b.Property<DateTime>("DataInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FeriaID1")
+                    b.Property<int>("FuncionarioForeignKey")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuemID")
+                    b.Property<int?>("FuncionarioId")
                         .HasColumnType("int");
 
-                    b.Property<string>("QuemNome")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ProfessorForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProfessorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("TipoFeria")
                         .IsRequired()
@@ -111,9 +114,11 @@ namespace IPG_Funcionarios.Migrations
 
                     b.HasKey("FeriaID");
 
-                    b.HasIndex("FeriaID1");
+                    b.HasIndex("FuncionarioId");
 
-                    b.ToTable("Feria");
+                    b.HasIndex("ProfessorId");
+
+                    b.ToTable("Feriaaaa");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
@@ -293,11 +298,15 @@ namespace IPG_Funcionarios.Migrations
                         .HasForeignKey("FuncionarioId");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feriaaaa", b =>
                 {
-                    b.HasOne("IPG_Funcionarios.Models.Feria", "feria")
+                    b.HasOne("IPG_Funcionarios.Models.Funcionario", "Funcionario")
                         .WithMany()
-                        .HasForeignKey("FeriaID1");
+                        .HasForeignKey("FuncionarioId");
+
+                    b.HasOne("IPG_Funcionarios.Models.Professor", "Professor")
+                        .WithMany()
+                        .HasForeignKey("ProfessorId");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
