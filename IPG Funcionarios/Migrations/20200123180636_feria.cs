@@ -8,7 +8,7 @@ namespace IPG_Funcionarios.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Ferias",
+                name: "Feria",
                 columns: table => new
                 {
                     FeriasID = table.Column<int>(nullable: false)
@@ -27,7 +27,7 @@ namespace IPG_Funcionarios.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ferias");
+                name: "Feria");
         }
     }
 }

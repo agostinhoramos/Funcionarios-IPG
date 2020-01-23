@@ -33,7 +33,7 @@ namespace IPG_Funcionarios.Controllers
             }
 
             var feria = await _context.Feria
-                .FirstOrDefaultAsync(m => m.FeriasID == id);
+                .FirstOrDefaultAsync(m => m.FeriaID == id);
             if (feria == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace IPG_Funcionarios.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("FeriasID,TipoFerias,DataInicio,DataFim,QuemNome,QuemID")] Feria feria)
         {
-            if (id != feria.FeriasID)
+            if (id != feria.FeriaID)
             {
                 return NotFound();
             }
@@ -101,7 +101,7 @@ namespace IPG_Funcionarios.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FeriaExists(feria.FeriasID))
+                    if (!FeriaExists(feria.FeriaID))
                     {
                         return NotFound();
                     }
@@ -124,7 +124,7 @@ namespace IPG_Funcionarios.Controllers
             }
 
             var feria = await _context.Feria
-                .FirstOrDefaultAsync(m => m.FeriasID == id);
+                .FirstOrDefaultAsync(m => m.FeriaID == id);
             if (feria == null)
             {
                 return NotFound();
@@ -146,7 +146,7 @@ namespace IPG_Funcionarios.Controllers
 
         private bool FeriaExists(int id)
         {
-            return _context.Feria.Any(e => e.FeriasID == id);
+            return _context.Feria.Any(e => e.FeriaID == id);
         }
     }
 }
