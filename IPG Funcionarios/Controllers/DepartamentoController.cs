@@ -55,9 +55,10 @@ namespace IPG_Funcionarios.Controllers
             //Pesquisa
 
             if (!String.IsNullOrEmpty(q))
-                vm.StringProcura = q;
+                
             {
-              
+                vm.StringProcura = q;
+
                 if (!String.IsNullOrEmpty(o))
 
                 {
