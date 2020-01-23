@@ -216,7 +216,7 @@ namespace IPG_Funcionarios.Models {
 
             db.SaveChanges();
         }
-        public static void PopulateFerias(IPGFuncionariosDbContext db){
+       
 
         private static void PopulateFeria(IPGFuncionariosDbContext db)
         {
@@ -238,6 +238,6 @@ namespace IPG_Funcionarios.Models {
         }
 
     
-         }*/
+         
     }
 }

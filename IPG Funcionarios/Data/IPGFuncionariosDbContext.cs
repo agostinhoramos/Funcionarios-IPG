@@ -22,7 +22,6 @@ namespace IPG_Funcionarios.Models
         public DbSet<IPG_Funcionarios.Models.Escola> Escola { get; set; }
         public DbSet<IPG_Funcionarios.Models.Cargo> Cargo { get; set; }
         public DbSet<IPG_Funcionarios.Models.Tarefa> Tarefa { get; set; }
-        public DbSet<IPG_Funcionarios.Models.Ferias> Ferias { get; set; }
         public DbSet<IPG_Funcionarios.Models.Tipos_Tarefas> Tipos_Tarefas { get; set; }
         public DbSet<IPG_Funcionarios.Models.Tarefas_Professor> tarefas_Professors { get; set; }
          public DbSet<IPG_Funcionarios.Models.Feria> Feria  { get; set; }
