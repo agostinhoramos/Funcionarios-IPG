@@ -22,7 +22,10 @@ namespace IPG_Funcionarios.Models
         public DbSet<IPG_Funcionarios.Models.Escola> Escola { get; set; }
         public DbSet<IPG_Funcionarios.Models.Cargo> Cargo { get; set; }
         public DbSet<IPG_Funcionarios.Models.Tarefa> Tarefa { get; set; }
-        public DbSet<IPG_Funcionarios.Models.Feria> Feria { get; set; }
+        public DbSet<IPG_Funcionarios.Models.Tipos_Tarefas> Tipos_Tarefas { get; set; }
+        public DbSet<IPG_Funcionarios.Models.Tarefas_Professor> tarefas_Professors { get; set; }
+         public DbSet<IPG_Funcionarios.Models.Feria> Feria  { get; set; }
+  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,7 +47,7 @@ namespace IPG_Funcionarios.Models
             //Relação 1 -> N ( Cada Funcionário com vários Serviços )
             modelBuilder.Entity<Servico>()
                 .HasOne(mm => mm.Funcionario)
-                .WithMany(m => m.Servicos)
+                .WithMany(m => m.servicos)
                 .HasForeignKey(mm => mm.FuncionarioForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);

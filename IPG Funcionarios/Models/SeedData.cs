@@ -217,8 +217,6 @@ namespace IPG_Funcionarios.Models
 
             db.SaveChanges();
         }
-        public static void PopulateFeria(IPGFuncionariosDbContext db)
-        {
 
             if (db.Feria.Any())
             {
@@ -232,5 +230,7 @@ namespace IPG_Funcionarios.Models
             );
 
         }
+        
+    
     }
 }

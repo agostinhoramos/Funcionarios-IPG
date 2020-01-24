@@ -10,7 +10,11 @@ namespace IPG_Funcionarios.Models
         public int Tarefas_ProfessorID { get; set; }
 
         public string Nome { get; set; }
-        public ICollection<Tarefa> Tarefas { get; set; }
-        public ICollection<Professor> Professors { set; get; }
+        public Tarefa Tarefas { get; set; }
+        public int TarefaKey { get; set; }
+        public Professor Professors { set; get; }
+        public int ProfessorsKey { get; set; }
+        public Cargo Cargo { set; get; }
+        public int CargoKey { get; set; }
     }
 }
