@@ -16,7 +16,7 @@ namespace IPG_Funcionarios.Models {
             PopulateEscola(db);
             PopulateTarefa(db);
             PopulateCargo(db);
-           // PopulateFeria(db);
+            PopulateFeria(db);
         
         }
 
@@ -219,7 +219,7 @@ namespace IPG_Funcionarios.Models {
             db.SaveChanges();
         }
 
-       /* private static void PopulateFeria(IPGFuncionariosDbContext db)
+        private static void PopulateFeria(IPGFuncionariosDbContext db)
         {
             if (db.Feria.Any())
             {
@@ -228,16 +228,16 @@ namespace IPG_Funcionarios.Models {
 
             // Dados do Feria
             db.Feria.AddRange(
-                 new Feria { TipoFeria = "Ferias de Natal", DataInicio = new DateTime(2019, 12, 18), DataFim = new DateTime(2020, 01, 03), QuemID = 8, QuemNome = "P" },
-                 new Feria { TipoFeria = "Feria de Carnaval", DataInicio = new DateTime(2020, 02, 24), DataFim = new DateTime(2020, 02, 26), QuemID = 4, QuemNome = "P" },
-                 new Feria { TipoFeria = "Feria da Pascoa", DataInicio = new DateTime(2020, 03, 30), DataFim = new DateTime(2020, 04, 13), QuemID = 3, QuemNome = "F" },
-                 new Feria { TipoFeria = "Feria do final do Ano Lectivo", DataInicio = new DateTime(2020, 06, 19), DataFim = new DateTime(2020, 09, 06),QuemID= 1, QuemNome="P"  }
+                 new Feria { TipoFeria = "Ferias de Natal", DataInicio = new DateTime(2019, 12, 18), DataFim = new DateTime(2020, 01, 03),},
+                 new Feria { TipoFeria = "Feria de Carnaval", DataInicio = new DateTime(2020, 02, 24), DataFim = new DateTime(2020, 02, 26)},
+                 new Feria { TipoFeria = "Feria da Pascoa", DataInicio = new DateTime(2020, 03, 30), DataFim = new DateTime(2020, 04, 13)},
+                 new Feria { TipoFeria = "Feria do final do Ano Lectivo", DataInicio = new DateTime(2020, 06, 19), DataFim = new DateTime(2020, 09, 06)}
              
               );
 
             db.SaveChanges();
         }
-        */
+        
     
     }
 }
