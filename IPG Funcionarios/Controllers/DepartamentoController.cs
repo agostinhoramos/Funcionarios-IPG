@@ -65,8 +65,9 @@ namespace IPG_Funcionarios.Controllers
                     switch (o)
                     {
                         case "id":
-                            int Numeroquery = 0;
-                            departamento= departamento.Where(p => p.DepartamentoId.CompareTo(Numeroquery) == 0);
+                            int Numq = 0;
+                            if (q.IsNumericType()) { Numq = Int32.Parse(q); }
+                            departamento = departamento.Where(p => p.DepartamentoId.CompareTo(Numq) == 0);
                             break;
                         case "nome":
                             departamento = departamento.Where(p => p.Nome.Contains(q));
@@ -76,6 +77,25 @@ namespace IPG_Funcionarios.Controllers
                     }
 
                 }
+                else
+                { // Avançada
+                    String[] sep = { " " };
+                    int word_limit = 20;
+                    String[] data = q.Split(sep, word_limit, StringSplitOptions.RemoveEmptyEntries);
+                    int len = data.Length - 1;
+                    if (len > 0)
+                    {
+                        for (int i = 0; i < len; i++)
+                        {
+                            departamento = departamento.Where(p => p.Nome.Contains(data[i]));
+                        }
+                    }
+                    else
+                    {
+                        departamento = departamento.Where(p => p.Nome.Contains(data[0]));
+                    }
+                }
+
             }
 
 
@@ -147,11 +167,51 @@ namespace IPG_Funcionarios.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(departamento);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if(
+                    isEqual("Nome",departamento.Nome)
+                    )
+                {
+                    string repeated = isEqual("Nome", departamento.Nome) ? "Nome " : "";
+                    
+                    ViewBag.type = "alert-danger";
+                    ViewBag.title = "Erro ao criar o departamento";
+                    ViewBag.message = "Não foi possível criar novo departamento porque," +
+                                      "existem dados repetidos em todos ou um dos " +
+                                      "campos <strong>" + repeated + "</strong>";
+
+                    ViewBag.redirect = "/Departamento/Create"; // Request.Path
+                    return View("message");
+
+                }
+                else
+                {
+                    _context.Add(departamento);
+                    await _context.SaveChangesAsync();
+
+                    ViewBag.type = "alert-success";
+                    ViewBag.title = "Criação do departamento";
+                    ViewBag.message = "O professor <strong>" + departamento.Nome + "</strong> <strong>criado</strong> com sucesso!";
+                    ViewBag.redirect = "/Departamento/Index"; // Request.Path
+                    return View("message");
+                }
+
+
+               
+               
             }
             return View(departamento);
+        }
+
+        private bool isEqual(string type, string value) {
+
+            bool result = false;
+            switch (type){
+                case "Nome":
+                    result = _context.Departamento.Any(e => e.Nome == value);
+                    break;
+
+            }
+            return result;
         }
 
         // GET: Departamento/Edit/5
