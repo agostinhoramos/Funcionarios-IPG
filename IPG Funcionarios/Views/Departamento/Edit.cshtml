@@ -1,53 +1,57 @@
 ﻿@model IPG_Funcionarios.Models.Departamento
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Departamento";
 }
 
 <div class="main-panel" style="width:100%;">
-    <div class="content-wrapper" style="background-color:white;">
+    <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
                 <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">Departamento</li>
                     <li class="breadcrumb-item">Views</li>
+                    <li class="breadcrumb-item">Departamento</li>
                     <li class="breadcrumb-item active" aria-current="page">Edit</li>
                 </ol>
             </nav>
         </div>
         <div class="row">
             <div class="col">
+
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
+                        <p class="card-description">
+                            Editar Departamento
+                        </p>
+                        <div class="row" role="Edit">
                             <div class="col-12">
                                 <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <form asp-action="Edit">
-                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                                <input type="hidden" asp-for="DepartamentoId" />
-                                                <div class="form-group">
-                                                    <label asp-for="Nome" class="control-label"></label>
-                                                    <input asp-for="Nome" class="form-control" />
-                                                    <span asp-validation-for="Nome" class="text-danger"></span>
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    
+                                        <tbody>
+                                            <div class="even" role="no-form">
+                                                <div class="mb-2">
+                                                  <label asp-for="Nome" class="control-label"></label>
+                                                  <input asp-for="Nome" class="form-control" />
+                                                  <span asp-validation-for="Nome" class="text-danger"></span>
+                                                   
                                                 </div>
-
-                                            </form>
-                                            <div class="form-group">
-                                                <input type="submit" value="Save" class="btn btn-primary" />
-                                                <a asp-action="Index" class="btn btn-primary btn-back">Back to List</a>
+                                                   
+                                                <div class="mb-2">
+                                                    <div>
+                                                    <form asp-action="Edit"></form>
+                                                    <input type="submit"  asp-for="DepartamentoId" />
+                                                    <input class="c-btn c-btn-primary w-100 m-0 mt-2" type="submit" value="Salvar" />
+                                                    </div>
+                                                </div>
+                                              
+                                                </div>
                                             </div>
-
-
-                                        </div>
-                                    </div>
+                                            
+                                        </tbody>
                                 </div>
                             </div>
                         </div>
