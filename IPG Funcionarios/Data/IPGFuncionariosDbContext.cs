@@ -44,10 +44,18 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
+            //Relação 1 -> N(Cada Escola com varios Serviços)
+            modelBuilder.Entity<Servico>()
+                .HasOne(mm => mm.Escola)
+                .WithMany(m => m.Servicos)
+                .HasForeignKey(mm => mm.EscolaForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
             //Relação 1 -> N ( Cada Funcionário com vários Serviços )
             modelBuilder.Entity<Servico>()
                 .HasOne(mm => mm.Funcionario)
-                .WithMany(m => m.servicos)
+                .WithMany(m => m.Servicos)
                 .HasForeignKey(mm => mm.FuncionarioForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
