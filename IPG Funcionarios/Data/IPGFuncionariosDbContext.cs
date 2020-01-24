@@ -57,6 +57,14 @@ namespace IPG_Funcionarios.Models
                 .HasForeignKey(mm => mm.FuncionarioForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Professor com várias Férias )
+            modelBuilder.Entity<Feria>()
+                .HasOne(mm => mm.Professor)
+                .WithMany(m => m.Feria)
+                .HasForeignKey(mm => mm.ProfessorForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
         }
 
     }
