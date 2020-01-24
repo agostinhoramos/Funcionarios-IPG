@@ -1,44 +1,73 @@
 ﻿@model IPG_Funcionarios.Models.Departamento
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Departamento";
 }
 
     <div class="main-panel" style="width:100%;">
-        <div class="content-wrapper" style="background-color:white;">
+        <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Are you sure you want to delete this? </h3>
+                <h3 class="page-title">
+                    <a asp-action="Index"><i class="mdi mdi-keyboard-backspace"></i> Voltar </a>
+                </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item">Departamento</li>
                         <li class="breadcrumb-item">Views</li>
+                        <li class="breadcrumb-item">Departamento</li>
                         <li class="breadcrumb-item active" aria-current="page">Delete</li>
                     </ol>
                 </nav>
             </div>
             <div class="row">
                 <div class="col">
-                    <!-- COLUNA 1 -->
-                    <!-- TODO CONTEÚDO AQUI! -->
-                    <dl class="row">
-                        <dt class="col-sm-2">
-                            @Html.DisplayNameFor(model => model.Nome)
-                        </dt>
-                        <dd class="col-sm-8">
-                            @Html.DisplayFor(model => model.Nome)
-                        </dd>
-                    </dl>
-                    <div class="align-content-end">
-                        <form asp-action="Delete">
-                            <input type="hidden" asp-for="DepartamentoId" />
-                            <input type="submit" value="Delete" class="btn btn-danger" /> 
-                            <a asp-action="Index" class="btn btn-primary btn-back">Back to List</a>
-                        </form>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-description">
+                                Tem certeza de que deseja excluir?
+                            </p>
+
+                            <div class="row" role="Delete">
+                                <div class="col-12">
+                                    <div id="order-listing_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6"><div id="order-listing_filter" class="dataTables_filter"></div></div>
+
+                                        </div>
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="order-listing" class="table dataTable no-footer">
+                                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                <tbody>
+                                                    <div role="row" class="even">
+                                                        <div class="mb-2">
+                                                            <input asp-for="Nome" class="form-control" disabled />
+                                                            <span asp-validation-for="Nome" class="text-danger"></span>
 
 
+                                                        </div>
+
+                                                          <div class="mb-2">
+                                                             <div class="w-100 d-flex" role="no-form">
+                                                             <form asp-action="Delete"></form>
+                                                             <input type="hidden" asp-for="DepartamentoId" />
+                                                             <input class="c-btn c-btn-primary w-100" type="submit" value="Apagar" />
+                                                                 <a class="c-btn c-btn-secundary w-100 m-0 mt-2" asp-action="Index">
+                                                                   Cancelar
+                                                                  </a>
+
+                                                           </div>
+                                                </div>
+                                             </div>
+
+
+                                      </tbody>
+                                    </table>
+                                 </div>
+                            </div>
+                         </div>
+<                       </div>
                     </div>
-
-
+                </div>
             </div>
        </div>
     </div>
