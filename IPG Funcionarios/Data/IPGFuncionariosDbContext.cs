@@ -33,8 +33,7 @@ namespace IPG_Funcionarios.Models
             modelBuilder.Entity<Professor>()
                 .HasOne(mm => mm.Departamento)
                 .WithMany(m => m.Professores)
-                .HasForeignKey(mm => mm.DepartamentoForeignKey)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(mm => mm.DepartamentoForeignKey);
             base.OnModelCreating(modelBuilder);
 
             //Relação 1 -> N ( Cada Escola com vários Departamentos )
@@ -59,6 +58,21 @@ namespace IPG_Funcionarios.Models
                 .WithMany(m => m.Feria)
                 .HasForeignKey(mm => mm.FuncionarioForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Professor com várias Férias )
+            modelBuilder.Entity<Feria>()
+                .HasOne(mm => mm.Professor)
+                .WithMany(m => m.Feria)
+                .HasForeignKey(mm => mm.ProfessorForeignKey)
+                .OnDelete(DeleteBehavior.Cascade);
+            base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Cargo com várias Cargos )
+            modelBuilder.Entity<Cargo>()
+                .HasOne(mm => mm.Chefe)
+                .WithMany()
+                .HasForeignKey(m => m.CargoChefe);
             base.OnModelCreating(modelBuilder);
         }
 
