@@ -16,7 +16,12 @@ namespace IPG_Funcionarios.Models
         [StringLength(maximumLength: 220, MinimumLength = 3)]
         [Display(Name = "Nome", Prompt = "Inserir um nome de Cargo")]
         public string NomeCargo { get; set; }
+        public int? CargoChefe { get; set; }
 
-        //public MyCargo CargoIDForeignKey { get; set; } /* Cargo Chefe */
+
+        /* Fluent API in Entity Framework */
+        public Cargo Chefe { get; set; }
+        public ICollection<FuncionarioTarefaCargo> FuncionarioTarefaCargos { get; set; }
+        public ICollection<ProfessorTarefaCargo> ProfessorTarefaCargos { get; set; }
     }
 }

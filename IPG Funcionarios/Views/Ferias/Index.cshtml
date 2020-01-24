@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.DataFim)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuemNome)
+                @Html.DisplayNameFor(model => model.FuncionarioForeignKey)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuemID)
+                @Html.DisplayNameFor(model => model.ProfessorForeignKey)
             </th>
             <th></th>
         </tr>
@@ -43,10 +43,10 @@
                 @Html.DisplayFor(modelItem => item.DataFim)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuemNome)
+                @Html.DisplayFor(modelItem => item.FuncionarioForeignKey)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuemID)
+                @Html.DisplayFor(modelItem => item.ProfessorForeignKey)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FeriaID">Edit</a> |

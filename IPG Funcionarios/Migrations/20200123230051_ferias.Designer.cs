@@ -4,14 +4,16 @@ using IPG_Funcionarios.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IPG_Funcionarios.Migrations
 {
     [DbContext(typeof(IPGFuncionariosDbContext))]
-    partial class IPGFuncionariosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200123230051_ferias")]
+    partial class ferias
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +85,7 @@ namespace IPG_Funcionarios.Migrations
                     b.ToTable("Escola");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feriaaaa", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
                 {
                     b.Property<int>("FeriaID")
                         .ValueGeneratedOnAdd()
@@ -118,7 +120,7 @@ namespace IPG_Funcionarios.Migrations
 
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Feriaaaa");
+                    b.ToTable("Feria");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
@@ -298,7 +300,7 @@ namespace IPG_Funcionarios.Migrations
                         .HasForeignKey("FuncionarioId");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feriaaaa", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
                 {
                     b.HasOne("IPG_Funcionarios.Models.Funcionario", "Funcionario")
                         .WithMany()
