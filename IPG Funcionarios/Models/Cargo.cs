@@ -20,5 +20,6 @@ namespace IPG_Funcionarios.Models
 
 
         /* Fluent API in Entity Framework */
+        public Cargo Chefe { get; set; }
     }
 }

@@ -30,8 +30,7 @@ namespace IPG_Funcionarios.Models
             modelBuilder.Entity<Professor>()
                 .HasOne(mm => mm.Departamento)
                 .WithMany(m => m.Professores)
-                .HasForeignKey(mm => mm.DepartamentoForeignKey)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(mm => mm.DepartamentoForeignKey);
             base.OnModelCreating(modelBuilder);
 
             //Relação 1 -> N ( Cada Escola com vários Departamentos )
