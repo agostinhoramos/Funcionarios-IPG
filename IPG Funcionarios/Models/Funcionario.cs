@@ -53,10 +53,13 @@ namespace IPG_Funcionarios.Models
         [DataType(DataType.Date, ErrorMessage = "Data inválido")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DataAdmissao { get; set; }
-        public ICollection<Escola> Escolas { get; set; }
+
+        /* Fluent API in Entity Framework */
+        public ICollection<Feria> Feria { get; set; }
         public ICollection<Servico> Servicos { get; set; }
-       // public  Ferias ferias { get; set; }
-       // public Tarefa Tarefa { get; set; }
+
+        public ICollection<Escola> Escolas { get; set; }
+        public Tarefa Tarefa { get; set; }
         public Tarefas_Professor Tarefas { get; set; }
         
     }
