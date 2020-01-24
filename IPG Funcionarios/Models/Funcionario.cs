@@ -62,14 +62,12 @@ namespace IPG_Funcionarios.Models
         public ICollection< Tipos_Tarefas> TarefasT { get; set; }
         public ICollection<Escola> Escola { get; set; }
         public ICollection<Servico> Servico { get; set; }
-       // public  Ferias ferias { get; set; }
-       // public Tarefa Tarefa { get; set; }
 
         /* Fluent API in Entity Framework */
         public ICollection<Feria> Feria { get; set; }
-        public ICollection<Servico> Servicos { get; set; }
+        public ICollection<Servico> servicos { get; set; }
 
-        public ICollection<Escola> Escolas { get; set; }
+        public ICollection<Escola> escolas{ get; set; }
         public Tarefa Tarefa { get; set; }
         public Tarefas_Professor Tarefas { get; set; }
         
