@@ -65,6 +65,13 @@ namespace IPG_Funcionarios.Models
                 .HasForeignKey(mm => mm.ProfessorForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
+
+            //Relação 1 -> N ( Cada Cargo com várias Cargos )
+            modelBuilder.Entity<Cargo>()
+                .HasOne(mm => mm.Chefe)
+                .WithMany()
+                .HasForeignKey(m => m.CargoChefe);
+            base.OnModelCreating(modelBuilder);
         }
 
     }
