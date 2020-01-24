@@ -5,4 +5,4 @@ A aplicação garante a segurança e integridade dos dados introduzidos pelo uti
 A aplicação respeita a confidencialidade dos dados ao garantir que cada utilizador possa apenas ver e manipular os dados para os quais tem autorização.<br/>
 Foram realizado vários testes automáticos de forma a garantir que a aplicação vai de encontro aos requisitos esperados.
 <br/><br/>
-<img src="https://raw.githubusercontent.com/agostinhopina95/Funcionarios-IPG/master/Projecto%20Final/DiagramaER_Versao1.6.png" ></img>
+<img src="https://github.com/agostinhopina95/Funcionarios-IPG/blob/master/Projecto%20Final/DiagramaER_Versao1.7.png?raw=true" ></img>
