@@ -6,3 +6,8 @@ A aplicação respeita a confidencialidade dos dados ao garantir que cada utiliz
 Foram realizado vários testes automáticos de forma a garantir que a aplicação vai de encontro aos requisitos esperados.
 <br/><br/>
 <img src="https://github.com/agostinhopina95/Funcionarios-IPG/blob/master/Projecto%20Final/DiagramaER_Versao1.7.png?raw=true" ></img>
+<br/><br/><br/><br/>
+<strong>Instalação</strong> no Package Manager Console:
+<br/>
+<b>PM> </b>Update-Database -Context IPGFuncionariosDbContext<br/>
+<b>PM> </b>Update-Database -Context ApplicationDbContext
