@@ -27,7 +27,7 @@ namespace IPG_Funcionarios.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Relação 1 -> N ( Cada Departamento com vários Professores )
+            /*Relação 1 -> N ( Cada Departamento com vários Professores )
             modelBuilder.Entity<Professor>()
                 .HasOne(mm => mm.Departamento)
                 .WithMany(m => m.Professores)
@@ -35,7 +35,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Escola com vários Departamentos )
+            Relação 1 -> N ( Cada Escola com vários Departamentos )
             modelBuilder.Entity<Departamento>()
                 .HasOne(mm => mm.Escola)
                 .WithMany(m => m.Departamentos)
@@ -43,7 +43,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Escola com vários Serviços )
+            Relação 1 -> N ( Cada Escola com vários Serviços )
             modelBuilder.Entity<Servico>()
                 .HasOne(mm => mm.Escola)
                 .WithMany(m => m.Servicos)
@@ -51,7 +51,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Funcionário com vários Serviços )
+            Relação 1 -> N ( Cada Funcionário com vários Serviços )
             modelBuilder.Entity<Servico>()
                 .HasOne(mm => mm.Funcionario)
                 .WithMany(m => m.Servicos)
@@ -59,7 +59,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Funcionário com várias Férias )
+            Relação 1 -> N ( Cada Funcionário com várias Férias )
             modelBuilder.Entity<Ferias>()
                 .HasOne(mm => mm.Funcionario)
                 .WithMany(m => m.Ferias)
@@ -67,7 +67,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Professor com várias Férias )
+            Relação 1 -> N ( Cada Professor com várias Férias )
             modelBuilder.Entity<Ferias>()
                 .HasOne(mm => mm.Professor)
                 .WithMany(m => m.Ferias)
@@ -75,14 +75,14 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Cargo com várias Cargos )
+            Relação 1 -> N ( Cada Cargo com várias Cargos )
             modelBuilder.Entity<Cargo>()
                 .HasOne(mm => mm.Chefe)
                 .WithMany()
                 .HasForeignKey(m => m.CargoChefe);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Funcionário com vários FuncionarioTarefaCargo )
+            Relação 1 -> N ( Cada Funcionário com vários FuncionarioTarefaCargo )
             modelBuilder.Entity<FuncionarioTarefaCargo>()
                 .HasOne(mm => mm.Funcionario)
                 .WithMany(m => m.FuncionarioTarefaCargos)
@@ -90,7 +90,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Tarefa com vários FuncionarioTarefaCargo )
+            Relação 1 -> N ( Cada Tarefa com vários FuncionarioTarefaCargo )
             modelBuilder.Entity<FuncionarioTarefaCargo>()
                 .HasOne(mm => mm.Tarefa)
                 .WithMany(m => m.FuncionarioTarefaCargos)
@@ -98,7 +98,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Cargo com vários FuncionarioTarefaCargo )
+            Relação 1 -> N ( Cada Cargo com vários FuncionarioTarefaCargo )
             modelBuilder.Entity<FuncionarioTarefaCargo>()
                 .HasOne(mm => mm.Cargo)
                 .WithMany(m => m.FuncionarioTarefaCargos)
@@ -106,7 +106,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Professor com vários ProfessorTarefaCargo )
+            Relação 1 -> N ( Cada Professor com vários ProfessorTarefaCargo )
             modelBuilder.Entity<ProfessorTarefaCargo>()
                 .HasOne(mm => mm.Professor)
                 .WithMany(m => m.ProfessorTarefaCargos)
@@ -114,7 +114,7 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Tarefa com vários ProfessorTarefaCargo )
+            Relação 1 -> N ( Cada Tarefa com vários ProfessorTarefaCargo )
             modelBuilder.Entity<ProfessorTarefaCargo>()
                 .HasOne(mm => mm.Tarefa)
                 .WithMany(m => m.ProfessorTarefaCargos)
@@ -122,13 +122,13 @@ namespace IPG_Funcionarios.Models
                 .OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(modelBuilder);
 
-            //Relação 1 -> N ( Cada Cargo com vários ProfessorTarefaCargo )
+            Relação 1 -> N ( Cada Cargo com vários ProfessorTarefaCargo )
             modelBuilder.Entity<ProfessorTarefaCargo>()
                 .HasOne(mm => mm.Cargo)
                 .WithMany(m => m.ProfessorTarefaCargos)
                 .HasForeignKey(mm => mm.CargoForeignKey)
                 .OnDelete(DeleteBehavior.Cascade);
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);*/
         }
     }
 }
