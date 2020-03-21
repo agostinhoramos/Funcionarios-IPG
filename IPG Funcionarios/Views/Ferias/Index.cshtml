@@ -1,9 +1,8 @@
-﻿@model IEnumerable<IPG_Funcionarios.Models.Feria>
+﻿@model IEnumerable<IPG_Funcionarios.Models.Ferias>
 
 @{
     ViewData["Title"] = "Index";
 }
-
 
 <h1>Index</h1>
 
@@ -14,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TipoFeria)
+                @Html.DisplayNameFor(model => model.TipoFerias)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DataInicio)
@@ -23,10 +22,7 @@
                 @Html.DisplayNameFor(model => model.DataFim)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FuncionarioForeignKey)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProfessorForeignKey)
+                @Html.DisplayNameFor(model => model.QuemID)
             </th>
             <th></th>
         </tr>
@@ -35,7 +31,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoFeria)
+                @Html.DisplayFor(modelItem => item.TipoFerias)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataInicio)
@@ -44,15 +40,12 @@
                 @Html.DisplayFor(modelItem => item.DataFim)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FuncionarioForeignKey)
+                @Html.DisplayFor(modelItem => item.QuemID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProfessorForeignKey)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.FeriaID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FeriaID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FeriaID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.FeriasID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FeriasID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FeriasID">Delete</a>
             </td>
         </tr>
 }

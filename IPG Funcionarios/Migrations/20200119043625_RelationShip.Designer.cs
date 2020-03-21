@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IPG_Funcionarios.Migrations
 {
     [DbContext(typeof(IPGFuncionariosDbContext))]
-    [Migration("20200123230051_ferias")]
-    partial class ferias
+    [Migration("20200119043625_RelationShip")]
+    partial class RelationShip
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,12 +28,17 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CargoChefe")
+                        .HasColumnType("int");
+
                     b.Property<string>("NomeCargo")
                         .IsRequired()
                         .HasColumnType("nvarchar(220)")
                         .HasMaxLength(220);
 
                     b.HasKey("CargoID");
+
+                    b.HasIndex("CargoChefe");
 
                     b.ToTable("Cargo");
                 });
@@ -45,11 +50,16 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("EscolaForeignKey")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartamentoId");
+
+                    b.HasIndex("EscolaForeignKey");
 
                     b.ToTable("Departamento");
                 });
@@ -65,9 +75,6 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
 
-                    b.Property<int?>("FuncionarioId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Localizacao")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)")
@@ -80,14 +87,12 @@ namespace IPG_Funcionarios.Migrations
 
                     b.HasKey("EscolaID");
 
-                    b.HasIndex("FuncionarioId");
-
                     b.ToTable("Escola");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Ferias", b =>
                 {
-                    b.Property<int>("FeriaID")
+                    b.Property<int>("FeriasID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -101,26 +106,23 @@ namespace IPG_Funcionarios.Migrations
                     b.Property<int>("FuncionarioForeignKey")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FuncionarioId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProfessorForeignKey")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProfessorId")
+                    b.Property<int>("QuemID")
                         .HasColumnType("int");
 
-                    b.Property<string>("TipoFeria")
+                    b.Property<string>("TipoFerias")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FeriaID");
+                    b.HasKey("FeriasID");
 
-                    b.HasIndex("FuncionarioId");
+                    b.HasIndex("FuncionarioForeignKey");
 
-                    b.HasIndex("ProfessorId");
+                    b.HasIndex("ProfessorForeignKey");
 
-                    b.ToTable("Feria");
+                    b.ToTable("Ferias");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
@@ -129,9 +131,6 @@ namespace IPG_Funcionarios.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DataAdmissao")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataNascionento")
                         .HasColumnType("datetime2");
@@ -154,18 +153,40 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("Tarefas_ProfessorID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FuncionarioId");
 
-                    b.HasIndex("Tarefas_ProfessorID");
-
                     b.ToTable("Funcionario");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.FuncionarioTarefaCargo", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CargoForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FuncionarioForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TarefaForeignKey")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CargoForeignKey");
+
+                    b.HasIndex("FuncionarioForeignKey");
+
+                    b.HasIndex("TarefaForeignKey");
+
+                    b.ToTable("FuncionarioTarefaCargo");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Professor", b =>
@@ -182,9 +203,6 @@ namespace IPG_Funcionarios.Migrations
                     b.Property<int>("DepartamentoForeignKey")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DepartamentosDepartamentoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -198,16 +216,38 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
-                    b.Property<int?>("Tarefas_ProfessorID")
-                        .HasColumnType("int");
-
                     b.HasKey("ProfessorId");
 
-                    b.HasIndex("DepartamentosDepartamentoId");
-
-                    b.HasIndex("Tarefas_ProfessorID");
+                    b.HasIndex("DepartamentoForeignKey");
 
                     b.ToTable("Professor");
+                });
+
+            modelBuilder.Entity("IPG_Funcionarios.Models.ProfessorTarefaCargo", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CargoForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfessorForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TarefaForeignKey")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("CargoForeignKey");
+
+                    b.HasIndex("ProfessorForeignKey");
+
+                    b.HasIndex("TarefaForeignKey");
+
+                    b.ToTable("ProfessorTarefaCargo");
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Servico", b =>
@@ -217,7 +257,10 @@ namespace IPG_Funcionarios.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FuncionarioId")
+                    b.Property<int>("EscolaForeignKey")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FuncionarioForeignKey")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
@@ -227,7 +270,9 @@ namespace IPG_Funcionarios.Migrations
 
                     b.HasKey("ServicoId");
 
-                    b.HasIndex("FuncionarioId");
+                    b.HasIndex("EscolaForeignKey");
+
+                    b.HasIndex("FuncionarioForeignKey");
 
                     b.ToTable("Servico");
                 });
@@ -264,76 +309,110 @@ namespace IPG_Funcionarios.Migrations
                     b.Property<int?>("ProfessoresProfessorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Tarefas_ProfessorID")
-                        .HasColumnType("int");
-
                     b.HasKey("TarefaID");
 
                     b.HasIndex("FuncionariosFuncionarioId");
 
                     b.HasIndex("ProfessoresProfessorId");
 
-                    b.HasIndex("Tarefas_ProfessorID");
-
                     b.ToTable("Tarefa");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Tarefas_Professor", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Cargo", b =>
                 {
-                    b.Property<int>("Tarefas_ProfessorID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Tarefas_ProfessorID");
-
-                    b.ToTable("Tarefas_Professor");
+                    b.HasOne("IPG_Funcionarios.Models.Cargo", "Chefe")
+                        .WithMany()
+                        .HasForeignKey("CargoChefe");
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Escola", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Departamento", b =>
                 {
-                    b.HasOne("IPG_Funcionarios.Models.Funcionario", null)
-                        .WithMany("Escolas")
-                        .HasForeignKey("FuncionarioId");
+                    b.HasOne("IPG_Funcionarios.Models.Escola", "Escola")
+                        .WithMany("Departamentos")
+                        .HasForeignKey("EscolaForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Feria", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.Ferias", b =>
                 {
                     b.HasOne("IPG_Funcionarios.Models.Funcionario", "Funcionario")
-                        .WithMany()
-                        .HasForeignKey("FuncionarioId");
+                        .WithMany("Ferias")
+                        .HasForeignKey("FuncionarioForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IPG_Funcionarios.Models.Professor", "Professor")
-                        .WithMany()
-                        .HasForeignKey("ProfessorId");
+                        .WithMany("Ferias")
+                        .HasForeignKey("ProfessorForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("IPG_Funcionarios.Models.Funcionario", b =>
+            modelBuilder.Entity("IPG_Funcionarios.Models.FuncionarioTarefaCargo", b =>
                 {
-                    b.HasOne("IPG_Funcionarios.Models.Tarefas_Professor", "Tarefas")
-                        .WithMany()
-                        .HasForeignKey("Tarefas_ProfessorID");
+                    b.HasOne("IPG_Funcionarios.Models.Cargo", "Cargo")
+                        .WithMany("FuncionarioTarefaCargos")
+                        .HasForeignKey("CargoForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPG_Funcionarios.Models.Funcionario", "Funcionario")
+                        .WithMany("FuncionarioTarefaCargos")
+                        .HasForeignKey("FuncionarioForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPG_Funcionarios.Models.Tarefa", "Tarefa")
+                        .WithMany("FuncionarioTarefaCargos")
+                        .HasForeignKey("TarefaForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Professor", b =>
                 {
-                    b.HasOne("IPG_Funcionarios.Models.Departamento", "Departamentos")
+                    b.HasOne("IPG_Funcionarios.Models.Departamento", "Departamento")
                         .WithMany("Professores")
-                        .HasForeignKey("DepartamentosDepartamentoId");
+                        .HasForeignKey("DepartamentoForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.HasOne("IPG_Funcionarios.Models.Tarefas_Professor", null)
-                        .WithMany("Professors")
-                        .HasForeignKey("Tarefas_ProfessorID");
+            modelBuilder.Entity("IPG_Funcionarios.Models.ProfessorTarefaCargo", b =>
+                {
+                    b.HasOne("IPG_Funcionarios.Models.Cargo", "Cargo")
+                        .WithMany("ProfessorTarefaCargos")
+                        .HasForeignKey("CargoForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPG_Funcionarios.Models.Professor", "Professor")
+                        .WithMany("ProfessorTarefaCargos")
+                        .HasForeignKey("ProfessorForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPG_Funcionarios.Models.Tarefa", "Tarefa")
+                        .WithMany("ProfessorTarefaCargos")
+                        .HasForeignKey("TarefaForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Servico", b =>
                 {
-                    b.HasOne("IPG_Funcionarios.Models.Funcionario", null)
+                    b.HasOne("IPG_Funcionarios.Models.Escola", "Escola")
                         .WithMany("Servicos")
-                        .HasForeignKey("FuncionarioId");
+                        .HasForeignKey("EscolaForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IPG_Funcionarios.Models.Funcionario", "Funcionario")
+                        .WithMany("Servicos")
+                        .HasForeignKey("FuncionarioForeignKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IPG_Funcionarios.Models.Tarefa", b =>
@@ -343,12 +422,8 @@ namespace IPG_Funcionarios.Migrations
                         .HasForeignKey("FuncionariosFuncionarioId");
 
                     b.HasOne("IPG_Funcionarios.Models.Professor", "Professores")
-                        .WithMany("Tarefas")
+                        .WithMany()
                         .HasForeignKey("ProfessoresProfessorId");
-
-                    b.HasOne("IPG_Funcionarios.Models.Tarefas_Professor", null)
-                        .WithMany("Tarefas")
-                        .HasForeignKey("Tarefas_ProfessorID");
                 });
 #pragma warning restore 612, 618
         }

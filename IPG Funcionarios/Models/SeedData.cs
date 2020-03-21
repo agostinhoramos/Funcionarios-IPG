@@ -13,7 +13,7 @@ namespace IPG_Funcionarios.Models
             PopulateEscola(db);
             PopulateDepartamento(db);
             PopulateProfesor(db);
-            PopulateFeria(db);
+            PopulateFerias(db);
             PopulateServico(db);
             PopulateTarefa(db);
             PopulateCargo(db);
@@ -217,22 +217,20 @@ namespace IPG_Funcionarios.Models
 
             db.SaveChanges();
         }
-
-        private static void PopulateFeria(IPGFuncionariosDbContext db)
+        public static void PopulateFerias(IPGFuncionariosDbContext db)
         {
-            if (db.Feria.Any())
+
+            if (db.Ferias.Any())
             {
                 return;
             }
-            db.Feria.AddRange(
-                new Feria { TipoFeria = "Ferias de Natal", DataInicio = new DateTime(2019, 12, 18), DataFim = new DateTime(2020, 01, 03), FuncionarioForeignKey = 1, ProfessorForeignKey = 1 },
-                new Feria { TipoFeria = "Feria de Carnaval", DataInicio = new DateTime(2020, 02, 24), DataFim = new DateTime(2020, 02, 26), FuncionarioForeignKey = 1, ProfessorForeignKey = 1 },
-                new Feria { TipoFeria = "Feria da Pascoa", DataInicio = new DateTime(2020, 03, 30), DataFim = new DateTime(2020, 04, 13), FuncionarioForeignKey = 1, ProfessorForeignKey = 1 },
-                new Feria { TipoFeria = "Feria do final do Ano Lectivo", DataInicio = new DateTime(2020, 06, 19), DataFim = new DateTime(2020, 09, 06), FuncionarioForeignKey = 1, ProfessorForeignKey = 1 }
+            db.Ferias.AddRange(
+                new Ferias { TipoFerias = "Ferias de Natal", DataInicio = new DateTime(2019, 12, 18), DataFim = new DateTime(2020, 01, 03), QuemID = 1, FuncionarioForeignKey = 1, ProfessorForeignKey = 1 },
+                new Ferias { TipoFerias = "Feria de Carnaval", DataInicio = new DateTime(2020, 02, 24), DataFim = new DateTime(2020, 02, 26), QuemID = 1, FuncionarioForeignKey = 1, ProfessorForeignKey = 1 },
+                new Ferias { TipoFerias = "Feria da Pascoa", DataInicio = new DateTime(2020, 03, 30), DataFim = new DateTime(2020, 04, 13), QuemID = 1, FuncionarioForeignKey = 1, ProfessorForeignKey = 1 },
+                new Ferias { TipoFerias = "Feria do final do Ano Lectivo", DataInicio = new DateTime(2020, 06, 19), DataFim = new DateTime(2020, 09, 06), QuemID = 1, FuncionarioForeignKey = 1, ProfessorForeignKey = 1 }
             );
 
-
         }
-    
     }
 }

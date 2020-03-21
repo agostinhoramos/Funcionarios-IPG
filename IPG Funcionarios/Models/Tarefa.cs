@@ -25,7 +25,11 @@ namespace IPG_Funcionarios.Models
         public DateTime Data { get; set; }
 
         /* Fluent API in Entity Framework */
-        public int ProfessorForeignKey { get; set; }
-        public int FuncionarioForeignKey { get; set; }
+		public int ProfessorForeignKey { get; set; }
+		public int FuncionarioForeignKey { get; set; }
+        public Professor Professores { get; set; }
+        public Funcionario Funcionarios { get; set; }
+        public ICollection<FuncionarioTarefaCargo> FuncionarioTarefaCargos { get; set; }
+        public ICollection<ProfessorTarefaCargo> ProfessorTarefaCargos { get; set; }
     }
 }
